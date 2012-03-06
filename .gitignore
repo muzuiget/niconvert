@@ -1,0 +1,6 @@
+*.swp
+*.pyc
+*.pyo
+
+app.yaml
+bottle.py
