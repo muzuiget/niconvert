@@ -15,7 +15,6 @@ import gzip
 import zlib
 from StringIO import StringIO
 from argparse import ArgumentParser
-from xml.dom.minidom import parseString
 
 ASS_HEADER_TPL = """[Script Info]
 ScriptType: v4.00+
@@ -280,6 +279,8 @@ class Website:
 
 class Bilibili(Website):
 
+    XML_NODE_RE = re.compile('<d p="([^"]*)">([^<]*)</d>')
+
     def __init__(self, url):
         Website.__init__(self, url)
 
@@ -289,17 +290,16 @@ class Bilibili(Website):
     def create_nico_subtitles(self):
 
         nico_subtitles = []
-        dom = parseString(self.downloader.comment_text)
-        nico_subtitle_xml_nodes = dom.getElementsByTagName('d')
-        for node in nico_subtitle_xml_nodes:
-            attributes = node.attributes.get('p').value.split(',')
+        nico_subtitle_lines = Bilibili.XML_NODE_RE.findall(self.downloader.comment_text)
+        for line in nico_subtitle_lines:
+            attributes = line[0].split(',')
 
             nico_subtitle = NicoSubtitle()
             nico_subtitle.start_seconds = float(attributes[0])
             nico_subtitle.style = NicoSubtitle.to_style(int(attributes[1]))
             nico_subtitle.font_size = int(attributes[2])
             nico_subtitle.font_color = NicoSubtitle.to_gbr(int(attributes[3]))
-            nico_subtitle.text = node.childNodes[0].data
+            nico_subtitle.text = line[1].decode("UTF-8")
 
             if nico_subtitle.style != NicoSubtitle.NOT_SUPPORT:
                 nico_subtitles.append(nico_subtitle)
@@ -308,7 +308,7 @@ class Bilibili(Website):
         for i, nico_subtitle in enumerate(nico_subtitles):
             nico_subtitle.index = i
 
-        logger.info(u'字幕数量: (%d/%d)', len(nico_subtitles), len(nico_subtitle_xml_nodes))
+        logger.info(u'字幕数量: (%d/%d)', len(nico_subtitles), len(nico_subtitle_lines))
         return nico_subtitles
 
 class Acfun(Website):
