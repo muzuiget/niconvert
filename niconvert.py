@@ -383,7 +383,11 @@ def main():
         exit(1)
 
     output = args.pop('output')
+    if output is None:
+        output = website.downloader.title + '.ass'
+
     text = website.ass_subtitles_text(**args)
+
     with open(output, 'w') as outfile:
         outfile.write(text.encode("UTF-8"))
 
