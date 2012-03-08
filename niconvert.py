@@ -152,15 +152,23 @@ class AssSubtitle:
             x1 = self.video_width + (self.base_font_size * self.text_length) / 2
             x2 = -(self.base_font_size * self.text_length) / 2
             y = (self.nico_subtitle.index % (self.line_count + 1)) * self.base_font_size
-            return (x1, y, x2 , y)
+            y1, y2 = y, y
         elif self.nico_subtitle.style == NicoSubtitle.BOTTOM:
             x = self.video_width / 2
-            y = self.video_height - (self.base_font_size * 2)
-            return (x, y, x, y)
+            y = self.video_height - (self.base_font_size * 3)
+            x1, x2 = x, x
+            y1, y2 = y, y
         else: # TOP
             x = self.video_width / 2
             y = 1
-            return (x, y, x, y)
+            x1, x2 = x, x
+            y1, y2 = y, y
+
+        if y1 < self.font_size:
+            y1 = self.font_size
+            y2 = self.font_size
+
+        return (x1, y1, x2 , y2)
 
     def init_styled_text(self, ):
         if self.nico_subtitle.font_color == 'FFFFFF':
