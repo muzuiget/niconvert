@@ -119,12 +119,12 @@ class AssSubtitle:
     @staticmethod
     def to_hms(seconds):
         if seconds < 0:
-            return '00:00:00.000'
+            return '0:00:00.00'
 
         i, d = divmod(seconds, 1)
         m, s = divmod(i, 60)
         h, m = divmod(m, 60)
-        return "%02d:%02d:%02d.%03d" % (h, m, s, d * 1000)
+        return "%d:%02d:%02d.%02d" % (h, m, s, d * 100)
 
     def init_text_length(self):
         return float(len(self.nico_subtitle.text))
@@ -196,7 +196,6 @@ class AssSubtitle:
 class Downloader:
 
     TITLE_RE = re.compile('<title>(.*)</title>')
-    COMMENT_URL_RE = re.compile('flashvars="([^"]+)"')
 
     def __init__(self, url):
         self.url = url
@@ -221,6 +220,8 @@ class Downloader:
 
 class BilibiliDownloader(Downloader):
 
+    VIDEO_UID_RE = re.compile('(?:ykid|qid|vid)=([^"]+)"')
+
     def __init__(self, url):
         Downloader.__init__(self, url)
 
@@ -228,12 +229,14 @@ class BilibiliDownloader(Downloader):
         return fetch_url(self.url).decode('UTF-8')
 
     def get_comment_url(self):
-        flashvars = Downloader.COMMENT_URL_RE.findall(self.html)[0].split('=')[1]
-        comment_url = 'http://comment.bilibili.tv/dm,' + flashvars
+        video_uid = BilibiliDownloader.VIDEO_UID_RE.findall(self.html)[0]
+        comment_url = 'http://comment.bilibili.tv/dm,' + video_uid
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
 
 class AcfunDownloader(Downloader):
+
+    VIDEO_UID_RE = re.compile('flashvars="([^"]+)"')
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -242,8 +245,8 @@ class AcfunDownloader(Downloader):
         return fetch_url(self.url).decode('GBK')
 
     def get_comment_url(self):
-        flashvars = Downloader.COMMENT_URL_RE.findall(self.html)[0].split('id=')[-1]
-        comment_url = 'http://comment.acfun.tv/%s.json' % flashvars
+        video_uid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0].split('id=')[-1]
+        comment_url = 'http://comment.acfun.tv/%s.json' % video_uid
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
 
