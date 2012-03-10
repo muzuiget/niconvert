@@ -98,6 +98,9 @@ class NicoSubtitle:
 
 class AssSubtitle:
 
+    top_subtitles = {}
+    bottom_subtitles = {}
+
     def __init__(self, nico_subtitle,
                  video_width, video_height,
                  base_font_size, line_count):
@@ -110,6 +113,7 @@ class AssSubtitle:
 
         self.text_length = self.init_text_length()
         self.start = self.init_start()
+        self.end_seconds = self.init_end_seconds()
         self.end = self.init_end()
         self.font_size = self.init_font_size()
         (self.x1, self.y1,
@@ -132,9 +136,9 @@ class AssSubtitle:
     def init_start(self):
         return AssSubtitle.to_hms(self.nico_subtitle.start_seconds)
 
-    def init_end(self):
-        if self.nico_subtitle.style == NicoSubtitle.TOP:
-            return AssSubtitle.to_hms(self.nico_subtitle.start_seconds + 4)
+    def init_end_seconds(self):
+        if self.nico_subtitle.style in (NicoSubtitle.TOP, NicoSubtitle.BOTTOM):
+            return self.nico_subtitle.start_seconds + 4
 
         if self.text_length < 5:
             end_seconds = self.nico_subtitle.start_seconds + 4 + (self.text_length / 1.5)
@@ -142,31 +146,64 @@ class AssSubtitle:
             end_seconds = self.nico_subtitle.start_seconds + 4 + (self.text_length / 2)
         else:
             end_seconds = self.nico_subtitle.start_seconds + 10
-        return AssSubtitle.to_hms(end_seconds)
+        return end_seconds
+
+    def init_end(self):
+        return AssSubtitle.to_hms(self.end_seconds)
 
     def init_font_size(self):
         return self.nico_subtitle.font_size - NicoSubtitle.FLASH_FONT_SIZE + self.base_font_size
 
     def init_position(self):
+
+        def choose_line_count(style_subtitles, start_seconds):
+            for last_top_line_index, last_top_end_seconds in \
+                    style_subtitles.copy().items():
+                if last_top_end_seconds <= start_seconds:
+                    del style_subtitles[last_top_line_index]
+
+            exists_line_index = style_subtitles.keys()
+            exists_line_length = len(exists_line_index)
+            if exists_line_length == 0:
+                line_index = 0
+            elif exists_line_length == max(exists_line_index):
+                line_index = min(style_subtitles.items(), key=lambda x: x[1])[0]
+            else:
+                line_index = 0
+                for i in range(max(exists_line_index)):
+                    if i not in exists_line_index:
+                        line_index = i
+                        break
+                if line_index == 0:
+                    line_index = exists_line_length
+            return line_index
+
         if self.nico_subtitle.style == NicoSubtitle.SCROLL:
             x1 = self.video_width + (self.base_font_size * self.text_length) / 2
             x2 = -(self.base_font_size * self.text_length) / 2
             y = (self.nico_subtitle.index % (self.line_count + 1)) * self.base_font_size
+
+            if y < self.font_size:
+                y = self.font_size
             y1, y2 = y, y
         elif self.nico_subtitle.style == NicoSubtitle.BOTTOM:
+            line_index = choose_line_count(AssSubtitle.bottom_subtitles, self.nico_subtitle.start_seconds)
+            AssSubtitle.bottom_subtitles[line_index] = self.end_seconds
+
             x = self.video_width / 2
-            y = self.video_height - (self.base_font_size * 3)
+            y = self.video_height - (self.base_font_size * line_index + 40)
+
             x1, x2 = x, x
             y1, y2 = y, y
         else: # TOP
+            line_index = choose_line_count(AssSubtitle.top_subtitles, self.nico_subtitle.start_seconds)
+            AssSubtitle.top_subtitles[line_index] = self.end_seconds
+
             x = self.video_width / 2
-            y = 1
+            y = self.base_font_size * line_index + 1
+
             x1, x2 = x, x
             y1, y2 = y, y
-
-        if y1 < self.font_size:
-            y1 = self.font_size
-            y2 = self.font_size
 
         return (x1, y1, x2 , y2)
 
