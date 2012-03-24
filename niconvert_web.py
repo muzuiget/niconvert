@@ -99,6 +99,7 @@ def download():
         video_height = int(request.forms.get('video_height'))
         line_count = int(request.forms.get('line_count'))
         bottom_margin = int(request.forms.get('bottom_margin'))
+        tune_seconds = int(request.forms.get('tune_seconds'))
     except ValueError:
         message = '除字体名称外，其它选项必须为数字'
         return template(page_template, message=message)
@@ -123,7 +124,8 @@ def download():
             font_size=font_size, 
             resolution="%d:%d" % (video_width, video_height),
             line_count=line_count,
-            bottom_margin=bottom_margin
+            bottom_margin=bottom_margin,
+            tune_seconds=tune_seconds
     )
 
 def main():

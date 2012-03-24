@@ -104,7 +104,7 @@ class AssSubtitle:
     def __init__(self, nico_subtitle,
                  video_width, video_height,
                  base_font_size, line_count,
-                 bottom_margin):
+                 bottom_margin, tune_seconds):
 
         self.nico_subtitle = nico_subtitle
         self.video_width = video_width
@@ -112,6 +112,7 @@ class AssSubtitle:
         self.base_font_size = base_font_size
         self.line_count = line_count
         self.bottom_margin = bottom_margin
+        self.tune_seconds = tune_seconds
 
         self.text_length = self.init_text_length()
         self.start = self.init_start()
@@ -148,6 +149,7 @@ class AssSubtitle:
             end_seconds = self.nico_subtitle.start_seconds + 4 + (self.text_length / 2)
         else:
             end_seconds = self.nico_subtitle.start_seconds + 10
+        end_seconds += self.tune_seconds
         return end_seconds
 
     def init_end(self):
@@ -302,7 +304,7 @@ class Website:
     def create_nico_subtitles(self):
         raise NotImplementedError
 
-    def ass_subtitles_text(self, font_name, font_size, resolution, line_count, bottom_margin):
+    def ass_subtitles_text(self, font_name, font_size, resolution, line_count, bottom_margin, tune_seconds):
 
         video_width, video_height = map(int, resolution.split(':'))
         if font_size == 0:
@@ -314,7 +316,7 @@ class Website:
             ass_subtitle = AssSubtitle(nico_subtitle,
                                        video_width, video_height,
                                        font_size, line_count,
-                                       bottom_margin)
+                                       bottom_margin, tune_seconds)
             ass_subtitles.append(ass_subtitle)
 
         ass_lines = []
@@ -410,6 +412,8 @@ def get_commandline_arguments():
                                  metavar='line_count', type=int, default=5)
     argument_parser.add_argument('-b', '--bottom_margin', help='下方字幕底边距',
                                  metavar='bottom_margin', type=int, default=50)
+    argument_parser.add_argument('-t', '--tune_seconds', help='调整字幕时间秒数',
+                                 metavar='tune_seconds', type=int, default=0)
     argument_parser.add_argument('-d', '--debug', help='输出调试日志',
                                  action='store_true')
     return argument_parser
