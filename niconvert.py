@@ -257,7 +257,7 @@ class Downloader:
 
 class BilibiliDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile('(?:ykid|qid|vid)=([^"]+)"')
+    VIDEO_UID_RE = re.compile('[^&](?:ykid|qid|vid|uid)=([^"]+)"')
 
     def __init__(self, url):
         Downloader.__init__(self, url)
