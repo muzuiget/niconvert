@@ -91,10 +91,10 @@ class NicoSubtitle:
         return style
 
     @staticmethod
-    def to_gbr(integer):
-        rgb = "%06s" % hex(integer).upper()[2:]
-        gbr = rgb[2:] + rgb[:2] # ass use gbr
-        return gbr
+    def to_bgr(integer):
+        rgb = hex(integer).upper()[2:].zfill(6)
+        bgr = rgb[4:6] + rgb[2:4] + rgb[0:2] # ass use bgr
+        return bgr
 
 class AssSubtitle:
 
@@ -349,7 +349,7 @@ class Bilibili(Website):
             nico_subtitle.start_seconds = float(attributes[0])
             nico_subtitle.style = NicoSubtitle.to_style(int(attributes[1]))
             nico_subtitle.font_size = int(attributes[2])
-            nico_subtitle.font_color = NicoSubtitle.to_gbr(int(attributes[3]))
+            nico_subtitle.font_color = NicoSubtitle.to_bgr(int(attributes[3]))
             nico_subtitle.text = line[1].decode("UTF-8")
 
             if nico_subtitle.style != NicoSubtitle.NOT_SUPPORT:
@@ -379,7 +379,7 @@ class Acfun(Website):
 
             nico_subtitle = NicoSubtitle()
             nico_subtitle.start_seconds = float(attributes[0])
-            nico_subtitle.font_color = NicoSubtitle.to_gbr(int(attributes[1]))
+            nico_subtitle.font_color = NicoSubtitle.to_bgr(int(attributes[1]))
             nico_subtitle.style = NicoSubtitle.to_style(int(attributes[2]))
             nico_subtitle.font_size = int(attributes[3])
             nico_subtitle.text = element['m']
