@@ -442,6 +442,8 @@ def main():
     output = args.pop('output')
     if output is None:
         output = website.downloader.title + '.ass'
+    elif not output.endswith('.ass'):
+        output += '.ass'
 
     text = website.ass_subtitles_text(**args)
 
