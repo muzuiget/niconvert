@@ -185,7 +185,7 @@ class AssSubtitle:
         if self.nico_subtitle.style == NicoSubtitle.SCROLL:
             x1 = self.video_width + (self.base_font_size * self.text_length) / 2
             x2 = -(self.base_font_size * self.text_length) / 2
-            y = (self.nico_subtitle.index % (self.line_count + 1)) * self.base_font_size
+            y = (self.nico_subtitle.index % self.line_count + 1) * self.base_font_size
 
             if y < self.font_size:
                 y = self.font_size
