@@ -484,7 +484,7 @@
                     <property name="can_focus">True</property>
                     <property name="invisible_char">●</property>
                     <property name="xalign">1</property>
-                    <property name="adjustment">tun_sencodes_adjustment</property>
+                    <property name="adjustment">tune_sencodes_adjustment</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -524,9 +524,6 @@
                   </packing>
                 </child>
                 <child>
-                  <placeholder/>
-                </child>
-                <child>
                   <object class="GtkFontButton" id="font_fontbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -541,6 +538,9 @@
                     <property name="width">2</property>
                     <property name="height">1</property>
                   </packing>
+                </child>
+                <child>
+                  <placeholder/>
                 </child>
               </object>
             </child>
@@ -589,7 +589,7 @@
       </object>
     </child>
   </object>
-  <object class="GtkAdjustment" id="tun_sencodes_adjustment">
+  <object class="GtkAdjustment" id="tune_sencodes_adjustment">
     <property name="lower">-100</property>
     <property name="upper">100</property>
     <property name="step_increment">1</property>

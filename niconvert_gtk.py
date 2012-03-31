@@ -26,13 +26,13 @@ class NiconvertGtk:
 
     def init_widgets_status(self):
         if sys.platform == 'win32':
-            self.font_fontbutton.set_font_name('微软雅黑 24')
+            self.font_fontbutton.set_font_name(u'微软雅黑 24')
         else:
             self.font_fontbutton.set_font_name('WenQuanYi Micro Hei 24')
 
     def alert(self, message_type, message_text):
         dialog = Gtk.MessageDialog(
-                self.main_window, 0, message_type, 
+                self.main_window, 0, message_type,
                 Gtk.ButtonsType.OK, message_text)
         dialog.run()
         dialog.destroy()
@@ -44,15 +44,15 @@ class NiconvertGtk:
 
         try:
             self.website = create_website(url)
-        except StandardError as e:
+        except StandardError as error:
             self.video_title_label.set_text('')
             self.comment_url_label.set_text('')
             self.website = None
-            self.alert(Gtk.MessageType.ERROR, e)
+            self.alert(Gtk.MessageType.ERROR, error)
             return
 
         if self.website is None:
-            self.alert(Gtk.MessageType.ERROR, '不支持的网站')
+            self.alert(Gtk.MessageType.ERROR, u'不支持的网站')
             return
 
         title = self.website.downloader.title
@@ -66,7 +66,7 @@ class NiconvertGtk:
 
     def on_output_entry_changed(self, widget, event):
         text = self.output_entry.get_text().strip()
-        if not text.endswith('.ass'):
+        if text != '' and not text.endswith('.ass'):
             text += '.ass'
         self.output_entry.set_text(text)
 
@@ -76,12 +76,12 @@ class NiconvertGtk:
         if output == '':
             if self.website is not None:
                 filename = self.website.downloader.title + '.ass'
-            filepath = os.path.join(__folder__, filename)
+            filepath = os.path.join(os.getcwd(), filename)
         else:
             filepath = output
 
         dialog = Gtk.FileChooserDialog(
-            "请选择一个文件", self.main_window, Gtk.FileChooserAction.SAVE,
+            u"请选择一个文件", self.main_window, Gtk.FileChooserAction.SAVE,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
              Gtk.STOCK_SAVE, Gtk.ResponseType.OK)
         )
@@ -107,33 +107,36 @@ class NiconvertGtk:
         tune_seconds = self.tune_seconds_spinbutton.get_value_as_int()
 
         output = self.output_entry.get_text().strip()
-        error = None
+        errors = []
         if self.website is None:
-            error = '未抓取源字幕'
+            errors.append(u"未抓取源字幕")
         if output == '':
-            error = '未选择输出路径'
+            errors.append(u"未选择输出路径")
 
-        if error is not None:
-            dialog = Gtk.MessageDialog(
-                    self.main_window, 0, Gtk.MessageType.ERROR,
-                    Gtk.ButtonsType.OK, error)
-            dialog.run()
-            dialog.destroy()
+        if len(errors) != 0:
+            self.alert(Gtk.MessageType.ERROR, '\n'.join(errors))
             return
 
         text = self.website.ass_subtitles_text(
-                font_name=font_name,
-                font_size=font_size, 
-                resolution="%d:%d" % (video_width, video_height),
-                line_count=line_count,
-                bottom_margin=bottom_margin,
-                tune_seconds=tune_seconds
+            font_name=font_name,
+            font_size=font_size,
+            resolution="%d:%d" % (video_width, video_height),
+            line_count=line_count,
+            bottom_margin=bottom_margin,
+            tune_seconds=tune_seconds
         )
 
-        with open(output, 'w') as outfile:
+        output = os.path.abspath(output)
+        try:
+            outfile = open(output, 'w')
             outfile.write(text.encode("UTF-8"))
+            outfile.flush()
+            outfile.close()
+        except StandardError as error:
+            self.alert(Gtk.MessageType.ERROR, error)
+            return
 
-        message = '转换成功，文件保存到\n %s' % output
+        message = u'转换成功，文件保存到\n %s' % output.decode("UTF-8")
         self.alert(Gtk.MessageType.INFO, message)
 
     def on_quit_imagemenuitem_activate(self, widget):
