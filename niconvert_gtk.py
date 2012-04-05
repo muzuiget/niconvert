@@ -12,9 +12,9 @@ __folder__ = os.path.dirname(os.path.abspath(__file__))
 class NiconvertGtk:
 
     def __init__(self):
-        glade_file_path = os.path.join(__folder__, 'niconvert_gtk.glade')
+        ui_file_path = os.path.join(__folder__, 'niconvert_gtk.ui')
         builder = Gtk.Builder()
-        builder.add_from_file(glade_file_path)
+        builder.add_from_file(ui_file_path)
         builder.connect_signals(self)
         for widget in builder.get_objects():
             if isinstance(widget, Gtk.Buildable):
