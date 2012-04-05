@@ -1,12 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
 from time import time
 
 from bottle import get, post, run, request, template, response
 from niconvert import create_website
 
-with open('niconvert_web.html') as htmlfile:
+folder = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(folder, 'niconvert_web.html')
+with open(file_path) as htmlfile:
     page_template = htmlfile.read().decode('UTF-8')
 
 class Cache:
