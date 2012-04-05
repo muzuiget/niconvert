@@ -35,7 +35,7 @@ class Cache:
         timestamp = self.timestamps[key]
         if time() - timestamp > self.expire:
             return None
-        
+
         return self.objects[key]
 
     def delete(self, key):
@@ -48,7 +48,7 @@ class Cache:
 
 cache = Cache()
 
-def create_website_with_cache(url): 
+def create_website_with_cache(url):
     website = cache.get(url)
     if website is not None:
         return website

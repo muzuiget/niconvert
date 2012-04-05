@@ -41,19 +41,33 @@ Niconvert 是一个弹幕字幕下载和转换工具，将弹幕视频网站上�
 GUI界面
 =======
 
-gtk
+GTK
 ---
 
 运行 ::
 
     ./niconvert_gtk.py
 
-wxwidget
+QT
+--
+
+运行 ::
+
+    ./niconvert_qt.py
+
+WxWidget
 --------
 
 运行 ::
 
     ./niconvert_wx.py
+
+Tkinter
+-------
+
+运行 ::
+
+    ./niconvert_tk.py
 
 命令行
 ======

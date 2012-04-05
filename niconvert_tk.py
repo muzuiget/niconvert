@@ -15,6 +15,7 @@ class FontDialog(tk.Toplevel):
     def __init__(self, parent, init_font_name=None, init_font_size=24):
         tk.Toplevel.__init__(self, parent)
         self.parent = parent
+        self.title('字体')
         self.font_name = init_font_name
         self.font_size = init_font_size
         self.transient(parent)
@@ -49,7 +50,7 @@ class FontDialog(tk.Toplevel):
 
             tk.Label(frame, text=u'字体：', anchor=tk.N).pack(
                 side=tk.LEFT, fill=tk.Y)
-            self.font_listbox.pack(side=tk.LEFT)
+            self.font_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             font_scrollbar.pack(side=tk.LEFT, fill=tk.Y)
 
         def create_font_size_widget():
@@ -62,15 +63,15 @@ class FontDialog(tk.Toplevel):
             self.font_size_spinbox.insert(0, self.font_size)
 
             tk.Label(frame, text=u'大小：').pack(side=tk.LEFT)
-            self.font_size_spinbox.pack(side=tk.LEFT, fill=tk.BOTH)
+            self.font_size_spinbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
             tk.Label(frame, text=u'像素').pack(side=tk.LEFT)
 
         def create_response_widget():
             frame = tk.Frame(self)
             frame.pack(fill=tk.BOTH)
 
-            self.ok_button = tk.Button(self, text="确定")
-            self.cancel_button = tk.Button(self, text="取消")
+            self.ok_button = tk.Button(frame, text="确定")
+            self.cancel_button = tk.Button(frame, text="取消")
 
             self.ok_button.pack(side=tk.RIGHT)
             self.cancel_button.pack(side=tk.RIGHT)
@@ -188,6 +189,7 @@ class NiconvertTk:
 
             frame = tk.LabelFrame(self.main_frame, text=u"选项")
             frame.pack(fill=tk.BOTH)
+            frame.grid_columnconfigure(1, weight=1)
 
             video_frame = tk.Frame(frame)
 
@@ -215,9 +217,11 @@ class NiconvertTk:
             set_default_value(self.bottom_margin_spinbox, 50)
             set_default_value(self.tune_seconds_spinbox, 0)
 
-            self.video_width_spinbox.pack(side=tk.LEFT)
+            self.video_width_spinbox.pack(
+                side=tk.LEFT, fill=tk.BOTH, expand=True)
             tk.Label(video_frame, text='x').pack(side=tk.LEFT)
-            self.video_height_spinbox.pack(side=tk.LEFT)
+            self.video_height_spinbox.pack(
+                side=tk.LEFT, fill=tk.BOTH, expand=True)
 
             tk.Label(frame, text=u'字体:').grid(
                 row=0, column=0, sticky=tk.E)
@@ -263,6 +267,16 @@ class NiconvertTk:
                 for subwidget in widget.grid_slaves():
                     subwidget.grid_configure(padx=2, pady=2)
 
+        def center_on_screen():
+            self.main_window.update_idletasks()
+            screen_width = self.main_window.winfo_screenwidth()
+            screen_height = self.main_window.winfo_screenheight()
+            window_size = self.main_window.geometry().split('+')[0]
+            window_width, window_height = map(int, window_size.split('x'))
+            x = screen_width / 2 - window_width / 2 - 8
+            y = screen_height / 2 - window_height / 2 - 20
+            self.main_window.geometry("%dx%d+%d+%d" % (window_width, window_height, x, y))
+
         self.main_frame.pack(fill=tk.BOTH)
         create_menubar()
         create_analyse_widget()
@@ -270,6 +284,7 @@ class NiconvertTk:
         create_options_widget()
         create_convert_widget()
         add_space_for_each_widgets()
+        #center_on_screen()
 
     def bind_event(self):
         self.main_window.protocol(

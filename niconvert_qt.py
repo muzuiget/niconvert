@@ -6,7 +6,8 @@ import sys
 import webbrowser
 
 from PySide.QtCore import QObject
-from PySide.QtGui import QApplication, QDesktopWidget, QMessageBox, QFileDialog, QFontDialog, QFont
+from PySide.QtGui import (QApplication, QDesktopWidget, QMessageBox,
+                          QFileDialog, QFontDialog, QFont)
 from PySide.QtUiTools import QUiLoader
 
 from niconvert import create_website
@@ -31,10 +32,11 @@ class NiconvertQt:
 
     def init_widgets_status(self):
         if sys.platform == 'win32':
-            self.font_pushButton.setText(u'微软雅黑 24')
+            self.font_pushButton.setText(u'微软雅黑 | 24')
         else:
-            self.font_pushButton.setText('WenQuanYi Micro Hei 24')
+            self.font_pushButton.setText('WenQuanYi Micro Hei | 24')
         self.move_to_screen_center()
+        self.main_window.resize(480, 0)
 
     def move_to_screen_center(self):
         cp = QDesktopWidget().availableGeometry().center()
@@ -43,13 +45,20 @@ class NiconvertQt:
         self.main_window.move(qr.topLeft())
 
     def bind_signals(self):
-        self.quit_menuitem.triggered.connect(self.quit_menuitem_triggered_slot)
-        self.about_menuitem.triggered.connect(self.about_menuitem_triggered_slot)
-        self.fetch_pushButton.clicked.connect(self.fetch_pushButton_clicked_slot)
-        self.font_pushButton.clicked.connect(self.font_pushButton_clicked_slot)
-        self.output_lineEdit.editingFinished.connect(self.output_lineEdit_editingFinished_slot)
-        self.output_pushButton.clicked.connect(self.output_pushButton_clicked_slot)
-        self.convert_pushButton.clicked.connect(self.convert_pushButton_clicked_slot)
+        self.quit_menuitem.triggered.connect(
+            self.quit_menuitem_triggered_slot)
+        self.about_menuitem.triggered.connect(
+            self.about_menuitem_triggered_slot)
+        self.fetch_pushButton.clicked.connect(
+            self.fetch_pushButton_clicked_slot)
+        self.font_pushButton.clicked.connect(
+            self.font_pushButton_clicked_slot)
+        self.output_lineEdit.editingFinished.connect(
+            self.output_lineEdit_editingFinished_slot)
+        self.output_pushButton.clicked.connect(
+            self.output_pushButton_clicked_slot)
+        self.convert_pushButton.clicked.connect(
+            self.convert_pushButton_clicked_slot)
 
     def alert(self, message_type, message_text):
         dialog = QMessageBox()
@@ -87,7 +96,8 @@ class NiconvertQt:
     def font_pushButton_clicked_slot(self):
         font_name, font_size =  self.font_pushButton.text().split(' | ')
         font_size = int(font_size)
-        font, respose = QFontDialog.getFont(QFont(font_name, font_size), self.main_window)
+        font, respose = QFontDialog.getFont(
+            QFont(font_name, font_size), self.main_window)
 
         if respose:
             font_label = "%s | %d" % (

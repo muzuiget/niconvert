@@ -38,13 +38,15 @@ class NiconvertWx():
             sizer.Add(
                 wx.StaticText(self.main_panel, label=u"视频地址："),
                 0, wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(self.url_textcrtl, 1, wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(self.fetch_button, 0, wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                self.url_textcrtl, 1, wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 4)
+            sizer.Add(
+                self.fetch_button, 0, wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 4)
 
             upsizer = wx.StaticBoxSizer(
                 wx.StaticBox(self.main_panel, label=u"分析"),
                 wx.VERTICAL)
-            upsizer.Add(sizer, 0, wx.ALL | wx.EXPAND, 4)
+            upsizer.Add(sizer, 0, wx.EXPAND)
             return upsizer
 
         def create_summary_widget():
@@ -65,7 +67,7 @@ class NiconvertWx():
             upsizer = wx.StaticBoxSizer(
                 wx.StaticBox(self.main_panel, label=u"摘要"),
                 wx.VERTICAL)
-            upsizer.Add(sizer, 0, wx.ALL | wx.EXPAND, 4)
+            upsizer.Add(sizer, 0, wx.EXPAND)
             return upsizer
 
         def create_options_widget():
@@ -103,55 +105,68 @@ class NiconvertWx():
             video_subsizer.Add(
                 self.video_height_spinbutton, 1, wx.ALIGN_CENTER_VERTICAL)
 
-            sizer = wx.FlexGridSizer(6, 3, 4, 4)
+            sizer = wx.GridBagSizer(4, 4)
 
             sizer.Add(
                 wx.StaticText(self.main_panel, label=u"字体："),
-                0, wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(self.font_button, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(wx.StaticText(self.main_panel, label=""),
-                0, wx.ALIGN_CENTER_VERTICAL)
+                (0, 0), flag=wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                self.font_button,
+                (0, 1), (1, 2), flag=wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
 
-            sizer.Add(wx.StaticText(self.main_panel, label=u"分辨率："),
-                0, wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(video_subsizer, 1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(wx.StaticText(self.main_panel, label=u"像素"),
-                0, wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"分辨率："),
+                (1, 0), flag=wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                video_subsizer,
+                (1, 1), flag=wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"像素"),
+                (1, 2), flag=wx.ALIGN_CENTER_VERTICAL)
 
-            sizer.Add(wx.StaticText(self.main_panel, label=u"同屏行数："),
-                0, wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(self.line_count_spinbutton, 1,
-                    wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(wx.StaticText(self.main_panel, label=u"行"),
-                0, wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"同屏行数："),
+                (2, 0), flag=wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                self.line_count_spinbutton,
+                (2, 1), flag=wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"行"),
+                (2, 2), flag=wx.ALIGN_CENTER_VERTICAL)
 
-            sizer.Add(wx.StaticText(self.main_panel, label=u"底边距离："),
-                0, wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(self.bottom_margin_spinbutton,
-                    1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(wx.StaticText(self.main_panel, label=u"像素"),
-                0, wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"底边距离："),
+                (3, 0), flag=wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                self.bottom_margin_spinbutton,
+                (3, 1), flag=wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"像素"),
+                (3, 2), flag=wx.ALIGN_CENTER_VERTICAL)
 
-            sizer.Add(wx.StaticText(self.main_panel, label=u"调整秒数："),
-                0, wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(self.tune_seconds_spinbutton,
-                    1, wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(wx.StaticText(self.main_panel, label=u"秒"),
-                0, wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"调整秒数："),
+                (4, 0), flag=wx.ALIGN_RIGHT | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                self.tune_seconds_spinbutton,
+                (4, 1), flag=wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(
+                wx.StaticText(self.main_panel, label=u"秒"),
+                (4, 2), flag=wx.ALIGN_CENTER_VERTICAL)
 
             sizer.Add(wx.StaticText(self.main_panel, label=u"输出文件："),
-                0, wx.ALIGN_CENTER_VERTICAL)
+                (5, 0), flag=wx.ALIGN_CENTER_VERTICAL)
             sizer.Add(
-                    self.output_textcrtl, 1,
-                    wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
-            sizer.Add(self.output_button, 0, wx.ALIGN_CENTER_VERTICAL)
+                    self.output_textcrtl, (5, 1),
+                    flag=wx.EXPAND | wx.ALIGN_CENTER_VERTICAL)
+            sizer.Add(self.output_button, (5, 2), flag=wx.ALIGN_CENTER_VERTICAL)
 
             sizer.AddGrowableCol(1)
 
             upsizer = wx.StaticBoxSizer(
                 wx.StaticBox(self.main_panel, label=u"选项"),
                 wx.VERTICAL)
-            upsizer.Add(sizer, 0, wx.ALL | wx.EXPAND, 4)
+            upsizer.Add(sizer, 0, wx.EXPAND)
             return upsizer
 
         def create_convert_widget():
