@@ -163,7 +163,12 @@ Q：视频被分段怎么办，有合并功能吗，不同步怎么办？
 
 A：暂时没有合并功能，目前只有转换功能，同步字幕还是用专业的字幕修改工具吧，推荐用 gaupol_
 
+Q：有些视频需要登录权限，怎么下载？
+
+A：同样支持根据评论地址转换，在浏览器上安装 `Niconvert - Commnet Link`_ 这个脚本，会在视频页面显示出评论地址的链接，复制评论地址并粘贴到输入框即可。
+
 .. _gaupol: http://home.gna.org/gaupol/
+.. _Niconvert - Commnet Link: http://userscripts.org/scripts/show/130401
 
 许可证
 ======
