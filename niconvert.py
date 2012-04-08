@@ -261,7 +261,7 @@ class Downloader:
 
 class BilibiliDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile('[^&](?:ykid|qid|vid|uid)=([^"]+)"')
+    VIDEO_UID_RE = re.compile('id="bofqi".+?(?:ykid|qid|vid|uid)=(.+?)"')
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -275,9 +275,29 @@ class BilibiliDownloader(Downloader):
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
 
+class BilibiliDownloaderAlt(Downloader):
+
+    def __init__(self, url):
+        Downloader.__init__(self, url)
+
+    def get_html(self):
+        return ""
+
+    def get_title(self):
+        faketitle = self.url.split('dm,')[1]
+        logger.info(u'视频标题: %s', faketitle)
+        return faketitle
+
+    def get_comment_url(self):
+        logger.info(u'评论地址: %s', self.url)
+        return self.url
+
+    def get_comment_text(self):
+        return fetch_url(self.comment_url)
+
 class AcfunDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile('flashvars="([^"]+)"')
+    VIDEO_UID_RE = re.compile('flashvars=".+?id=(.+?)"')
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -287,9 +307,29 @@ class AcfunDownloader(Downloader):
 
     def get_comment_url(self):
         video_uid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0].split('id=')[-1]
-        comment_url = 'http://comment.acfun.tv/%s.json' % video_uid
+        comment_url = 'http://122.224.11.162/%s.json' % video_uid
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
+
+class AcfunDownloaderAlt(Downloader):
+
+    def __init__(self, url):
+        Downloader.__init__(self, url)
+
+    def get_html(self):
+        return ""
+
+    def get_title(self):
+        faketitle = self.url.split('.json')[0].split('/')[-1]
+        logger.info(u'视频标题: %s', faketitle)
+        return faketitle
+
+    def get_comment_url(self):
+        logger.info(u'评论地址: %s', self.url)
+        return self.url
+
+    def get_comment_text(self):
+        return fetch_url(self.comment_url)
 
 class Website:
 
@@ -338,7 +378,10 @@ class Bilibili(Website):
         Website.__init__(self, url)
 
     def create_downloader(self):
-        return BilibiliDownloader(self.url)
+        if self.url.startswith('http://comment.bilibili.tv/dm,'):
+            return BilibiliDownloaderAlt(self.url)
+        else:
+            return BilibiliDownloader(self.url)
 
     def create_nico_subtitles(self):
 
@@ -370,7 +413,10 @@ class Acfun(Website):
         Website.__init__(self, url)
 
     def create_downloader(self):
-        return AcfunDownloader(self.url)
+        if self.url.find('.json') == 0:
+            return AcfunDownloader(self.url)
+        else:
+            return AcfunDownloaderAlt(self.url)
 
     def create_nico_subtitles(self):
 
@@ -421,7 +467,7 @@ def get_commandline_arguments():
 def create_website(url):
     if url.find('bilibili.tv') != -1:
         return Bilibili(url)
-    elif url.find('acfun.tv') != -1:
+    elif url.find('acfun.tv') != -1 or url.find('122.224.11.162') != -1:
         return Acfun(url)
     else:
         return None
