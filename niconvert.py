@@ -413,10 +413,10 @@ class Acfun(Website):
         Website.__init__(self, url)
 
     def create_downloader(self):
-        if self.url.find('.json') == 0:
-            return AcfunDownloaderAlt(self.url)
-        else:
+        if self.url.find('.json') == -1:
             return AcfunDownloader(self.url)
+        else:
+            return AcfunDownloaderAlt(self.url)
 
     def create_nico_subtitles(self):
 
