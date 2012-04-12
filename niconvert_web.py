@@ -58,8 +58,8 @@ def create_website_with_cache(url):
 
     try:
         website = create_website(url)
-    except:
-        raise StandardError(u"解析失败，可能是视频地址或服务器错误")
+    except StandardError as error:
+        raise StandardError(unicode(error))
 
     if website is None:
         raise StandardError(u"不支持的网站")
