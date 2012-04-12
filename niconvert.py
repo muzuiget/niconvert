@@ -307,7 +307,7 @@ class AcfunDownloader(Downloader):
 
     def get_comment_url(self):
         video_uid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0].split('id=')[-1]
-        comment_url = 'http://122.224.11.162/%s.json' % video_uid
+        comment_url = 'http://comment.acfun.tv/%s.json' % video_uid
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
 
@@ -414,9 +414,9 @@ class Acfun(Website):
 
     def create_downloader(self):
         if self.url.find('.json') == 0:
-            return AcfunDownloader(self.url)
-        else:
             return AcfunDownloaderAlt(self.url)
+        else:
+            return AcfunDownloader(self.url)
 
     def create_nico_subtitles(self):
 
@@ -467,7 +467,7 @@ def get_commandline_arguments():
 def create_website(url):
     if url.find('bilibili.tv') != -1:
         return Bilibili(url)
-    elif url.find('acfun.tv') != -1 or url.find('122.224.11.162') != -1:
+    elif url.find('acfun.tv') != -1:
         return Acfun(url)
     else:
         return None
