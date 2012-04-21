@@ -250,6 +250,8 @@ class Downloader:
 
     def get_title(self):
         title = Downloader.TITLE_RE.findall(self.html)[0].split(' - ')[0]
+        if isinstance(title, str):
+            title = title.decode('utf-8')
         logger.info(u'视频标题: %s', title)
         return title
 
@@ -297,16 +299,19 @@ class BilibiliDownloaderAlt(Downloader):
 
 class AcfunDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile('flashvars=".+?id=(.+?)"')
+    VIDEO_UID_RE = re.compile("'id':'([0-9]+?)',")
 
     def __init__(self, url):
         Downloader.__init__(self, url)
 
     def get_html(self):
-        return fetch_url(self.url).decode('GBK')
+        return fetch_url(self.url)
 
     def get_comment_url(self):
-        video_uid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0].split('id=')[-1]
+        vid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0]
+        info_url = 'http://www.acfun.tv/api/getVideoByID.aspx?vid=' + vid
+        video_uid = json.loads(fetch_url(info_url))['vid']
+
         comment_url = 'http://comment.acfun.tv/%s.json' % video_uid
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
