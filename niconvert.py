@@ -470,9 +470,9 @@ def get_commandline_arguments():
     return argument_parser
 
 def create_website(url):
-    if url.find('bilibili.tv') != -1:
+    if url.find('bilibili') != -1:
         return Bilibili(url)
-    elif url.find('acfun.tv') != -1:
+    elif url.find('acfun') != -1:
         return Acfun(url)
     else:
         return None
