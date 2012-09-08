@@ -263,7 +263,7 @@ class Downloader:
 
 class BilibiliDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile('id="bofqi".+?(?:ykid|qid|vid|uid)=(.+?)"', re.DOTALL)
+    VIDEO_UID_RE = re.compile('id="bofqi".+?(?:ykid|qid|vid|uid|cid)=(.+?)"', re.DOTALL)
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -273,7 +273,7 @@ class BilibiliDownloader(Downloader):
 
     def get_comment_url(self):
         video_uid = BilibiliDownloader.VIDEO_UID_RE.findall(self.html)[0]
-        comment_url = 'http://comment.bilibili.tv/dm,' + video_uid
+        comment_url = 'http://comment.bilibili.tv/%s.xml' % video_uid
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
 
@@ -286,7 +286,7 @@ class BilibiliDownloaderAlt(Downloader):
         return ""
 
     def get_title(self):
-        faketitle = self.url.split('dm,')[1]
+        faketitle = self.url.split('tv/')[1]
         logger.info(u'视频标题: %s', faketitle)
         return faketitle
 
@@ -383,7 +383,7 @@ class Bilibili(Website):
         Website.__init__(self, url)
 
     def create_downloader(self):
-        if self.url.startswith('http://comment.bilibili.tv/dm,'):
+        if self.url.startswith('http://comment.bilibili.tv/'):
             return BilibiliDownloaderAlt(self.url)
         else:
             return BilibiliDownloader(self.url)
