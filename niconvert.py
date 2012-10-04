@@ -501,6 +501,7 @@ def main():
 
     text = website.ass_subtitles_text(**args)
 
+    output = output.replace('/', '')
     with open(output, 'w') as outfile:
         outfile.write(text.encode("UTF-8"))
 
