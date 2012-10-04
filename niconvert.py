@@ -349,6 +349,9 @@ class Website:
     def create_nico_subtitles(self):
         raise NotImplementedError
 
+    def unescape(self, text):
+        return text.replace('/n', '\\N')
+
     def ass_subtitles_text(self, font_name, font_size, resolution, line_count, bottom_margin, tune_seconds):
 
         video_width, video_height = map(int, resolution.split(':'))
@@ -400,7 +403,7 @@ class Bilibili(Website):
             nico_subtitle.style = NicoSubtitle.to_style(int(attributes[1]))
             nico_subtitle.font_size = int(attributes[2])
             nico_subtitle.font_color = NicoSubtitle.to_bgr(int(attributes[3]))
-            nico_subtitle.text = line[1].decode("UTF-8")
+            nico_subtitle.text = self.unescape(line[1].decode("UTF-8"))
 
             if nico_subtitle.style != NicoSubtitle.NOT_SUPPORT:
                 nico_subtitles.append(nico_subtitle)
@@ -435,7 +438,7 @@ class Acfun(Website):
             nico_subtitle.font_color = NicoSubtitle.to_bgr(int(attributes[1]))
             nico_subtitle.style = NicoSubtitle.to_style(int(attributes[2]))
             nico_subtitle.font_size = int(attributes[3])
-            nico_subtitle.text = element['m']
+            nico_subtitle.text = self.unescape(element['m'])
 
             if nico_subtitle.style != NicoSubtitle.NOT_SUPPORT:
                 nico_subtitles.append(nico_subtitle)
