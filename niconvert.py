@@ -23,8 +23,8 @@ PlayResX: %(video_width)s
 PlayResY: %(video_height)s
 
 [V4+ Styles]
-Format: Name, Fontname, Fontsize, PrimaryColour, BackColour, OutlineColour, Bold, Italic, Alignment, BorderStyle, Outline, Shadow, MarginL, MarginR, MarginV
-Style: NicoDefault,%(font_name)s,%(font_size)s,&H00FFFFFF,&H00000000,&H00000000,0,0,2,1,1,0,20,20,20
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: NicoDefault, %(font_name)s, %(font_size)s, &H00FFFFFF, &H00FFFFFF, &H00000000, &H00000000, 0, 0, 0, 0, 100, 100, 0.00, 0.00, 1, 1, 0, 2, 20, 20, 20, 0
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -356,8 +356,8 @@ class Website:
 
         video_width, video_height = map(int, resolution.split(':'))
         if font_size == 0:
-            # 1280 宽度用 50 像素字体看起来不错，不同宽度按此比例缩放
-            font_size = video_width * 50 / 1280
+            # 1280 宽度用 32 像素字体看起来不错，不同宽度按此比例缩放
+            font_size = video_width * 32 / 1280
 
         ass_subtitles = []
         for nico_subtitle in self.nico_subtitles:
@@ -456,8 +456,8 @@ def get_commandline_arguments():
                                  metavar='url', type=str)
     argument_parser.add_argument('-o', '--output', help='保存文件名，默认为网页标题',
                                  metavar='output', type=str, default=None)
-    argument_parser.add_argument('-r', '--resolution', help='视频分辨率，格式如「1280:768」',
-                                 metavar='resolution', type=str, default="1280:768")
+    argument_parser.add_argument('-r', '--resolution', help='视频分辨率，格式如「1280:720」',
+                                 metavar='resolution', type=str, default="1280:720")
     argument_parser.add_argument('-f', '--font_name', help='使用字体名称',
                                  metavar='font_name', type=str, default='WenQuanYi Micro Hei')
     argument_parser.add_argument('-s', '--font_size', help='默认字体大小',
