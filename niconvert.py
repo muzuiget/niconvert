@@ -299,7 +299,7 @@ class BilibiliDownloaderAlt(Downloader):
 
 class AcfunDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile("\[Video\](\d+)\[/Video\]")
+    VIDEO_UID_RE = re.compile("\[video\](\d+)\[/video\]", re.IGNORECASE)
 
     def __init__(self, url):
         Downloader.__init__(self, url)
