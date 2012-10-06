@@ -310,7 +310,8 @@ class AcfunDownloader(Downloader):
     def get_comment_url(self):
         vid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0]
         info_url = 'http://www.acfun.tv/api/getVideoByID.aspx?vid=' + vid
-        video_uid = json.loads(fetch_url(info_url))['vid']
+        print info_url
+        video_uid = json.loads(fetch_url(info_url))['cid']
 
         comment_url = 'http://comment.acfun.tv/%s.json' % video_uid
         logger.info(u'评论地址: %s', comment_url)
