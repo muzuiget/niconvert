@@ -299,7 +299,7 @@ class BilibiliDownloaderAlt(Downloader):
 
 class AcfunDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile("\[video\](\d+)\[/video\]", re.IGNORECASE)
+    VIDEO_UID_RE = re.compile("\[video\](.+?)\[/video\]", re.IGNORECASE)
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -309,8 +309,7 @@ class AcfunDownloader(Downloader):
 
     def get_comment_url(self):
         vid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0]
-        info_url = 'http://www.acfun.tv/api/getVideoByID.aspx?vid=' + vid
-        print info_url
+        info_url = 'http://www.acfun.tv/api/player/vids/' + vid + '.aspx'
         video_uid = json.loads(fetch_url(info_url))['cid']
 
         comment_url = 'http://comment.acfun.tv/%s.json' % video_uid
