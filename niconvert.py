@@ -13,6 +13,7 @@ import logging
 import urllib2
 import gzip
 import zlib
+import colorsys
 from StringIO import StringIO
 from argparse import ArgumentParser
 
@@ -66,13 +67,14 @@ class NicoSubtitle:
         self.start_seconds = None
         self.font_size = None
         self.font_color = None
+        self.white_border = False
         self.style = None
         self.text = None
 
     def __unicode__(self):
         return u'#%05d, %d, %d, %s, %s, %s' % (
                 self.index, self.style,
-                self.font_size, self.font_color,
+                self.font_size, self.font_color, self.white_border,
                 self.start_seconds, self.text)
 
     def __str__(self):
@@ -91,10 +93,37 @@ class NicoSubtitle:
         return style
 
     @staticmethod
+    def to_rgb(integer):
+        return hex(integer).upper()[2:].zfill(6)
+
+    @staticmethod
     def to_bgr(integer):
-        rgb = hex(integer).upper()[2:].zfill(6)
+        rgb = NicoSubtitle.to_rgb(integer)
+        NicoSubtitle.to_hls(integer)
         bgr = rgb[4:6] + rgb[2:4] + rgb[0:2] # ass use bgr
         return bgr
+
+    @staticmethod
+    def to_hls(integer):
+        rgb = NicoSubtitle.to_rgb(integer)
+        rgb_decimals = map(lambda x: int(x, 16), (rgb[0:2], rgb[2:4], rgb[4:6]))
+        rgb_coordinates = map(lambda x: x / 255, rgb_decimals)
+        hls_corrdinates = colorsys.rgb_to_hls(*rgb_coordinates)
+        hls = hls_corrdinates[0] * 360, hls_corrdinates[1] * 100, hls_corrdinates[2] * 100
+        return hls
+
+    @staticmethod
+    def need_white_border(integer):
+        if integer == 0:
+            return True
+
+        hls = NicoSubtitle.to_hls(integer)
+        hue, lightness = hls[0:2]
+        if (hue > 30 and hue < 210) and lightness < 33:
+            return True
+        if (hue < 30 or hue > 210) and lightness < 66:
+            return True
+        return False
 
 class AssSubtitle:
 
@@ -216,6 +245,10 @@ class AssSubtitle:
             color_markup = ""
         else:
             color_markup = "\\c&H%s" % self.nico_subtitle.font_color
+        if self.nico_subtitle.white_border:
+            border_markup = "\\3c&HFFFFFF"
+        else:
+            border_markup = ""
         if self.font_size == self.base_font_size:
             font_size_markup = ""
         else:
@@ -224,7 +257,7 @@ class AssSubtitle:
             style_markup = "\\move(%d, %d, %d, %d)" % (self.x1, self.y1, self.x2, self.y2)
         else:
             style_markup = "\\a6\\pos(%d, %d)" % (self.x1, self.y1)
-        markup = "".join([style_markup, color_markup, font_size_markup])
+        markup = "".join([style_markup, color_markup, border_markup, font_size_markup])
         return "{%s}%s" % (markup, self.nico_subtitle.text)
 
     @property
@@ -412,6 +445,7 @@ class Bilibili(Website):
             nico_subtitle.style = NicoSubtitle.to_style(int(attributes[1]))
             nico_subtitle.font_size = int(attributes[2])
             nico_subtitle.font_color = NicoSubtitle.to_bgr(int(attributes[3]))
+            nico_subtitle.white_border = NicoSubtitle.need_white_border(int(attributes[3]))
             nico_subtitle.text = self.unescape(line[1].decode("UTF-8"))
 
             if nico_subtitle.style != NicoSubtitle.NOT_SUPPORT:
