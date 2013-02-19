@@ -2,34 +2,70 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>niconvert - 弹幕字幕下载和转换工具</title>
+<title>niconvert - 弹幕下载和转换工具</title>
 <style type="text/css">
 body {
-    width: 720px;
+    background: none repeat scroll 0 0 #F8F8F8;
+    width: 760px;
     margin: auto;
+}
+#header {
+    background: none repeat scroll 0 0 #DCF7DD;
+    padding: 10px 24px;
 }
 h1 {
     font-size: 36px;
+    padding: 0;
+    margin: 0;
 }
-h1 span {
-    font-size: 18px;
-    color: #999999;
-    margin-left: 10px;
+h2 {
+    margin: 12px 0;
 }
 a {
+    color: #4183C4;
     text-decoration: none;
 }
 #message {
     background: none repeat scroll 0 0 #F2DEDE;
     color: #B94A48;
-    padding: 10px;
+    padding: 10px 24px;
+    overflow: auto;
+    margin: 0;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+    font-size: 13px;
 }
 ul {
-    line-height: 32px;
+    line-height: 36px;
     list-style-type: none;
 }
 #main {
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    clear: both;
+    border: 1px solid #9FD5A1;
     margin: 30px 0;
+}
+#content {
+    background-color: #FFFFFF;
+    padding: 24px;
+}
+#introduce {
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+#introduce p:first-child {
+    margin-top: 0;
+}
+#introduce p:last-child {
+    margin-bottom: 0;
+}
+input[type="text"] {
+    border: 1px solid #D6D6D6;
+    height: 24px;
+    padding: 2px 5px;
+}
+input.font {
+    width: 191px;
 }
 input.url {
     width: 480px;
@@ -42,40 +78,42 @@ input.submit {
     margin-left: 120px;
 }
 span.hint {
-    font-size: 12px;
-}
-#description {
-    color: #999999;
+    font-size: 13px;
 }
 label {
     font-weight: bold;
+    width: 85px;
+    text-align: right;
+    display: inline-block;
 }
 #footer {
-    margin-top: 30px;
+    background: none repeat scroll 0 0 #DCF7DD;
+    font-size: 16px;
+    padding: 10px;
+    text-align: right;
+    height: 43px;
+    line-height: 43px;
 }
 </style>
 </head>
 <body>
+<div id="main">
 <div id="header">
-    <h1><a href="/">niconvert</a><span>弹幕字幕下载和转换工具</span></h1>
-    <hr />
+    <h1><a href="/">niconvert</a></h1>
 </div>
 
 %if defined('message'):
-<div id="message">
-    {{message}}
-</div>
+<pre id="message">{{message}}</pre>
 %end
 
-<div id="main">
+<div id="content">
     %if not defined('url'):
-    <h2>介绍</h2>
-        <p> niconvert 是一个弹幕视频网站上的评论转换成 ass 字幕，方便在桌面播放器可识别的 ass 格式字幕，并提供简单的转换选项。</p>
-        <p>这个工具是自由软件，此为网页版，方便伸手党，也提供命令行和桌面GUI版，更多信息可参阅 github 的 <a href="https://github.com/muzuiget/niconvert">niconvert</a> 项目。</p>
-        <p>目前支持 <a href="http://www.acfun.tv/">acfun</a> 或 <a href="http://www.bilibili.tv/">bilibili </a>，在下面输入视频地址然后抓取，接着设置选项，点击「下载」按钮即可。</p>
+    <div id="introduce">
+        <p>niconvert 是一个弹幕下载和转换工具，把弹幕网站的评论转换成 ass 字幕格式。</p>
+        <p>这是在线版，方便伸手党体验，也可以到<a href="https://github.com/muzuiget/niconvert#readme">项目主页</a>下载桌面版。</p>
+    </div>
     %end
 
-    <h2>分析</h2>
     <form>
     %if defined('url'):
         <label>视频地址：</label><input class="url" type="text" name="url" value="{{url}}"/>
@@ -93,24 +131,19 @@ label {
     </ul>
 
     <h2>选项</h2>
+    <p>查看<a href="https://github.com/muzuiget/niconvert/wiki/Option">选项说明</a><p>
     <form id="options" method="post" target="_blank">
     <ul>
         <li>
-            <label>字体名称：</label>
-            <input type="text" name="font_name" value="{{default_font_name}}"/>
-        </li>
-        <li>
-            <label>字体大小：</label>
+            <label>字体：</label>
+            <input class="font" type="text" name="font_name" value="{{default_font_name}}"/>
             <input class="integer" type="text" name="font_size" value="36"/>
             <span class="hint">像素</span>
         </li>
         <li>
-            <label>视频宽度：</label>
+            <label>分辨率：</label>
             <input class="integer" type="text" name="video_width" value="1920"/>
-            <span class="hint">像素</span>
-            </li>
-        <li>
-            <label>视频高度：</label>
+            x
             <input class="integer" type="text" name="video_height"value="1080"/>
             <span class="hint">像素</span>
         </li>
@@ -136,10 +169,10 @@ label {
     %end
 </div>
 <div id="footer">
-    <div id="description">
-        <p>由 <a href="http://bottlepy.org/">bottle</a> 给力驱动。</p>
-    </div>
+    由 <a href="http://bottlepy.org/">bottle</a> 给力驱动。
 </div>
-<a href="https://github.com/muzuiget/niconvert"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/abad93f42020b733148435e2cd92ce15c542d320/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub"></a>
+</div>
+
+<a href="https://github.com/muzuiget/niconvert"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
 </body>
 </html>

@@ -3,6 +3,7 @@
 
 import os
 from time import time
+import traceback
 
 from bottle import get, post, run, request, template, response
 from niconvert import create_website
@@ -56,10 +57,7 @@ def create_website_with_cache(url):
     if website is not None:
         return website
 
-    try:
-        website = create_website(url)
-    except StandardError as error:
-        raise StandardError(unicode(error))
+    website = create_website(url)
 
     if website is None:
         raise StandardError(u'不支持的网站')
@@ -75,8 +73,8 @@ def setting():
 
     try:
         website = create_website_with_cache(url)
-    except StandardError as error:
-        message = error.message
+    except StandardError:
+        message = traceback.format_exc();
         return template(page_template, message=message)
     
     user_agent = request.headers.get('User-Agent', '')
