@@ -173,11 +173,11 @@ class AssSubtitle:
             return self.nico_subtitle.start_seconds + 4
 
         if self.text_length < 5:
-            end_seconds = self.nico_subtitle.start_seconds + 4 + (self.text_length / 1.5)
+            end_seconds = self.nico_subtitle.start_seconds + 7 + (self.text_length / 1.5)
         elif self.text_length < 12:
-            end_seconds = self.nico_subtitle.start_seconds + 4 + (self.text_length / 2)
+            end_seconds = self.nico_subtitle.start_seconds + 7 + (self.text_length / 2)
         else:
-            end_seconds = self.nico_subtitle.start_seconds + 10
+            end_seconds = self.nico_subtitle.start_seconds + 13
         end_seconds += self.tune_seconds
         return end_seconds
 
