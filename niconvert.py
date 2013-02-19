@@ -506,9 +506,9 @@ def get_commandline_arguments():
     argument_parser.add_argument('-s', '--font_size', help='默认字体大小',
                                  metavar='font_size', type=int, default=0)
     argument_parser.add_argument('-l', '--line_count', help='同屏弹幕行数',
-                                 metavar='line_count', type=int, default=5)
+                                 metavar='line_count', type=int, default=6)
     argument_parser.add_argument('-b', '--bottom_margin', help='下方字幕底边距',
-                                 metavar='bottom_margin', type=int, default=50)
+                                 metavar='bottom_margin', type=int, default=54)
     argument_parser.add_argument('-t', '--tune_seconds', help='调整字幕时间秒数',
                                  metavar='tune_seconds', type=int, default=0)
     argument_parser.add_argument('-d', '--debug', help='输出调试日志',
