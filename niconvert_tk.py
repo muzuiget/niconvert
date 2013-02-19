@@ -211,8 +211,8 @@ class NiconvertTk:
             self.output_entry = tk.Entry(frame)
             self.output_button = tk.Button(frame, text=u'浏览')
 
-            set_default_value(self.video_width_spinbox, 1280)
-            set_default_value(self.video_height_spinbox, 768)
+            set_default_value(self.video_width_spinbox, 1920)
+            set_default_value(self.video_height_spinbox, 1080)
             set_default_value(self.line_count_spinbox, 5)
             set_default_value(self.bottom_margin_spinbox, 50)
             set_default_value(self.tune_seconds_spinbox, 0)

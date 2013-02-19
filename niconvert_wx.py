@@ -86,9 +86,9 @@ class NiconvertWx():
             self.output_button = wx.Button(self.main_panel, label=u'浏览')
 
             self.video_width_spinbutton.SetRange(1, 9999)
-            self.video_width_spinbutton.SetValue(1280)
+            self.video_width_spinbutton.SetValue(1920)
             self.video_height_spinbutton.SetRange(1, 9999)
-            self.video_height_spinbutton.SetValue(768)
+            self.video_height_spinbutton.SetValue(1080)
             self.line_count_spinbutton.SetRange(1, 100)
             self.line_count_spinbutton.SetValue(5)
             self.bottom_margin_spinbutton.SetRange(1, 9999)

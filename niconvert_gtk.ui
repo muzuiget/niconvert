@@ -621,14 +621,14 @@
   <object class="GtkAdjustment" id="video_height_adjustment">
     <property name="lower">1</property>
     <property name="upper">9999</property>
-    <property name="value">768</property>
+    <property name="value">1080</property>
     <property name="step_increment">10</property>
     <property name="page_increment">100</property>
   </object>
   <object class="GtkAdjustment" id="video_width_adjustment">
     <property name="lower">1</property>
     <property name="upper">9999</property>
-    <property name="value">1280</property>
+    <property name="value">1920</property>
     <property name="step_increment">10</property>
     <property name="page_increment">100</property>
   </object>
