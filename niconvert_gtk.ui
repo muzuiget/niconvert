@@ -4,7 +4,7 @@
   <object class="GtkAdjustment" id="bottom_margin_adjustment">
     <property name="lower">1</property>
     <property name="upper">9999</property>
-    <property name="value">50</property>
+    <property name="value">54</property>
     <property name="step_increment">1</property>
     <property name="page_increment">10</property>
   </object>

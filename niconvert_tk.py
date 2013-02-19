@@ -12,7 +12,7 @@ from niconvert import create_website
 
 class FontDialog(tk.Toplevel):
 
-    def __init__(self, parent, init_font_name=None, init_font_size=24):
+    def __init__(self, parent, init_font_name=None, init_font_size=36):
         tk.Toplevel.__init__(self, parent)
         self.parent = parent
         self.title('字体')
@@ -101,7 +101,7 @@ class FontDialog(tk.Toplevel):
         self.destroy()
 
     @staticmethod
-    def run(parent, init_font_name=None, init_font_size=24):
+    def run(parent, init_font_name=None, init_font_size=36):
         dialog = FontDialog(parent, init_font_name, init_font_size)
         dialog.show()
         if dialog.response == tkMessageBox.OK:
@@ -194,9 +194,9 @@ class NiconvertTk:
             video_frame = tk.Frame(frame)
 
             if sys.platform == 'win32':
-                font_label = u'微软雅黑 | 24'
+                font_label = u'微软雅黑 | 36'
             else:
-                font_label = 'WenQuanYi Micro Hei | 24'
+                font_label = 'WenQuanYi Micro Hei | 36'
             self.font_button = tk.Button(frame, text=font_label)
             self.video_width_spinbox = tk.Spinbox(
                 video_frame, justify=tk.RIGHT, from_=1, to=9999)
@@ -214,7 +214,7 @@ class NiconvertTk:
             set_default_value(self.video_width_spinbox, 1920)
             set_default_value(self.video_height_spinbox, 1080)
             set_default_value(self.line_count_spinbox, 5)
-            set_default_value(self.bottom_margin_spinbox, 50)
+            set_default_value(self.bottom_margin_spinbox, 54)
             set_default_value(self.tune_seconds_spinbox, 0)
 
             self.video_width_spinbox.pack(

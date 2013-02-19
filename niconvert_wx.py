@@ -73,9 +73,9 @@ class NiconvertWx():
         def create_options_widget():
 
             if sys.platform == 'win32':
-                font_label = u'微软雅黑 | 24'
+                font_label = u'微软雅黑 | 36'
             else:
-                font_label = 'WenQuanYi Micro Hei | 24'
+                font_label = 'WenQuanYi Micro Hei | 36'
             self.font_button = wx.Button(self.main_panel, label=font_label)
             self.video_width_spinbutton = wx.SpinCtrl(self.main_panel)
             self.video_height_spinbutton = wx.SpinCtrl(self.main_panel)
@@ -92,7 +92,7 @@ class NiconvertWx():
             self.line_count_spinbutton.SetRange(1, 100)
             self.line_count_spinbutton.SetValue(5)
             self.bottom_margin_spinbutton.SetRange(1, 9999)
-            self.bottom_margin_spinbutton.SetValue(50)
+            self.bottom_margin_spinbutton.SetValue(54)
             self.tune_seconds_spinbutton.SetRange(-100, 100)
             self.tune_seconds_spinbutton.SetValue(0)
 

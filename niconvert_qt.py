@@ -32,9 +32,9 @@ class NiconvertQt:
 
     def init_widgets_status(self):
         if sys.platform == 'win32':
-            self.font_pushButton.setText(u'微软雅黑 | 24')
+            self.font_pushButton.setText(u'微软雅黑 | 36')
         else:
-            self.font_pushButton.setText('WenQuanYi Micro Hei | 24')
+            self.font_pushButton.setText('WenQuanYi Micro Hei | 36')
         self.move_to_screen_center()
         self.main_window.resize(480, 0)
 

@@ -26,9 +26,9 @@ class NiconvertGtk:
 
     def init_widgets_status(self):
         if sys.platform == 'win32':
-            self.font_fontbutton.set_font_name(u'微软雅黑 24')
+            self.font_fontbutton.set_font_name(u'微软雅黑 36')
         else:
-            self.font_fontbutton.set_font_name('WenQuanYi Micro Hei 24')
+            self.font_fontbutton.set_font_name('WenQuanYi Micro Hei 36')
 
     def alert(self, message_type, message_text):
         dialog = Gtk.MessageDialog(

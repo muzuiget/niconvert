@@ -397,9 +397,6 @@ class Website:
     def ass_subtitles_text(self, font_name, font_size, resolution, line_count, bottom_margin, tune_seconds):
 
         video_width, video_height = map(int, resolution.split(':'))
-        if font_size == 0:
-            # 1920 宽度用 36 像素字体看起来不错，不同宽度按此比例缩放
-            font_size = video_width * 36 / 1920
 
         ass_subtitles = []
         for nico_subtitle in self.nico_subtitles:
@@ -504,14 +501,14 @@ def get_commandline_arguments():
     argument_parser.add_argument('-f', '--font_name', help='使用字体名称',
                                  metavar='font_name', type=str, default='WenQuanYi Micro Hei')
     argument_parser.add_argument('-s', '--font_size', help='默认字体大小',
-                                 metavar='font_size', type=int, default=0)
+                                 metavar='font_size', type=int, default=36)
     argument_parser.add_argument('-l', '--line_count', help='同屏弹幕行数',
-                                 metavar='line_count', type=int, default=6)
+                                 metavar='line_count', type=int, default=5)
     argument_parser.add_argument('-b', '--bottom_margin', help='下方字幕底边距',
                                  metavar='bottom_margin', type=int, default=54)
     argument_parser.add_argument('-t', '--tune_seconds', help='调整字幕时间秒数',
                                  metavar='tune_seconds', type=int, default=0)
-    argument_parser.add_argument('-d', '--debug', help='输出调试日志',
+    argument_parser.add_argument('-q', '--quiet', help='不输出调试日志',
                                  action='store_true')
     return argument_parser
 
@@ -526,8 +523,8 @@ def create_website(url):
 def main():
     args = get_commandline_arguments().parse_args().__dict__
 
-    debug = args.pop('debug')
-    if debug:
+    quiet = args.pop('quiet')
+    if not quiet:
         logger.level = logging.DEBUG
 
     url = args.pop('url')
