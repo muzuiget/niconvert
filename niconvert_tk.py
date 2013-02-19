@@ -70,8 +70,8 @@ class FontDialog(tk.Toplevel):
             frame = tk.Frame(self)
             frame.pack(fill=tk.BOTH)
 
-            self.ok_button = tk.Button(frame, text="确定")
-            self.cancel_button = tk.Button(frame, text="取消")
+            self.ok_button = tk.Button(frame, text='确定')
+            self.cancel_button = tk.Button(frame, text='取消')
 
             self.ok_button.pack(side=tk.RIGHT)
             self.cancel_button.pack(side=tk.RIGHT)
@@ -88,7 +88,7 @@ class FontDialog(tk.Toplevel):
         add_space_for_each_widgets()
 
     def bind_event(self):
-        self.protocol("WM_DELETE_WINDOW", self.cancel_command)
+        self.protocol('WM_DELETE_WINDOW', self.cancel_command)
         self.ok_button['command'] = self.ok_command
         self.cancel_button['command'] = self.cancel_command
 
@@ -141,10 +141,10 @@ class NiconvertTk:
             menubar = tk.Menu(self.main_window)
 
             self.quit_menuitem = dict(
-                    label=u"退出(Q)", underline=3,
+                    label=u'退出(Q)', underline=3,
                     command=self.quit_menuitem_command)
             self.about_menuitem = dict(
-                    label=u"关于(A)", underline=3,
+                    label=u'关于(A)', underline=3,
                     command=self.about_menuitem_command)
 
             file_menu = tk.Menu(menubar, tearoff=0)
@@ -152,13 +152,13 @@ class NiconvertTk:
 
             file_menu.add_command(**self.quit_menuitem)
             help_menu.add_command(**self.about_menuitem)
-            menubar.add_cascade(label=u"文件(F)", menu=file_menu, underline=3)
-            menubar.add_cascade(label=u"帮助(H)", menu=help_menu, underline=3)
+            menubar.add_cascade(label=u'文件(F)', menu=file_menu, underline=3)
+            menubar.add_cascade(label=u'帮助(H)', menu=help_menu, underline=3)
 
             self.main_window.config(menu=menubar)
 
         def create_analyse_widget():
-            frame = tk.LabelFrame(self.main_frame, text=u"分析")
+            frame = tk.LabelFrame(self.main_frame, text=u'分析')
             frame.pack(fill=tk.BOTH)
 
             self.url_entry = tk.Entry(frame)
@@ -169,7 +169,7 @@ class NiconvertTk:
             self.fetch_button.pack(side=tk.LEFT)
 
         def create_summary_widget():
-            frame = tk.LabelFrame(self.main_frame, text=u"摘要")
+            frame = tk.LabelFrame(self.main_frame, text=u'摘要')
             frame.pack(fill=tk.BOTH)
 
             self.video_title_label = tk.Label(frame, text='', anchor=tk.W)
@@ -187,14 +187,14 @@ class NiconvertTk:
                 spinbox.delete(0, tk.END)
                 spinbox.insert(0, value)
 
-            frame = tk.LabelFrame(self.main_frame, text=u"选项")
+            frame = tk.LabelFrame(self.main_frame, text=u'选项')
             frame.pack(fill=tk.BOTH)
             frame.grid_columnconfigure(1, weight=1)
 
             video_frame = tk.Frame(frame)
 
             if sys.platform == 'win32':
-                font_label = u"微软雅黑 | 24"
+                font_label = u'微软雅黑 | 24'
             else:
                 font_label = 'WenQuanYi Micro Hei | 24'
             self.font_button = tk.Button(frame, text=font_label)
@@ -256,7 +256,7 @@ class NiconvertTk:
             frame = tk.Frame(self.main_frame)
             frame.pack(fill=tk.BOTH)
 
-            self.convert_button = tk.Button(frame, text=u"转换")
+            self.convert_button = tk.Button(frame, text=u'转换')
             self.convert_button.pack(side=tk.RIGHT)
 
         def add_space_for_each_widgets():
@@ -275,7 +275,7 @@ class NiconvertTk:
             window_width, window_height = map(int, window_size.split('x'))
             x = screen_width / 2 - window_width / 2 - 8
             y = screen_height / 2 - window_height / 2 - 20
-            self.main_window.geometry("%dx%d+%d+%d" % (window_width, window_height, x, y))
+            self.main_window.geometry('%dx%d+%d+%d' % (window_width, window_height, x, y))
 
         self.main_frame.pack(fill=tk.BOTH)
         create_menubar()
@@ -288,9 +288,9 @@ class NiconvertTk:
 
     def bind_event(self):
         self.main_window.protocol(
-            "WM_DELETE_WINDOW", self.quit_menuitem_command)
+            'WM_DELETE_WINDOW', self.quit_menuitem_command)
         self.comment_url_label.bind(
-            "<Button-1>", self.comment_url_label_event_handler)
+            '<Button-1>', self.comment_url_label_event_handler)
         self.output_entry.bind(
             '<FocusOut>', self.output_entry_event_handler)
         self.fetch_button['command'] = self.fetch_button_command
@@ -317,12 +317,12 @@ class NiconvertTk:
         font_size = int(font_size)
         result = FontDialog.run(self.main_window, font_name, font_size)
         if result is not None:
-            font_label = "%s | %d" % result
+            font_label = '%s | %d' % result
             self.font_button['text'] = font_label
 
     def fetch_button_command(self):
         url = self.url_entry.get().strip()
-        if not url.startswith("http://"):
+        if not url.startswith('http://'):
             return
 
         try:
@@ -336,7 +336,7 @@ class NiconvertTk:
             return
 
         if self.website is None:
-            self.alert(tkMessageBox.ERROR, u"不支持的网站")
+            self.alert(tkMessageBox.ERROR, u'不支持的网站')
             return
 
         title = self.website.downloader.title
@@ -360,7 +360,7 @@ class NiconvertTk:
             foldername, filename = os.path.split(output)
 
         output = tkFileDialog.asksaveasfilename(parent=self.main_window,
-            title=u"请选择一个文件", initialdir=foldername,
+            title=u'请选择一个文件', initialdir=foldername,
             initialfile=filename
         )
 
@@ -382,9 +382,9 @@ class NiconvertTk:
         output = self.output_entry.get().strip()
         errors = []
         if self.website is None:
-            errors.append(u"未抓取源字幕")
+            errors.append(u'未抓取源字幕')
         if output == '':
-            errors.append(u"未选择输出路径")
+            errors.append(u'未选择输出路径')
         options = {
             u'视频宽度' : video_width,
             u'视频高度' : video_height,
@@ -411,7 +411,7 @@ class NiconvertTk:
         text = self.website.ass_subtitles_text(
             font_name=font_name,
             font_size=font_size,
-            resolution="%d:%d" % (video_width, video_height),
+            resolution='%d:%d' % (video_width, video_height),
             line_count=line_count,
             bottom_margin=bottom_margin,
             tune_seconds=tune_seconds
@@ -420,14 +420,14 @@ class NiconvertTk:
         output = os.path.abspath(output)
         try:
             outfile = open(output, 'w')
-            outfile.write(text.encode("UTF-8"))
+            outfile.write(text.encode('UTF-8'))
             outfile.flush()
             outfile.close()
         except StandardError as error:
             self.alert(tkMessageBox.ERROR, error)
             return
 
-        message = u"转换成功，文件保存到\n %s" % output
+        message = u'转换成功，文件保存到\n %s' % output
         self.alert(tkMessageBox.INFO, message)
 
     def quit_menuitem_command(self):

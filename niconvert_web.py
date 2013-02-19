@@ -62,7 +62,7 @@ def create_website_with_cache(url):
         raise StandardError(unicode(error))
 
     if website is None:
-        raise StandardError(u"不支持的网站")
+        raise StandardError(u'不支持的网站')
     else:
         cache.set(url, website)
     return website
@@ -70,7 +70,7 @@ def create_website_with_cache(url):
 @get('/')
 def setting():
     url = request.params.get('url', '')
-    if url == "":
+    if url == '':
         return template(page_template)
 
     try:
@@ -81,9 +81,9 @@ def setting():
     
     user_agent = request.headers.get('User-Agent', '')
     if user_agent.find('Linux') != -1:
-        default_font_name = "WenQuanYi Micro Hei"
+        default_font_name = 'WenQuanYi Micro Hei'
     else:
-        default_font_name = "微软雅黑"
+        default_font_name = '微软雅黑'
 
     return template(page_template, 
                     url=url,
@@ -94,7 +94,7 @@ def setting():
 @post('/')
 def download():
     url = request.forms.get('url')
-    font_name = request.forms.get('font_name').strip().decode("UTF-8")
+    font_name = request.forms.get('font_name').strip().decode('UTF-8')
 
     try:
         font_size = int(request.forms.get('font_size'))
@@ -115,9 +115,9 @@ def download():
 
     user_agent = request.headers.get('User-Agent', '')
     if user_agent.find('Windows') != -1:
-        filename = website.downloader.title.encode("GBK") + '.ass'
+        filename = website.downloader.title.encode('GBK') + '.ass'
     else:
-        filename = website.downloader.title.encode("UTF-8") + '.ass'
+        filename = website.downloader.title.encode('UTF-8') + '.ass'
 
     response.set_header('Content-Disposition', 'attachment; filename="%s"' % filename)
     response.set_header('Content-Type', 'text/plain; charset=utf-8')
@@ -125,7 +125,7 @@ def download():
     return website.ass_subtitles_text(
             font_name=font_name,
             font_size=font_size, 
-            resolution="%d:%d" % (video_width, video_height),
+            resolution='%d:%d' % (video_width, video_height),
             line_count=line_count,
             bottom_margin=bottom_margin,
             tune_seconds=tune_seconds

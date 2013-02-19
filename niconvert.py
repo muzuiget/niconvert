@@ -17,7 +17,7 @@ import colorsys
 from StringIO import StringIO
 from argparse import ArgumentParser
 
-ASS_HEADER_TPL = """[Script Info]
+ASS_HEADER_TPL = '''[Script Info]
 ScriptType: v4.00+
 Collisions: Normal
 PlayResX: %(video_width)s
@@ -29,9 +29,9 @@ Style: NicoDefault, %(font_name)s, %(font_size)s, &H00FFFFFF, &H00FFFFFF, &H0000
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-"""
+'''
 
-USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2"
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64; rv:10.0.2) Gecko/20100101 Firefox/10.0.2'
 
 def get_logger(logger_name):
     format_string = '%(asctime)s %(levelname)5s %(message)s'
@@ -160,7 +160,7 @@ class AssSubtitle:
         i, d = divmod(seconds, 1)
         m, s = divmod(i, 60)
         h, m = divmod(m, 60)
-        return "%d:%02d:%02d.%02d" % (h, m, s, d * 100)
+        return '%d:%02d:%02d.%02d' % (h, m, s, d * 100)
 
     def init_text_length(self):
         return float(len(self.nico_subtitle.text))
@@ -242,27 +242,27 @@ class AssSubtitle:
 
     def init_styled_text(self, ):
         if self.nico_subtitle.font_color == 'FFFFFF':
-            color_markup = ""
+            color_markup = ''
         else:
-            color_markup = "\\c&H%s" % self.nico_subtitle.font_color
+            color_markup = '\\c&H%s' % self.nico_subtitle.font_color
         if self.nico_subtitle.white_border:
-            border_markup = "\\3c&HFFFFFF"
+            border_markup = '\\3c&HFFFFFF'
         else:
-            border_markup = ""
+            border_markup = ''
         if self.font_size == self.base_font_size:
-            font_size_markup = ""
+            font_size_markup = ''
         else:
-            font_size_markup = "\\fs%d" % self.font_size
+            font_size_markup = '\\fs%d' % self.font_size
         if self.nico_subtitle.style == NicoSubtitle.SCROLL:
-            style_markup = "\\move(%d, %d, %d, %d)" % (self.x1, self.y1, self.x2, self.y2)
+            style_markup = '\\move(%d, %d, %d, %d)' % (self.x1, self.y1, self.x2, self.y2)
         else:
-            style_markup = "\\a6\\pos(%d, %d)" % (self.x1, self.y1)
-        markup = "".join([style_markup, color_markup, border_markup, font_size_markup])
-        return "{%s}%s" % (markup, self.nico_subtitle.text)
+            style_markup = '\\a6\\pos(%d, %d)' % (self.x1, self.y1)
+        markup = ''.join([style_markup, color_markup, border_markup, font_size_markup])
+        return '{%s}%s' % (markup, self.nico_subtitle.text)
 
     @property
     def ass_line(self):
-        return "Dialogue: 3,%(start)s,%(end)s,NicoDefault,,0000,0000,0000,,%(styled_text)s" % dict(
+        return 'Dialogue: 3,%(start)s,%(end)s,NicoDefault,,0000,0000,0000,,%(styled_text)s' % dict(
                 start=self.start,
                 end=self.end,
                 styled_text=self.styled_text)
@@ -325,7 +325,7 @@ class BilibiliDownloaderAlt(Downloader):
         Downloader.__init__(self, url)
 
     def get_html(self):
-        return ""
+        return ''
 
     def get_title(self):
         faketitle = self.url.split('tv/')[1]
@@ -341,7 +341,7 @@ class BilibiliDownloaderAlt(Downloader):
 
 class AcfunDownloader(Downloader):
 
-    VIDEO_UID_RE = re.compile("\[video\](.+?)\[/video\]", re.IGNORECASE)
+    VIDEO_UID_RE = re.compile('\[video\](.+?)\[/video\]', re.IGNORECASE)
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -364,7 +364,7 @@ class AcfunDownloaderAlt(Downloader):
         Downloader.__init__(self, url)
 
     def get_html(self):
-        return ""
+        return ''
 
     def get_title(self):
         faketitle = self.url.split('.json')[0].split('/')[-1]
@@ -417,7 +417,7 @@ class Website:
                                            video_height=video_height,
                                            font_name=font_name,
                                            font_size=font_size)
-        text = ass_header + "\n".join(ass_lines)
+        text = ass_header + '\n'.join(ass_lines)
         return text
 
 class Bilibili(Website):
@@ -446,7 +446,7 @@ class Bilibili(Website):
             nico_subtitle.font_size = int(attributes[2])
             nico_subtitle.font_color = NicoSubtitle.to_bgr(int(attributes[3]))
             nico_subtitle.white_border = NicoSubtitle.need_white_border(int(attributes[3]))
-            nico_subtitle.text = self.unescape(line[1].decode("UTF-8"))
+            nico_subtitle.text = self.unescape(line[1].decode('UTF-8'))
 
             if nico_subtitle.style != NicoSubtitle.NOT_SUPPORT:
                 nico_subtitles.append(nico_subtitle)
@@ -500,7 +500,7 @@ def get_commandline_arguments():
     argument_parser.add_argument('-o', '--output', help='保存文件名，默认为网页标题',
                                  metavar='output', type=str, default=None)
     argument_parser.add_argument('-r', '--resolution', help='视频分辨率，格式如「1920:1080」',
-                                 metavar='resolution', type=str, default="1920:1080")
+                                 metavar='resolution', type=str, default='1920:1080')
     argument_parser.add_argument('-f', '--font_name', help='使用字体名称',
                                  metavar='font_name', type=str, default='WenQuanYi Micro Hei')
     argument_parser.add_argument('-s', '--font_size', help='默认字体大小',
@@ -546,7 +546,7 @@ def main():
 
     output = output.replace('/', '')
     with open(output, 'w') as outfile:
-        outfile.write(text.encode("UTF-8"))
+        outfile.write(text.encode('UTF-8'))
 
 if __name__ == '__main__':
     main()

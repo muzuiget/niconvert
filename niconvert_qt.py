@@ -63,12 +63,12 @@ class NiconvertQt:
     def alert(self, message_type, message_text):
         dialog = QMessageBox()
         dialog.setIcon(message_type)
-        dialog.setText("%s" % message_text)
+        dialog.setText('%s' % message_text)
         dialog.exec_()
 
     def fetch_pushButton_clicked_slot(self):
         url = self.url_lineEdit.text().strip()
-        if not url.startswith("http://"):
+        if not url.startswith('http://'):
             return
 
         try:
@@ -100,7 +100,7 @@ class NiconvertQt:
             QFont(font_name, font_size), self.main_window)
 
         if respose:
-            font_label = "%s | %d" % (
+            font_label = '%s | %d' % (
                 font.family(), font.pointSize())
             self.font_pushButton.setText(font_label)
 
@@ -121,7 +121,7 @@ class NiconvertQt:
             filepath = output
 
         output = QFileDialog.getSaveFileName(
-            self.main_window, u"请选择一个文件", filepath)[0]
+            self.main_window, u'请选择一个文件', filepath)[0]
 
         if output != '':
             if not output.endswith('.ass'):
@@ -140,9 +140,9 @@ class NiconvertQt:
         output = self.output_lineEdit.text().strip()
         errors = []
         if self.website is None:
-            errors.append(u"未抓取源字幕")
+            errors.append(u'未抓取源字幕')
         if output == '':
-            errors.append(u"未选择输出路径")
+            errors.append(u'未选择输出路径')
 
         if len(errors) != 0:
             self.alert(QMessageBox.Critical, '\n'.join(errors))
@@ -151,7 +151,7 @@ class NiconvertQt:
         text = self.website.ass_subtitles_text(
             font_name=font_name,
             font_size=font_size,
-            resolution="%d:%d" % (video_width, video_height),
+            resolution='%d:%d' % (video_width, video_height),
             line_count=line_count,
             bottom_margin=bottom_margin,
             tune_seconds=tune_seconds
@@ -160,7 +160,7 @@ class NiconvertQt:
         output = os.path.abspath(output)
         try:
             outfile = open(output, 'w')
-            outfile.write(text.encode("UTF-8"))
+            outfile.write(text.encode('UTF-8'))
             outfile.flush()
             outfile.close()
         except StandardError as error:
