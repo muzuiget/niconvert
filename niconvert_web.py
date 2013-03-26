@@ -112,8 +112,8 @@ def download():
         return template(page_template, message=message)
 
     user_agent = request.headers.get('User-Agent', '')
-    if user_agent.find('Windows') != -1:
-        filename = website.downloader.title.encode('GBK') + '.ass'
+    if user_agent.find('MSIE') != -1: # Fuck you, IE
+        filename = 'video.ass'
     else:
         filename = website.downloader.title.encode('UTF-8') + '.ass'
 
@@ -130,7 +130,7 @@ def download():
     )
 
 def main():
-    run(host='127.0.0.1', port=8624)
+    run(host='0.0.0.0', port=8624)
 
 if __name__ == '__main__':
     main()
