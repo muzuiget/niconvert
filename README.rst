@@ -17,7 +17,12 @@ niconvert 是一个弹幕下载和转换工具。把弹幕网站的评论转换�
 
 * 自定义字幕样式。
 
-* 多种界面，支持 Linux/Mac/Windows。
+* 多种界面，包括 cli/tk/gtk/qt/wxwidget，支持 Linux/Mac/Windows。
+
+效果预览：
+
+.. image:: http://static.qixinglu.com/github/images/niconvert/preview.jpg
+    :target: http://static.qixinglu.com/github/images/niconvert/preview_full.jpg
 
 更多信息请阅读 Wiki_ 。
 

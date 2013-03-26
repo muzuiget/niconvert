@@ -59,6 +59,9 @@ ul {
 #introduce p:last-child {
     margin-bottom: 0;
 }
+#preview {
+    text-align: center;
+}
 input[type="text"] {
     border: 1px solid #D6D6D6;
     height: 24px;
@@ -109,8 +112,9 @@ label {
 <div id="content">
     %if not defined('url'):
     <div id="introduce">
-        <p>niconvert 是一个弹幕下载和转换工具，把 AcFun/Bilibili 的评论转换成 ass 字幕格式。</p>
+        <p>niconvert 是一个弹幕下载和转换工具，把弹幕评论转换成 ass 字幕格式，目前支持 acfun/bilibili。</p>
         <p>这是在线版，方便伸手党体验，也可以到<a href="https://github.com/muzuiget/niconvert#readme">项目主页</a>下载桌面版。</p>
+        <p id="preview"><a href="http://static.qixinglu.com/github/images/niconvert/preview_full.jpg"><img src="http://static.qixinglu.com/github/images/niconvert/preview.jpg" /></a></p>
     </div>
     %end
 
