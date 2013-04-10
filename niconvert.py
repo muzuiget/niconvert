@@ -342,6 +342,7 @@ class BilibiliDownloaderAlt(Downloader):
 class AcfunDownloader(Downloader):
 
     VIDEO_UID_RE = re.compile('\[video\](.+?)\[/video\]', re.IGNORECASE)
+    VIDEO_UID_RE2 = re.compile('src="/newflvplayer/player.swf\?id=(.+?)&', re.IGNORECASE)
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -350,10 +351,15 @@ class AcfunDownloader(Downloader):
         return fetch_url(self.url)
 
     def get_comment_url(self):
-        vid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0]
+        try:
+            vid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0]
+        except IndexError:
+            vid = AcfunDownloader.VIDEO_UID_RE2.findall(self.html)[0]
         info_url = 'http://www.acfun.tv/api/player/vids/' + vid + '.aspx'
-        video_uid = json.loads(fetch_url(info_url))['cid']
-
+        try:
+            video_uid = json.loads(fetch_url(info_url))['cid']
+        except KeyError:
+            video_uid = vid
         comment_url = 'http://comment.acfun.tv/%s.json' % video_uid
         logger.info(u'评论地址: %s', comment_url)
         return comment_url
