@@ -343,6 +343,7 @@ class AcfunDownloader(Downloader):
 
     VIDEO_UID_RE = re.compile('\[video\](.+?)\[/video\]', re.IGNORECASE)
     VIDEO_UID_RE2 = re.compile('src="/newflvplayer/player.swf\?id=(.+?)&', re.IGNORECASE)
+    VIDEO_UID_RE3 = re.compile('flashvars=".*id=(.+?)"', re.IGNORECASE)
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -354,7 +355,11 @@ class AcfunDownloader(Downloader):
         try:
             vid = AcfunDownloader.VIDEO_UID_RE.findall(self.html)[0]
         except IndexError:
-            vid = AcfunDownloader.VIDEO_UID_RE2.findall(self.html)[0]
+            try:
+                vid = AcfunDownloader.VIDEO_UID_RE2.findall(self.html)[0]
+            except IndexError:
+                vid = AcfunDownloader.VIDEO_UID_RE3.findall(self.html)[0]
+
         info_url = 'http://www.acfun.tv/api/player/vids/' + vid + '.aspx'
         try:
             video_uid = json.loads(fetch_url(info_url))['cid']
