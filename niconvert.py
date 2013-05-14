@@ -299,6 +299,7 @@ class BilibiliDownloader(Downloader):
     FLASHVARS_RE = re.compile('flashvars="(.+?)"', re.DOTALL)
     SECURE_RE = re.compile('\/secure,(.+?)"', re.DOTALL)
     VIDEO_UID_RE = re.compile('<chatid>(.+?)<\/chatid>', re.DOTALL)
+    FLASHVARS_RE2 = re.compile("var flashvars = {vid:'.+?',cid:'(.+?)'}", re.DOTALL)
 
     def __init__(self, url):
         Downloader.__init__(self, url)
@@ -310,10 +311,17 @@ class BilibiliDownloader(Downloader):
         matches = BilibiliDownloader.FLASHVARS_RE.findall(self.html)
         if len(matches) == 0:
             matches = BilibiliDownloader.SECURE_RE.findall(self.html)
+        if len(matches) == 0:
+            matches = BilibiliDownloader.FLASHVARS_RE2.findall(self.html)
         info_args = matches[0].replace('&amp;', '&');
-        info_url = 'http://interface.bilibili.tv/player?' + info_args;
+        info_url = 'http://interface.bilibili.tv/player?' + info_args
         info_conent = fetch_url(info_url)
-        video_uid = BilibiliDownloader.VIDEO_UID_RE.findall(info_conent)[0]
+
+        matches = BilibiliDownloader.VIDEO_UID_RE.findall(info_conent)
+        if len(matches) == 0:
+            video_uid = info_args
+        else:
+            video_uid = matches[0]
 
         comment_url = 'http://comment.bilibili.tv/%s.xml' % video_uid
         logger.info(u'评论地址: %s', comment_url)
