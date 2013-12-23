@@ -63,6 +63,8 @@ class Display(object):
         ''' 整条字幕的显示时间 '''
 
         base = 3 + self.config.tune_duration
+        if base <= 0:
+            base = 0
         char_count = self.max_length / 2
 
         if char_count < 6:
@@ -162,6 +164,8 @@ class ScrollDisplay(Display):
         # 基准时间，就是每个字的移动时间
         # 12 秒加上用户自定义的微调
         base = 12 + self.config.tune_duration
+        if base <= 0:
+            base = 0
         return intceil(self.config.screen_width / base)
 
     def _sync_duration(self):
@@ -178,6 +182,8 @@ class ScrollDisplay(Display):
         '''
 
         base = 6 + self.config.tune_duration
+        if base <= 0:
+            base = 0
         char_count = self.max_length / 2
 
         if char_count < 6:

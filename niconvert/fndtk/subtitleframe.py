@@ -93,7 +93,7 @@ class SubtitleFrame(ttk.LabelFrame):
 
     def init_tune_duration_widgets(self):
         label = ttk.Label(self, text='微调时长：')
-        spinbox = tk.Spinbox(self, justify=tk.RIGHT, from_=0, to=100)
+        spinbox = tk.Spinbox(self, justify=tk.RIGHT, from_=-10, to=100)
         label1 = ttk.Label(self, text='秒')
 
         label.grid(row=5, column=0, sticky=tk.E)
