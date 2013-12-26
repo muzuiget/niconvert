@@ -36,7 +36,7 @@ def convert(io_args, danmaku_args, subtitle_args):
     print('下载文件')
     print('--------')
     producer.start_download()
-    print('')
+    print()
 
     print('--------')
     print('视频信息')
@@ -46,7 +46,7 @@ def convert(io_args, danmaku_args, subtitle_args):
         print('视频长度({0.play_length}) 正片位置({0.feature_start}) '
               '弹幕数量({1})'
               .format(video, len(video.danmakus)))
-    print('')
+    print()
 
     producer.start_handle()
 
@@ -58,7 +58,7 @@ def convert(io_args, danmaku_args, subtitle_args):
           .format(producer.blocked_count, **producer.filter_detail))
     print('通过条数：总共({0.total_count}) - 屏蔽({0.blocked_count}) = '
           '{0.passed_count}'.format(producer))
-    print('')
+    print()
 
     studio = Studio(subtitle_args, producer)
     studio.start_handle()
@@ -72,7 +72,7 @@ def convert(io_args, danmaku_args, subtitle_args):
     print('字幕文件：' + studio.create_ass_file(output_filename))
     if create_playlist:
         print('播放列表：' + studio.create_m3u_file(output_filename))
-    print('')
+    print()
 
 
 def main():

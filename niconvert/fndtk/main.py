@@ -109,7 +109,7 @@ class Application(ttk.Frame):
             print('========')
             print('开始转换')
             print('========')
-            print('')
+            print()
             convert(*args_list)
         except:
             print(traceback.format_exc())
