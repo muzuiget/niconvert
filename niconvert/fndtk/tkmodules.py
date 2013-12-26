@@ -35,10 +35,11 @@ class tku(object):
         screen_height = win.winfo_screenheight()
         window_size = win.geometry().split('+')[0]
         window_width, window_height = map(int, window_size.split('x'))
-        x = screen_width / 2 - window_width / 2 - 8
-        y = screen_height / 2 - window_height / 2 - 40
-        win.geometry('%dx%d+%d+%d' %
-                    (window_width, window_height, x, y))
+        x = (screen_width - window_width) // 2
+        y = (screen_height - window_height) // 2
+        y -= 40  # 状态栏大约高度
+        win.geometry('{:d}x{:d}+{:d}+{:d}'.format(
+                     window_width, window_height, x, y))
 
     @staticmethod
     def asset_path(name):

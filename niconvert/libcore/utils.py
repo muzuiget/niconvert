@@ -37,7 +37,8 @@ def s2hms(seconds):
     i, d = divmod(seconds, 1)
     m, s = divmod(i, 60)
     h, m = divmod(m, 60)
-    return '%d:%02d:%02d.%02d' % (h, m, s, d * 100)
+    (h, m, s, d) = map(int, (h, m, s, d * 100))
+    return '{:d}:{:02d}:{:02d}.{:02d}'.format(h, m, s, d)
 
 
 def hms2s(hms):

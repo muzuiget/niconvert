@@ -48,11 +48,11 @@ class Creater(object):
         return subtitles
 
     def _text(self):
-        header = self.config.header_template % dict(
+        header = self.config.header_template.format(
             width=self.config.screen_width,
             height=self.config.screen_height,
-            font_name=self.config.font_name,
-            font_size=self.config.base_font_size,
+            fontname=self.config.font_name,
+            fontsize=self.config.base_font_size,
         )
         events = (subtitle.text for subtitle in self.subtitles)
         text = header + '\n'.join(events)

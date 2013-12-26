@@ -2,7 +2,7 @@ from ..libcore.const import SCROLL
 from ..libcore.utils import s2hms, int2bgr, is_dark, correct_typos
 
 DIALOGUE_TPL = '''
-Dialogue: %(layer)s,%(start)s,%(end)s,Danmaku,,0000,0000,0000,,%(content)s
+Dialogue: {layer},{start},{end},Danmaku,,0000,0000,0000,,{content}
 '''.strip()
 
 
@@ -53,7 +53,7 @@ class Subtitle(object):
         if self.color == 'FFFFFF':
             return ''
         else:
-            return '\\c&H%s' % self.color
+            return '\\c&H' + self.color
 
     def _border_markup(self):
         # 暗色加个亮色边框，方便阅读
@@ -64,15 +64,15 @@ class Subtitle(object):
 
     def _font_size_markup(self):
         if self.display.is_scaled:
-            return '\\fs%d' % self.display.font_size
+            return '\\fs' + str(self.display.font_size)
         else:
             return ''
 
     def _style_markup(self):
         if self.danmaku.style == SCROLL:
-            return '\\move(%(x1)d, %(y1)d, %(x2)d, %(y2)d)' % self.position
+            return '\\move({x1}, {y1}, {x2}, {y2})'.format(**self.position)
         else:
-            return '\\a6\\pos(%(x1)d, %(y1)d)' % self.position
+            return '\\a6\\pos({x1}, {y1})'.format(**self.position)
 
     def _layer_markup(self):
         if self.danmaku.style != SCROLL:
@@ -88,10 +88,10 @@ class Subtitle(object):
             self.font_size_markup
         ])
         content = correct_typos(self.danmaku.content)
-        return '{%s}%s' % (markup, content)
+        return '{' + markup + '}' + content
 
     def _text(self):
-        return DIALOGUE_TPL % dict(
+        return DIALOGUE_TPL.format(
             layer=self.layer_markup,
             start=self.start_markup,
             end=self.end_markup,
