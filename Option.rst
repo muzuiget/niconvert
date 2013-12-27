@@ -212,7 +212,7 @@
 
 命令行参数： ``+h/--header-file FILE``
 
-自定义 ass 文件头的样式模板，默认是是程序根目录下的 niconvert/libass/header.tpl，可以复制一份来修改。
+自定义 ass 文件头的样式模板，默认是是 niconvert/libass/ 中的 header-unix.txt 或 header-win.txt，可以复制一份来修改。
 
 以下占位符会根据选项值自动替换
 
