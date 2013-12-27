@@ -28,10 +28,10 @@ class Config(object):
         if self.args['font_name']:
             return self.args['font_name']
 
-        if sys.platform == 'linux':
-            return 'WenQuanYi Micro Hei'
-        else:
+        if sys.platform.startswith('win'):
             return '微软雅黑'
+        else:
+            return 'WenQuanYi Micro Hei'
 
     def _base_font_size(self):
         return self.args['font_size']
@@ -59,9 +59,15 @@ class Config(object):
 
     def _header_template(self):
         if not self.args['header_file']:
-            filename = (os.path.dirname(__file__) + '/header.tpl')
+            if sys.platform.startswith('win'):
+                tpl_file = '/header-win.txt'
+            else:
+                tpl_file = '/header-unix.txt'
+            filename = (os.path.dirname(__file__) + tpl_file)
         else:
             filename = self.args['header_file']
         with open(filename) as file:
-            header = file.read().strip() + '\n'
+            lines = file.read().strip().split('\n')
+            lines = map(lambda l: l.strip(), lines)
+            header = '\n'.join(lines) + '\n'
         return header
