@@ -26,6 +26,8 @@ Bilibili
 
 * 播放器地址 ``https://secure.bilibili.tv/secure,aaa=xxx``
 
+* 弹幕地址 ``http://comment.bilibili.tv/XXXXXX.xml``
+
 * 辅助地址 ``b://aaa=xxx,bbb=yyy``
 
 Acfun
@@ -34,6 +36,8 @@ Acfun
 支持地址类型：
 
 * 标准地址 ``http://www.acfun.tv/v/acXXXXXX``
+
+* 弹幕地址 ``http://comment.acfun.tv/XXXXXX.json``
 
 * 辅助地址 ``a://aaa=xxx,bbb=yyy``
 
