@@ -227,6 +227,7 @@ class Page(object):
         abbr_prefix = 'b://'
         secure_prefix = 'https://secure.bilibili.tv/secure,'
         normal_prefix = 'http://www.bilibili.tv/video/av'
+        comment_prefix = 'http://comment.bilibili.tv/'
 
         url = self.url
         params = {}
@@ -243,6 +244,11 @@ class Page(object):
             if url.endswith('/'):
                 url += 'index_1.html'
             params = self.extract_params_from_normal_page(url)
+
+        elif url.startswith(comment_prefix):
+            aid = ''
+            cid = url[len(comment_prefix):-4]
+            params = dict(aid=aid, cid=cid)
 
         return params
 
