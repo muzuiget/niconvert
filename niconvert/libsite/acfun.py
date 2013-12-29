@@ -156,6 +156,7 @@ class Page(object):
     def _params(self):
         abbr_prefix = 'a://'
         normal_prefix = 'http://www.acfun.tv/v/ac'
+        comment_prefix = 'http://comment.acfun.tv/'
 
         url = self.url
         params = {}
@@ -168,6 +169,11 @@ class Page(object):
             if '_' not in url:
                 url += '_1'
             params = self.extract_params_from_normal_page(url)
+
+        elif url.startswith(comment_prefix):
+            vid = ''
+            cid = url[len(comment_prefix):-5]
+            params = dict(vid=vid, cid=cid)
 
         return params
 
