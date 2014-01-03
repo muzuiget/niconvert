@@ -227,6 +227,7 @@ class Page(object):
         abbr_prefix = 'b://'
         secure_prefix = 'https://secure.bilibili.tv/secure,'
         normal_prefix = 'http://www.bilibili.tv/video/av'
+        normal1_prefix = 'http://bilibili.kankanews.com/video/av'
         comment_prefix = 'http://comment.bilibili.tv/'
 
         url = self.url
@@ -240,7 +241,7 @@ class Page(object):
             argv = url[len(secure_prefix):].replace('&', ',')
             params = extract_params(argv)
 
-        elif url.startswith(normal_prefix):
+        elif url.startswith(normal_prefix) or url.startswith(normal1_prefix):
             if url.endswith('/'):
                 url += 'index_1.html'
             params = self.extract_params_from_normal_page(url)

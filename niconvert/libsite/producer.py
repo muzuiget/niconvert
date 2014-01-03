@@ -6,11 +6,11 @@ from .tucao import Page as TucaoPage
 
 
 def make_page(url):
-    if url.startswith('b://') or 'bilibili.tv' in url:
+    if url.startswith('b://') or 'bilibili' in url:
         page = BilibiliPage(url)
-    elif url.startswith('a://') or 'acfun.tv' in url:
+    elif url.startswith('a://') or 'acfun' in url:
         page = AcfunPage(url)
-    elif url.startswith('c://') or 'tucao.cc' in url:
+    elif url.startswith('c://') or 'tucao' in url:
         page = TucaoPage(url)
     if page is None:
         raise Exception('不支持的网址')
@@ -18,8 +18,11 @@ def make_page(url):
 
 
 def make_part_pages(url):
-    if url.startswith('http://www.bilibili.tv/video/av'):
-        return BilibiliPart(url).pages
+    prefixes = ['http://www.bilibili.tv/video/av',
+                'http://bilibili.kankanews.com/video/av']
+    for prefix in prefixes:
+        if url.startswith(prefix):
+            return BilibiliPart(url).pages
     raise Exception('此网址不支持自动合并分段')
 
 
