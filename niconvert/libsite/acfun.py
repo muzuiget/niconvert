@@ -179,8 +179,8 @@ class Page(object):
 
     def extract_params_from_normal_page(self, url):
         aid_reg = re.compile('/ac([0-9]+)')
-        vid_reg = re.compile('\[video\](.+?)\[/video\]', re.IGNORECASE)
-        h1_reg = re.compile('system.title = "(.+?)";')
+        vid_reg = re.compile('active" data-vid="(.+?)"')
+        h1_reg = re.compile('<h1>(.+?)</h1>')
         text = fetch(url)
 
         params = {}
