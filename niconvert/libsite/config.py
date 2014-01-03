@@ -27,8 +27,9 @@ class Config(object):
             return []
         filename = self.args['custom_filter']
         with open(filename) as file:
-            lines = file.read().strip() + '\n'
-
+            text = file.read().strip() + '\n'
+            lines = map(lambda l: l.strip(), text.split('\n'))
+            lines = list(filter(lambda l: l != '', lines))
         return CustomFilter(lines)
 
     def _disable_bottom_filter(self):

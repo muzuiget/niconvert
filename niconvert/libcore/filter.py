@@ -31,9 +31,7 @@ class CustomFilter(BaseFilter):
         self.regexps = self._regexps()
 
     def _regexps(self):
-        lines = filter(lambda l: l.strip(), self.lines)
-        lines = filter(lambda l: l != '', lines)
-        return list(map(re.compile, lines))
+        return list(map(re.compile, self.lines))
 
     def match(self, danmaku):
         for regexp in self.regexps:
