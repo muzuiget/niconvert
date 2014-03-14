@@ -20,6 +20,8 @@ class BottomFilter(BaseFilter):
     ''' 底部样式过滤器 '''
 
     def match(self, danmaku):
+        if danmaku.is_applaud:
+            return False
         return danmaku.style == BOTTOM
 
 

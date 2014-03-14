@@ -20,6 +20,7 @@ class Danmaku(BaseDanmaku):
         self.content = self._content()
         self.size_ratio = self._size_ratio()
         self.is_guest = self._is_guest()
+        self.is_applaud = self._is_applaud()
 
     def _raw(self):
         attr_string = self.entry['c']
@@ -70,6 +71,9 @@ class Danmaku(BaseDanmaku):
     def _is_guest(self):
         # 似乎 14 个字符长，还包含英文字母的就是游客
         return len(self.raw['commenter']) == 14
+
+    def _is_applaud(self):
+        return False
 
 
 class Video(BaseVideo):

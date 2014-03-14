@@ -26,3 +26,6 @@ class BaseDanmaku(object):
 
         # 是否游客弹幕
         self.is_guest = False
+
+        # 是否歌词或神弹幕
+        self.is_applaud = False

@@ -41,6 +41,7 @@ class Danmaku(BaseDanmaku):
         self.content = self._content()
         self.size_ratio = self._size_ratio()
         self.is_guest = self._is_guest()
+        self.is_applaud = self._is_applaud()
 
     def _raw(self):
         reg = re.compile('<d p="(.+?)">(.*?)</d>')
@@ -93,6 +94,10 @@ class Danmaku(BaseDanmaku):
     def _is_guest(self):
         # 以 D 开头都是游客评论
         return self.raw['commenter'].startswith('D')
+
+    def _is_applaud(self):
+        # 不是 0 就是特殊池
+        return self.raw['pool'] != 0
 
 
 class Video(BaseVideo):

@@ -19,6 +19,7 @@ class Danmaku(BaseDanmaku):
         self.content = self._content()
         self.size_ratio = self._size_ratio()
         self.is_guest = self._is_guest()
+        self.is_applaud = self._is_applaud()
 
     def _raw(self):
         reg = re.compile("<d p='(.+?)'><!\[CDATA\[(.*?)\]\]></d>")
@@ -68,6 +69,9 @@ class Danmaku(BaseDanmaku):
 
     def _is_guest(self):
         # 没有可以判断的依据
+        return False
+
+    def _is_applaud(self):
         return False
 
 
