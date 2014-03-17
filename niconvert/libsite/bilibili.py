@@ -195,7 +195,7 @@ class Video(BaseVideo):
         reg = re.compile('<timelength>(.+?)</timelength>')
         matches = reg.findall(text)
         if matches:
-            play_length = int(matches[0]) // 1000
+            play_length = int(float(matches[0])) // 1000
         else:
             play_length = 0
 
