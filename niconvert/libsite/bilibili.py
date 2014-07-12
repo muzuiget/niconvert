@@ -132,7 +132,7 @@ class Video(BaseVideo):
 
         reg = re.compile('<chatid>(.+?)</chatid>')
         for id in ids:
-            url = 'http://interface.bilibili.tv/player?id=' + id
+            url = 'http://interface.bilibili.com/player?id=' + id
             text = fetch(url)
             matches = reg.findall(text)
             if matches:
@@ -144,7 +144,7 @@ class Video(BaseVideo):
         value = self.meta.get('aid')
         if value is not None:
             return value
-        url = 'http://interface.bilibili.tv/player?id=cid:' + self.cid
+        url = 'http://interface.bilibili.com/player?id=cid:' + self.cid
         text = fetch(url)
         reg = re.compile('<aid>(.+?)</aid>')
         matches = reg.findall(text)
@@ -174,13 +174,13 @@ class Video(BaseVideo):
             return None
         if not self.aid:
             return None
-        tpl = 'http://comment.bilibili.tv/cloud/filter/{}.json'
+        tpl = 'http://comment.bilibili.com/cloud/filter/{}.json'
         url = tpl.format(self.aid)
         text = fetch(url)
         return Filter(text)
 
     def _play_info(self):
-        tpl = 'http://interface.bilibili.tv/playurl?cid={}'
+        tpl = 'http://interface.bilibili.com/playurl?cid={}'
         url = tpl.format(self.cid)
         text = fetch(url)
 
@@ -208,7 +208,7 @@ class Video(BaseVideo):
         return play_length, play_urls
 
     def _danmakus(self):
-        tpl = 'http://comment.bilibili.tv/{}.xml'
+        tpl = 'http://comment.bilibili.com/{}.xml'
         url = tpl.format(self.cid)
         text = fetch(url)
         reg = re.compile('<d .*</d>')
@@ -238,10 +238,10 @@ class Page(object):
 
     def _params(self):
         abbr_prefix = 'b://'
-        secure_prefix = 'https://secure.bilibili.tv/secure,'
-        normal_prefix = 'http://www.bilibili.tv/video/av'
+        secure_prefix = 'https://secure.bilibili.com/secure,'
+        normal_prefix = 'http://www.bilibili.com/video/av'
         normal1_prefix = 'http://bilibili.kankanews.com/video/av'
-        comment_prefix = 'http://comment.bilibili.tv/'
+        comment_prefix = 'http://comment.bilibili.com/'
 
         url = self.url
         params = {}
@@ -306,7 +306,7 @@ class Part(object):
     def full_urlify(self, fuzzy_url):
         url = fuzzy_url
         if url.startswith('/'):
-            url = 'http://www.bilibili.tv' + url
+            url = 'http://www.bilibili.com' + url
         if fuzzy_url.endswith('/'):
             url += 'index_1.html'
         return url

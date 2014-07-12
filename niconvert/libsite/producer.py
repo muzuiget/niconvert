@@ -18,7 +18,7 @@ def make_page(url):
 
 
 def make_part_pages(url):
-    prefixes = ['http://www.bilibili.tv/video/av',
+    prefixes = ['http://www.bilibili.com/video/av',
                 'http://bilibili.kankanews.com/video/av']
     for prefix in prefixes:
         if url.startswith(prefix):
