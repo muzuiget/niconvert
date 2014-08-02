@@ -30,6 +30,8 @@ Bilibili
 
 * 辅助地址 ``b://aaa=xxx,bbb=yyy``
 
+* 本地文件地址 ``/path/to/comment.xml``
+
 Acfun
 -----
 
