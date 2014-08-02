@@ -1,3 +1,4 @@
+import os
 import re
 import json
 from ..libcore.const import NOT_SUPPORT, SCROLL, TOP, BOTTOM
@@ -310,3 +311,40 @@ class Part(object):
         if fuzzy_url.endswith('/'):
             url += 'index_1.html'
         return url
+
+
+class LocalVideo(object):
+
+    def __init__(self, config, meta):
+        self.config = config
+        self.meta = meta
+        self.title = self._title()
+        self.uid = '0'
+        self.danmakus = self._danmakus()
+        self.play_length = 0
+        self.feature_start = 0
+        self.filter = None
+        self.play_urls = []
+
+    def _title(self):
+        title = os.path.basename(self.meta['path'])
+        if '.' in title:
+            title = title.split('.')[0]
+        return title
+
+    def _danmakus(self):
+        path = self.meta['path']
+        text = open(path).read()
+        reg = re.compile('<d .*</d>')
+        matches = reg.findall(text)
+        orignal_danmakus = map(Danmaku, matches)
+        ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
+        return ordered_danmakus
+
+
+class LocalPage(object):
+
+    def __init__(self, url):
+        self.url = url
+        self.video_class = LocalVideo
+        self.params = {'path': self.url}

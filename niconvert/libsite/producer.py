@@ -1,11 +1,15 @@
+import os
 from ..libcore.filter import guest_filter, bottom_filter
 from .config import Config
-from .bilibili import Page as BilibiliPage, Part as BilibiliPart
+from .bilibili import (
+    Page as BilibiliPage, LocalPage as BilibiliLocalPage,
+    Part as BilibiliPart)
 from .acfun import Page as AcfunPage
 from .tucao import Page as TucaoPage
 
 
-def make_page(url):
+def make_normal_page(url):
+    page = None
     if url.startswith('b://') or 'bilibili' in url:
         page = BilibiliPage(url)
     elif url.startswith('a://') or 'acfun' in url:
@@ -15,6 +19,22 @@ def make_page(url):
     if page is None:
         raise Exception('不支持的网址')
     return page
+
+
+def make_local_page(url):
+    page = None
+    if 'xml' in url:
+        page = BilibiliLocalPage(url)
+    if page is None:
+        raise Exception('不支持的文件')
+    return page
+
+
+def make_page(url):
+    if os.path.exists(url):
+        return make_local_page(url)
+    else:
+        return make_normal_page(url)
 
 
 def make_part_pages(url):
