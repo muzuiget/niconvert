@@ -207,10 +207,9 @@ class ScrollDisplay(Display):
         ''' 离开碰撞时间 '''
 
         # 对于滚动样式弹幕来说，就是最后一个字符离开最右边缘的时间
-        # 也就是跑过半个字幕宽度的路程
-        speed = self.distance / self.duration
-        half_width = self.width * 0.5
-        duration = half_width / speed
+        # 坐标是字幕中点，在屏幕外和内各有半个字幕宽度
+        # 也就是跑过一个字幕宽度的路程
+        duration = self.width / self.speed
         return self.danmaku.start + duration
 
 

@@ -25,13 +25,11 @@ class Collision(object):
             beyonds.append(beyond)
 
         # 所有行都没有空间了，那么找出哪一行能在最短时间内让出空间
-        min_beyond = min(beyonds)
-        line_index = beyonds.index(min_beyond)
-        offset = -min_beyond
+        soon = max(beyonds)
+        line_index = beyonds.index(soon)
+        offset = -soon
         return line_index, offset
 
     def update(self, leave, line_index, offset):
         ''' 更新碰撞信息 '''
-        # 还是未能精确和播放器同步，算上 1 秒误差，让字幕稀疏一点
-        deviation = 1
-        self.leaves[line_index] = intceil(leave + offset) + deviation
+        self.leaves[line_index] = intceil(leave + offset)
