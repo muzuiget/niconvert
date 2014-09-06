@@ -5,7 +5,6 @@ from .bilibili import (
     Page as BilibiliPage, LocalPage as BilibiliLocalPage,
     Part as BilibiliPart)
 from .acfun import Page as AcfunPage, LocalPage as AcfunLocalPage
-from .tucao import Page as TucaoPage
 
 
 def make_normal_page(url):
@@ -14,8 +13,6 @@ def make_normal_page(url):
         page = BilibiliPage(url)
     elif url.startswith('a://') or 'acfun' in url:
         page = AcfunPage(url)
-    elif url.startswith('c://') or 'tucao' in url:
-        page = TucaoPage(url)
     if page is None:
         raise Exception('不支持的网址')
     return page
