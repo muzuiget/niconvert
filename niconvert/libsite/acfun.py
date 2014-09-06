@@ -146,10 +146,11 @@ class Video(BaseVideo):
         return (0, [])
 
     def _danmakus(self):
-        tpl = 'http://comment.acfun.tv/{}.json'
-        url = tpl.format(self.cid)
+        tpl = 'http://static.comment.acfun.mm111.net/{}'
+        url = tpl.format(self.vid)
         text = fetch(url)
-        orignal_danmakus = map(Danmaku, json.loads(text))
+        entries = json.loads(text)[-1]  # 似乎最后一个才是普通弹幕
+        orignal_danmakus = map(Danmaku, entries)
         ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
         return ordered_danmakus
 
@@ -168,7 +169,7 @@ class Page(object):
     def _params(self):
         abbr_prefix = 'a://'
         normal_prefix = 'http://www.acfun.tv/v/ac'
-        comment_prefix = 'http://comment.acfun.tv/'
+        comment_prefix = 'http://static.comment.acfun.mm111.net/'
 
         url = self.url
         params = {}
@@ -183,16 +184,17 @@ class Page(object):
             params = self.extract_params_from_normal_page(url)
 
         elif url.startswith(comment_prefix):
-            vid = ''
-            cid = url[len(comment_prefix):-5]
+            path = url[len(comment_prefix):]
+            vid = path.split('-')[0]
+            cid = ''
             params = dict(vid=vid, cid=cid)
 
         return params
 
     def extract_params_from_normal_page(self, url):
         aid_reg = re.compile('/ac([0-9]+)')
-        vid_reg = re.compile('active" data-vid="(.+?)"')
-        h1_reg = re.compile('<h1>(.+?)</h1>')
+        vid_reg = re.compile('data-vid="(.+?)" .+ active')
+        h1_reg = re.compile('<h1 id="txt-title-view">(.+?)</h1>')
         text = fetch(url)
 
         params = {}
@@ -224,7 +226,8 @@ class LocalVideo(object):
     def _danmakus(self):
         path = self.meta['path']
         text = open(path).read()
-        orignal_danmakus = map(Danmaku, json.loads(text)[0])
+        entries = json.loads(text)[-1]
+        orignal_danmakus = map(Danmaku, entries)
         ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
         return ordered_danmakus
 
