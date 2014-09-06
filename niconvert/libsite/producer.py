@@ -4,7 +4,7 @@ from .config import Config
 from .bilibili import (
     Page as BilibiliPage, LocalPage as BilibiliLocalPage,
     Part as BilibiliPart)
-from .acfun import Page as AcfunPage
+from .acfun import Page as AcfunPage, LocalPage as AcfunLocalPage
 from .tucao import Page as TucaoPage
 
 
@@ -25,6 +25,8 @@ def make_local_page(url):
     page = None
     if 'xml' in url:
         page = BilibiliLocalPage(url)
+    if 'json' in url:
+        page = AcfunLocalPage(url)
     if page is None:
         raise Exception('不支持的文件')
     return page
