@@ -43,6 +43,8 @@ Acfun
 
 * 辅助地址 ``a://aaa=xxx,bbb=yyy``
 
+* 本地文件地址 ``/path/to/comment.json``
+
 Tucao
 -----
 
