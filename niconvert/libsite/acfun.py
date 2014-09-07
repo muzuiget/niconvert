@@ -149,7 +149,9 @@ class Video(BaseVideo):
         tpl = 'http://static.comment.acfun.mm111.net/{}'
         url = tpl.format(self.vid)
         text = fetch(url)
-        entries = json.loads(text)[-1]  # 似乎最后一个才是普通弹幕
+        entries = []
+        for item in json.loads(text):
+            entries.extend(item)
         orignal_danmakus = map(Danmaku, entries)
         ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
         return ordered_danmakus
@@ -226,7 +228,9 @@ class LocalVideo(object):
     def _danmakus(self):
         path = self.meta['path']
         text = open(path).read()
-        entries = json.loads(text)[-1]
+        entries = []
+        for item in json.loads(text):
+            entries.extend(item)
         orignal_danmakus = map(Danmaku, entries)
         ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
         return ordered_danmakus
