@@ -108,15 +108,9 @@ class Video(BaseVideo):
         if value is not None:
             return value
 
-        url = 'http://www.acfun.tv/api/getVideoByID.aspx?vid=' + self.vid
+        url = 'http://www.acfun.tv/video/getVideo.aspx?id=' + self.vid
         text = fetch(url)
-        value = json.loads(text).get('cid')
-
-        # 换另一个 api 地址试试
-        if not value:
-            url = 'http://www.acfun.tv/video/getVideo.aspx?id=' + self.vid
-            text = fetch(url)
-            value = json.loads(text).get('danmakuId')
+        value = json.loads(text).get('danmakuId')
 
         if value:
             return value
