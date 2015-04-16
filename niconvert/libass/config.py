@@ -59,10 +59,7 @@ class Config(object):
 
     def _header_template(self):
         if not self.args['header_file']:
-            if sys.platform.startswith('win'):
-                tpl_file = '/header-win.txt'
-            else:
-                tpl_file = '/header-unix.txt'
+            tpl_file = '/header.txt'
             filename = (os.path.dirname(__file__) + tpl_file)
         else:
             filename = self.args['header_file']
