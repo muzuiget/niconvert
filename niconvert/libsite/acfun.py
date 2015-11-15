@@ -84,8 +84,6 @@ class Video(BaseVideo):
         self.meta = meta
         self.vid = self._vid()
         self.cid = self._cid()
-        #print('信息：' + str(self.meta))
-        #print('信息：' + str(dict(vid=self.vid, cid=self.cid)))
         # 父类接口
         self.uid = 'vid:{}+cid:{}'.format(self.vid, self.cid)
         self.h1 = self._h1()
@@ -140,12 +138,23 @@ class Video(BaseVideo):
         return (0, [])
 
     def _danmakus(self):
-        tpl = 'http://static.comment.acfun.mm111.net/{}'
-        url = tpl.format(self.vid)
-        text = fetch(url)
+        # 需要处理分页
+        # 每页数目(pageSize) 默认是 500，经过测试，最大是 1000
+        page_size = 1000
+        page_max = 100
+        tpl = 'http://danmu.aixifan.com/V2/{}?pageSize={}&pageNo={}'
+
         entries = []
-        for item in json.loads(text):
-            entries.extend(item)
+        for i in range(1, page_max):
+            url = tpl.format(self.vid, page_size, i)
+            text = fetch(url)
+            page_entries = json.loads(text)[2]
+            entries.extend(page_entries)
+
+            # 返回少于请求数，说明没有下一页了
+            if len(page_entries) < page_size:
+                break
+
         orignal_danmakus = map(Danmaku, entries)
         ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
         return ordered_danmakus
