@@ -1,5 +1,5 @@
 import re
-from .const import BOTTOM
+from .const import TOP, BOTTOM
 
 
 class BaseFilter(object):
@@ -14,6 +14,15 @@ class GuestFilter(BaseFilter):
 
     def match(self, danmaku):
         return danmaku.is_guest
+
+
+class TopFilter(BaseFilter):
+    ''' 顶部样式过滤器 '''
+
+    def match(self, danmaku):
+        if danmaku.is_applaud:
+            return False
+        return danmaku.style == TOP
 
 
 class BottomFilter(BaseFilter):
@@ -42,4 +51,5 @@ class CustomFilter(BaseFilter):
         return False
 
 guest_filter = GuestFilter()
+top_filter = TopFilter()
 bottom_filter = BottomFilter()

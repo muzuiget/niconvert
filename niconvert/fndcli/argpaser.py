@@ -36,6 +36,10 @@ def create_parser():
             type=str,
             default=None)
 
+    add_arg('-T', '--disable-top-filter',
+            help='不要过滤顶部弹幕',
+            action='store_true')
+
     add_arg('-B', '--disable-bottom-filter',
             help='不要过滤底部弹幕',
             action='store_true')

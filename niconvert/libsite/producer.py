@@ -1,5 +1,5 @@
 import os
-from ..libcore.filter import guest_filter, bottom_filter
+from ..libcore.filter import guest_filter, top_filter, bottom_filter
 from .config import Config
 from .bilibili import (
     Page as BilibiliPage, LocalPage as BilibiliLocalPage,
@@ -102,6 +102,7 @@ class Producer(object):
     def init_filter_danmakus(self):
         keeped_danmakus = []
         filter_detail = dict(
+            top=0,
             bottom=0,
             guest=0,
             video=0,
@@ -133,6 +134,10 @@ class Producer(object):
                 if not self.config.disable_guest_filter:
                     if guest_filter.match(danmaku):
                         filter_detail['guest'] += 1
+                        continue
+                if not self.config.disable_top_filter:
+                    if top_filter.match(danmaku):
+                        filter_detail['top'] += 1
                         continue
                 if not self.config.disable_bottom_filter:
                     if bottom_filter.match(danmaku):

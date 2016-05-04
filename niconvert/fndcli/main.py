@@ -8,7 +8,8 @@ def parseargs():
 
     io_keys = ('url', 'output_filename', 'create_playlist')
     danmaku_keys = (
-        'assist_params', 'custom_filter', 'disable_bottom_filter',
+        'assist_params', 'custom_filter',
+        'disable_top_filter', 'disable_bottom_filter',
         'disable_guest_filter', 'disable_video_filter',
         'skip_patch', 'merge_parts'
     )
@@ -53,7 +54,7 @@ def convert(io_args, danmaku_args, subtitle_args):
     print('--------')
     print('过滤情况')
     print('--------')
-    print('屏蔽条数：底部({bottom}) + '
+    print('屏蔽条数：顶部({top}) + 底部({bottom}) + '
           '游客({guest}) + 云屏蔽({video}) + 自定义({custom}) = {}'
           .format(producer.blocked_count, **producer.filter_detail))
     print('通过条数：总共({0.total_count}) - 屏蔽({0.blocked_count}) = '

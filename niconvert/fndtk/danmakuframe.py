@@ -13,6 +13,7 @@ class DanmakuFrame(ttk.LabelFrame):
     def init_widgets(self):
         self.init_assist_params_widgets()
         self.init_custom_filter_widgets()
+        self.init_disable_top_filter_widgets()
         self.init_disable_bottom_filter_widgets()
         self.init_disable_guest_filter_widgets()
         self.init_disable_video_filter_widgets()
@@ -43,12 +44,21 @@ class DanmakuFrame(ttk.LabelFrame):
         button['command'] = self.on_custom_filter_button_clicked
         self.custom_filter_strvar = strvar
 
+    def init_disable_top_filter_widgets(self):
+        intvar = tk.IntVar()
+        checkbutton = ttk.Checkbutton(
+            self, text='不要过滤顶部弹幕', variable=intvar)
+
+        checkbutton.grid(row=2, column=0, sticky=tk.W, columnspan=3)
+
+        self.disable_top_filter_intvar = intvar
+
     def init_disable_bottom_filter_widgets(self):
         intvar = tk.IntVar()
         checkbutton = ttk.Checkbutton(
             self, text='不要过滤底部弹幕', variable=intvar)
 
-        checkbutton.grid(row=2, column=0, sticky=tk.W, columnspan=3)
+        checkbutton.grid(row=3, column=0, sticky=tk.W, columnspan=3)
 
         self.disable_bottom_filter_intvar = intvar
 
@@ -57,7 +67,7 @@ class DanmakuFrame(ttk.LabelFrame):
         checkbutton = ttk.Checkbutton(
             self, text='不要过滤游客弹幕', variable=intvar)
 
-        checkbutton.grid(row=3, column=0, sticky=tk.W, columnspan=3)
+        checkbutton.grid(row=4, column=0, sticky=tk.W, columnspan=3)
 
         self.disable_guest_filter_intvar = intvar
 
@@ -66,7 +76,7 @@ class DanmakuFrame(ttk.LabelFrame):
         checkbutton = ttk.Checkbutton(
             self, text='不要过滤云屏蔽弹幕', variable=intvar)
 
-        checkbutton.grid(row=4, column=0, sticky=tk.W, columnspan=3)
+        checkbutton.grid(row=5, column=0, sticky=tk.W, columnspan=3)
 
         self.disable_video_filter_intvar = intvar
 
@@ -74,7 +84,7 @@ class DanmakuFrame(ttk.LabelFrame):
         intvar = tk.IntVar()
         checkbutton = ttk.Checkbutton(self, text='跳过补丁', variable=intvar)
 
-        checkbutton.grid(row=5, column=0, sticky=tk.W, columnspan=3)
+        checkbutton.grid(row=6, column=0, sticky=tk.W, columnspan=3)
 
         self.skip_patch_intvar = intvar
 
@@ -82,7 +92,7 @@ class DanmakuFrame(ttk.LabelFrame):
         intvar = tk.IntVar()
         checkbutton = ttk.Checkbutton(self, text='合并分段', variable=intvar)
 
-        checkbutton.grid(row=6, column=0, sticky=tk.W, columnspan=3)
+        checkbutton.grid(row=7, column=0, sticky=tk.W, columnspan=3)
 
         self.merge_parts_intvar = intvar
 
@@ -109,6 +119,7 @@ class DanmakuFrame(ttk.LabelFrame):
         return dict(
             assist_params=self.assist_params_strvar.get().strip(),
             custom_filter=self.custom_filter_strvar.get().strip(),
+            disable_top_filter=self.disable_top_filter_intvar.get() == 1,
             disable_bottom_filter=self.disable_bottom_filter_intvar.get() == 1,
             disable_guest_filter=self.disable_guest_filter_intvar.get() == 1,
             disable_video_filter=self.disable_video_filter_intvar.get() == 1,

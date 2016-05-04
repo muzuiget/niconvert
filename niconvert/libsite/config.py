@@ -7,6 +7,7 @@ class Config(object):
         self.args = args
         self.assist_params = self._assist_params()
         self.custom_filter = self._custom_filter()
+        self.disable_top_filter = self._disable_top_filter()
         self.disable_bottom_filter = self._disable_bottom_filter()
         self.disable_guest_filter = self._disable_guest_filter()
         self.disable_video_filter = self._disable_video_filter()
@@ -31,6 +32,9 @@ class Config(object):
             lines = map(lambda l: l.strip(), text.split('\n'))
             lines = list(filter(lambda l: l != '', lines))
         return CustomFilter(lines)
+
+    def _disable_top_filter(self):
+        return self.args['disable_top_filter']
 
     def _disable_bottom_filter(self):
         return self.args['disable_bottom_filter']
