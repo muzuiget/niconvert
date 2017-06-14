@@ -198,8 +198,8 @@ class Page(object):
 
     def extract_params_from_normal_page(self, url):
         aid_reg = re.compile('/ac([0-9]+)')
-        vid_reg = re.compile('data-vid="(.+?)" .+ active')
-        h1_reg = re.compile('<h1 id="txt-title-view">(.+?)</h1>')
+        vid_reg = re.compile('data-vid="(.+?)"')
+        h1_reg = re.compile('data-title="(.+?)"')
         text = fetch(url)
 
         params = {}

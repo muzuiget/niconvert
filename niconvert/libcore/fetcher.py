@@ -5,7 +5,7 @@ from io import BytesIO
 
 
 USER_AGENT = \
-    'Mozilla/5.0 (X11; Linux x86_64; rv:26.0) Gecko/20100101 Firefox/26.0'
+    'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:53.0) Gecko/20100101 Firefox/53.0'
 
 
 class Fetcher(object):
@@ -30,17 +30,20 @@ class Fetcher(object):
         else:
             return content
 
-    def download(self, url):
-        resp = self.opener.open(url)
+    def download(self, url, data):
+        if data:
+            resp = self.opener.open(url, data.encode('utf-8'))
+        else:
+            resp = self.opener.open(url)
         content = resp.read()
         encoding = resp.headers.get('content-encoding', None)
         return self.decompression(content, encoding).decode('UTF-8')
 
-    def open(self, url, force=False):
+    def open(self, url, force=False, data=None):
         text = self.cache.get(url)
         if force or text is None:
             print('下载：' + str(url))
-            text = self.download(url)
+            text = self.download(url, data)
             self.cache[url] = text
         else:
             print('重用：' + str(url))
