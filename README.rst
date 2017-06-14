@@ -9,12 +9,12 @@ niconvert 是一个弹幕下载和转换工具，以便使用桌面播放器配�
 
 效果预览：
 
-.. image:: http://static.qixinglu.com/github/images/niconvert/v2_preview.jpg
-    :target: http://static.qixinglu.com/github/images/niconvert/v2_preview_full.jpg
+.. image:: https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_preview.jpg
+    :target: https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_preview_full.jpg
 
 界面截图：
 
-.. image:: http://static.qixinglu.com/github/images/niconvert/v2_gui.png
+.. image:: https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_gui.png
 
 支持如下特性：
 
@@ -33,8 +33,8 @@ niconvert 是一个弹幕下载和转换工具，以便使用桌面播放器配�
 * 桌面版本： `点击下载`_ ，然后阅读 `安装说明`_ 。
 
 .. _点击下载: https://github.com/muzuiget/niconvert/archive/master.zip
-.. _安装说明: https://github.com/muzuiget/niconvert/wiki/Install
-.. _Wiki: https://github.com/muzuiget/niconvert/wiki/
+.. _安装说明: https://github.com/muzuiget/niconvert/blob/master/docs/Install.rst
+.. _文档: https://github.com/muzuiget/niconvert/tree/master/docs
 
 旧版本
 ======
