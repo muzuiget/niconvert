@@ -212,6 +212,7 @@ class Video(BaseVideo):
         tpl = 'http://comment.bilibili.com/{}.xml'
         url = tpl.format(self.cid)
         text = fetch(url)
+        text = text.replace('<d p="', '\n<d p="')
         reg = re.compile('<d .*</d>')
         matches = reg.findall(text)
         orignal_danmakus = map(Danmaku, matches)
