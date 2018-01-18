@@ -181,32 +181,7 @@ class Video(BaseVideo):
         return Filter(text)
 
     def _play_info(self):
-        tpl = 'http://interface.bilibili.com/playurl?cid={}'
-        url = tpl.format(self.cid)
-        text = fetch(url)
-
-        # 有时可能获取不了视频元数据，多重试几次
-        tried = 0
-        while True:
-            if '视频隐藏' not in text or tried >= 5:
-                break
-            text = fetch(url, True)
-            tried += 1
-
-        reg = re.compile('<timelength>(.+?)</timelength>')
-        matches = reg.findall(text)
-        if matches:
-            play_length = int(float(matches[0])) // 1000
-        else:
-            play_length = 0
-
-        reg = re.compile('<url><!\[CDATA\[(.+?)\]\]></url>')
-        matches = reg.findall(text)
-        if matches:
-            play_urls = map(play_url_fix, matches)
-        else:
-            play_urls = []
-        return play_length, play_urls
+        return (0, [])
 
     def _danmakus(self):
         tpl = 'http://comment.bilibili.com/{}.xml'
