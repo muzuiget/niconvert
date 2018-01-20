@@ -4,8 +4,7 @@ from urllib import request
 from io import BytesIO
 
 
-USER_AGENT = \
-    'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:53.0) Gecko/20100101 Firefox/53.0'
+USER_AGENT = 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:56.0) Gecko/20100101 Firefox/56.0'
 
 
 class Fetcher(object):
