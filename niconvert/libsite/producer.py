@@ -4,15 +4,12 @@ from .config import Config
 from .bilibili import (
     Page as BilibiliPage, LocalPage as BilibiliLocalPage,
     Part as BilibiliPart)
-from .acfun import Page as AcfunPage, LocalPage as AcfunLocalPage
 
 
 def make_normal_page(url):
     page = None
     if url.startswith('b://') or 'bilibili' in url:
         page = BilibiliPage(url)
-    elif url.startswith('a://') or 'acfun' in url:
-        page = AcfunPage(url)
     if page is None:
         raise Exception('不支持的网址')
     return page
@@ -22,8 +19,6 @@ def make_local_page(url):
     page = None
     if 'xml' in url:
         page = BilibiliLocalPage(url)
-    if 'json' in url:
-        page = AcfunLocalPage(url)
     if page is None:
         raise Exception('不支持的文件')
     return page
