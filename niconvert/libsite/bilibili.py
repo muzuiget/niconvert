@@ -323,6 +323,7 @@ class LocalVideo(object):
     def _danmakus(self):
         path = self.meta['path']
         text = open(path).read()
+        text = text.replace('<d p="', '\n<d p="')
         reg = re.compile('<d .*</d>')
         matches = reg.findall(text)
         orignal_danmakus = map(Danmaku, matches)
