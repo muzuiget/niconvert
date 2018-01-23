@@ -202,44 +202,22 @@ class Page(object):
         self.params = self._params()
 
     def _params(self):
-        abbr_prefix = 'b://'
-        secure_prefix = 'https://secure.bilibili.com/secure,'
         normal_prefix = 'http://www.bilibili.com/video/av'
-        normal1_prefix = 'http://bilibili.kankanews.com/video/av'
         comment_prefix = 'http://comment.bilibili.com/'
-        bangumi_prefix = 'http://bangumi.bilibili.com/anime/v/'
 
         url = self.url
         params = {}
 
-        if url.startswith(abbr_prefix):
-            argv = url[len(abbr_prefix):]
-            params = extract_params(argv)
-
-        elif url.startswith(secure_prefix):
-            argv = url[len(secure_prefix):].replace('&', ',')
-            params = extract_params(argv)
-
-        elif url.startswith(normal_prefix) or url.startswith(normal1_prefix):
+        if url.startswith(normal_prefix):
             if url.endswith('/'):
                 url += 'index_1.html'
             params = self.extract_params_from_normal_page(url)
-
         elif url.startswith(comment_prefix):
             aid = ''
             cid = url[len(comment_prefix):-4]
             params = dict(aid=aid, cid=cid)
-
-        elif url.startswith(bangumi_prefix):
-            episode_id_reg = re.compile('/v/([0-9]+)')
-            episode_id = episode_id_reg.findall(url)[0]
-            url = 'http://bangumi.bilibili.com/web_api/get_source'
-            data = 'episode_id=' + episode_id
-            text = fetch(url, data=data)
-            info = json.loads(text)
-            aid = str(info["result"]["aid"])
-            cid = str(info["result"]["cid"])
-            params = dict(aid=aid, cid=cid)
+        else:
+            raise ValueError('不支持的地址')
 
         return params
 
