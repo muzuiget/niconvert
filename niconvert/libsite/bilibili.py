@@ -2,7 +2,6 @@ import os
 import re
 import json
 from ..libcore.const import NOT_SUPPORT, SCROLL, TOP, BOTTOM
-from ..libcore.utils import extract_params, play_url_fix
 from ..libcore.fetcher import fetch
 from ..libcore.filter import BaseFilter
 from ..libcore.danmaku import BaseDanmaku

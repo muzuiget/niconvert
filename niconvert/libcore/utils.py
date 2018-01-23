@@ -1,14 +1,11 @@
-import re
 import colorsys
 from math import ceil
 from urllib.parse import unquote
 from unicodedata import east_asian_width
 
-
 def intceil(number):
     ''' 向上取整 '''
     return int(ceil(number))
-
 
 def display_length(text):
     ''' 字符长度，1 个汉字当 2 个英文 '''
@@ -16,7 +13,6 @@ def display_length(text):
     for char in text:
         width += east_asian_width(char) == 'Na' and 1 or 2
     return width
-
 
 def correct_typos(text):
     ''' 修正一些评论者的拼写错误 '''
@@ -40,7 +36,6 @@ def s2hms(seconds):
     (h, m, s, d) = map(int, (h, m, s, d * 100))
     return '{:d}:{:02d}:{:02d}.{:02d}'.format(h, m, s, d)
 
-
 def hms2s(hms):
     ''' 时:分:秒 格式转 秒数 '''
 
@@ -49,7 +44,6 @@ def hms2s(hms):
     for i in range(len(nums)):
         seconds += int(nums[-i - 1]) * (60 ** i)
     return seconds
-
 
 def xhms2s(xhms):
     ''' 同上，不过可以用 +/- 符号来连接多个
@@ -64,18 +58,15 @@ def xhms2s(xhms):
         result += seconds
     return result
 
-
 def int2rgb(integer):
     ''' 颜色值，整型转 RGB '''
     return hex(integer).upper()[2:].zfill(6)
-
 
 def int2bgr(integer):
     ''' 颜色值，整型转 BGR '''
     rgb = int2rgb(integer)
     bgr = rgb[4:6] + rgb[2:4] + rgb[0:2]
     return bgr
-
 
 def int2hls(integer):
     ''' 颜色值，整型转 HLS '''
@@ -89,7 +80,6 @@ def int2hls(integer):
         hls_corrdinates[2] * 100
     )
     return hls
-
 
 def is_dark(integer):
     ''' 是否属于暗色 '''
@@ -109,7 +99,6 @@ def is_dark(integer):
 
     return False
 
-
 def extract_params(argv):
     ''' 转换网址参数字符串为字典对象 '''
     argv = unquote(argv)
@@ -118,23 +107,3 @@ def extract_params(argv):
         key, value = arg.split('=')
         params[key] = value
     return params
-
-
-def play_url_fix(url):
-    ''' 视频地址修复 '''
-    # 不知道为毛我不能解析 videoctfs.tc.qq.com 这个域名，即是用电信的 DNS 也是，
-    # 但是通过抓包分析，Flash 播放器获取时就变成 IP 了，
-    # 似乎是硬编码直接替换过的。
-    if url.startswith('http://videoctfs.tc.qq.com/'):
-        return url.replace('http://videoctfs.tc.qq.com/',
-                           'http://183.60.73.103/', 1)
-
-    # 默认这个会返回 403
-    if url.startswith('http://vhot2.qqvideo.tc.qq.com/'):
-        key_part = re.findall(
-            'http://vhot2.qqvideo.tc.qq.com/(.+?)\?.*', url)[0]
-        url = 'http://vsrc.store.qq.com/{}?'.format(key_part)
-        url += 'channel=vhot2&sdtfrom=v2&r=256&rfc=v10'
-        return url
-
-    return url
