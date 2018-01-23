@@ -20,12 +20,6 @@ def create_parser():
 
     add_arg = parser.add_argument_group('弹幕选项').add_argument
 
-    add_arg('-a', '--assist-params',
-            metavar='NAME1=1,NAME2=2',
-            help='辅助参数，手动指定无法直接获取的参数',
-            type=str,
-            default=None)
-
     add_arg('-f', '--custom-filter',
             metavar='FILE',
             help='过滤文件，关键词过滤规则文件名',

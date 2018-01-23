@@ -42,7 +42,6 @@ def make_part_pages(url):
 
 def make_video(config, page):
     meta = page.params.copy()
-    meta.update(config.assist_params)
     return page.video_class(config, meta)
 
 

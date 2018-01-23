@@ -11,23 +11,12 @@ class DanmakuFrame(ttk.LabelFrame):
         self.init_widgets()
 
     def init_widgets(self):
-        self.init_assist_params_widgets()
         self.init_custom_filter_widgets()
         self.init_disable_top_filter_widgets()
         self.init_disable_bottom_filter_widgets()
         self.init_disable_guest_filter_widgets()
         self.init_disable_video_filter_widgets()
         tku.add_border_space(self, 1, 1)
-
-    def init_assist_params_widgets(self):
-        strvar = tk.StringVar()
-        label = ttk.Label(self, text='辅助参数：')
-        entry = ttk.Entry(self, textvariable=strvar)
-
-        label.grid(row=0, column=0, sticky=tk.E)
-        entry.grid(row=0, column=1, sticky=tk.EW, columnspan=2)
-
-        self.assist_params_strvar = strvar
 
     def init_custom_filter_widgets(self):
         strvar = tk.StringVar()
@@ -99,7 +88,6 @@ class DanmakuFrame(ttk.LabelFrame):
 
     def values(self):
         return dict(
-            assist_params=self.assist_params_strvar.get().strip(),
             custom_filter=self.custom_filter_strvar.get().strip(),
             disable_top_filter=self.disable_top_filter_intvar.get() == 1,
             disable_bottom_filter=self.disable_bottom_filter_intvar.get() == 1,

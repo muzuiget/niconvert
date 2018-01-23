@@ -8,7 +8,7 @@ def parseargs():
 
     io_keys = ('url', 'output_filename')
     danmaku_keys = (
-        'assist_params', 'custom_filter',
+        'custom_filter',
         'disable_top_filter', 'disable_bottom_filter',
         'disable_guest_filter', 'disable_video_filter',
     )
