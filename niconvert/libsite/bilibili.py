@@ -202,7 +202,7 @@ class Page(object):
         self.params = self._params()
 
     def _params(self):
-        normal_prefix = 'http://www.bilibili.com/video/av'
+        normal_prefix = 'https://www.bilibili.com/video/av'
         comment_prefix = 'http://comment.bilibili.com/'
 
         url = self.url
@@ -224,7 +224,6 @@ class Page(object):
     def extract_params_from_normal_page(self, url):
         aid_reg = re.compile('/av([0-9]+)/')
         cid_reg = re.compile("cid=([0-9]+)|cid:'(.+?)'")
-        h1_reg = re.compile('<h2 title="(.+?)">')
         text = fetch(url)
 
         params = {}
@@ -232,7 +231,7 @@ class Page(object):
         try:
             cid_matches = cid_reg.findall(text)[0]
             params['cid'] = cid_matches[0] or cid_matches[1]
-            params['h1'] = h1_reg.findall(text)[0]
+            params['h1'] = params['cid']
         except IndexError:
             print('警告：无法获取 cid，此页面可能需要登录')
         return params
