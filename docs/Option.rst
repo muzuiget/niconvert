@@ -7,6 +7,15 @@
 输入输出
 ========
 
+输入地址
+--------
+
+命令行参数： ``url``
+
+* 标准地址 ``https://www.bilibili.tv/video/avXXXXXX/``
+* 弹幕地址 ``http://comment.bilibili.tv/XXXXXX.xml``
+* 本地文件地址 ``/path/to/comment.xml``
+
 输出文件
 --------
 
