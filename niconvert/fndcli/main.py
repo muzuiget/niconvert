@@ -31,39 +31,19 @@ def convert(io_args, danmaku_args, subtitle_args):
 
     producer = Producer(danmaku_args, url)
 
-    print('--------')
-    print('下载文件')
-    print('--------')
     producer.start_download()
     print()
 
-    print('--------')
-    print('视频信息')
-    print('--------')
-    for i, video in enumerate(producer.videos):
-        print('#' + str(i), str(video.uid), video.title)
-        print('视频长度({0.play_length}) 弹幕数量({1})'
-              .format(video, len(video.danmakus)))
-    print()
-
     producer.start_handle()
-
-    print('--------')
-    print('过滤情况')
-    print('--------')
     print('屏蔽条数：顶部({top}) + 底部({bottom}) + '
           '游客({guest}) + 云屏蔽({video}) + 自定义({custom}) = {}'
           .format(producer.blocked_count, **producer.filter_detail))
     print('通过条数：总共({0.total_count}) - 屏蔽({0.blocked_count}) = '
           '{0.passed_count}'.format(producer))
-    print()
 
     studio = Studio(subtitle_args, producer)
     studio.start_handle()
 
-    print('--------')
-    print('输出文件')
-    print('--------')
     print('字幕条数：总共({0}) - 丢弃({1.droped_count}) = '
           '{1.keeped_count}'
           .format(len(studio.ass_danmakus), studio))

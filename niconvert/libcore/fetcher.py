@@ -41,11 +41,9 @@ class Fetcher(object):
     def open(self, url, force=False, data=None):
         text = self.cache.get(url)
         if force or text is None:
-            print('下载：' + str(url))
+            print('下载 ' + str(url))
             text = self.download(url, data)
             self.cache[url] = text
-        else:
-            print('重用：' + str(url))
         return text
 
 
