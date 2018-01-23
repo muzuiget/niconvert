@@ -18,13 +18,11 @@ niconvert 是一个弹幕下载和转换工具，以便使用桌面播放器配�
 
 支持如下特性：
 
-* 支持 bilibili，和 acfun，无需注册和积分。
+* 支持 bilibili
 
-* 支持按条件过滤，跳过补丁，合并分段。
+* 支持按条件过滤
 
 * 碰撞算法布局，自定义 ass 字幕样式。
-
-* 输出视频播放地址列表为 m3u 文件。
 
 * 命令行和图形界面，支持 Linux/Mac/Windows。
 
@@ -35,11 +33,6 @@ niconvert 是一个弹幕下载和转换工具，以便使用桌面播放器配�
 .. _点击下载: https://github.com/muzuiget/niconvert/archive/master.zip
 .. _安装说明: https://github.com/muzuiget/niconvert/blob/master/docs/Install.rst
 .. _文档: https://github.com/muzuiget/niconvert/tree/master/docs
-
-旧版本
-======
-
-* 在线版本：http://niconvert.appspot.com/ 在墙外，偶然抽风，所以仅供体验。
 
 许可证
 ======
