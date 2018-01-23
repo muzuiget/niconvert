@@ -118,10 +118,6 @@ class Producer(object):
                     part_offset += prev_video.play_length
                     offset = part_offset
 
-            # 跳过补丁
-            if self.config.skip_patch:
-                offset -= video.feature_start
-
             # 处理过滤 #
 
             for danmaku in video.danmakus:

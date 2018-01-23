@@ -11,7 +11,7 @@ def parseargs():
         'assist_params', 'custom_filter',
         'disable_top_filter', 'disable_bottom_filter',
         'disable_guest_filter', 'disable_video_filter',
-        'skip_patch', 'merge_parts'
+        'merge_parts'
     )
     subtitle_keys = (
         'play_resolution', 'font_name', 'font_size',
@@ -43,8 +43,7 @@ def convert(io_args, danmaku_args, subtitle_args):
     print('--------')
     for i, video in enumerate(producer.videos):
         print('#' + str(i), str(video.uid), video.title)
-        print('视频长度({0.play_length}) 正片位置({0.feature_start}) '
-              '弹幕数量({1})'
+        print('视频长度({0.play_length}) 弹幕数量({1})'
               .format(video, len(video.danmakus)))
     print()
 

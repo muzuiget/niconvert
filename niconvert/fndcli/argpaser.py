@@ -48,10 +48,6 @@ def create_parser():
             help='不要过滤云屏蔽弹幕',
             action='store_true')
 
-    add_arg('-s', '--skip-patch',
-            help='跳过补丁，起始位置偏移到正片位置',
-            action='store_true')
-
     add_arg('-m', '--merge-parts',
             help='合并分段，把页面的分段视频为同一个视频',
             action='store_true')

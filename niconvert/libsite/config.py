@@ -11,7 +11,6 @@ class Config(object):
         self.disable_bottom_filter = self._disable_bottom_filter()
         self.disable_guest_filter = self._disable_guest_filter()
         self.disable_video_filter = self._disable_video_filter()
-        self.skip_patch = self._skip_patch()
         self.merge_parts = self._merge_parts()
 
     def _assist_params(self):
@@ -44,9 +43,6 @@ class Config(object):
 
     def _disable_video_filter(self):
         return self.args['disable_video_filter']
-
-    def _skip_patch(self):
-        return self.args['skip_patch']
 
     def _merge_parts(self):
         return self.args['merge_parts']

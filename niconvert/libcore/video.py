@@ -23,6 +23,3 @@ class BaseVideo(object):
         # 弹幕列表
         self.danmakus = []
 
-        # 正片位置
-        self.feature_start = 0
-

@@ -17,7 +17,6 @@ class DanmakuFrame(ttk.LabelFrame):
         self.init_disable_bottom_filter_widgets()
         self.init_disable_guest_filter_widgets()
         self.init_disable_video_filter_widgets()
-        self.init_skip_patch_widgets()
         self.init_merge_parts_widgets()
         tku.add_border_space(self, 1, 1)
 
@@ -80,14 +79,6 @@ class DanmakuFrame(ttk.LabelFrame):
 
         self.disable_video_filter_intvar = intvar
 
-    def init_skip_patch_widgets(self):
-        intvar = tk.IntVar()
-        checkbutton = ttk.Checkbutton(self, text='跳过补丁', variable=intvar)
-
-        checkbutton.grid(row=6, column=0, sticky=tk.W, columnspan=3)
-
-        self.skip_patch_intvar = intvar
-
     def init_merge_parts_widgets(self):
         intvar = tk.IntVar()
         checkbutton = ttk.Checkbutton(self, text='合并分段', variable=intvar)
@@ -123,6 +114,5 @@ class DanmakuFrame(ttk.LabelFrame):
             disable_bottom_filter=self.disable_bottom_filter_intvar.get() == 1,
             disable_guest_filter=self.disable_guest_filter_intvar.get() == 1,
             disable_video_filter=self.disable_video_filter_intvar.get() == 1,
-            skip_patch=self.skip_patch_intvar.get() == 1,
             merge_parts=self.merge_parts_intvar.get() == 1,
         )

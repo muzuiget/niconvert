@@ -119,7 +119,6 @@ class Video(BaseVideo):
         (self.play_length,
          self.play_urls) = self._play_info()
         self.danmakus = self._danmakus()
-        self.feature_start = self._feature_start()
 
     def _cid(self):
         value = self.meta.get('cid')
@@ -193,17 +192,6 @@ class Video(BaseVideo):
         orignal_danmakus = map(Danmaku, matches)
         ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
         return ordered_danmakus
-
-    def _feature_start(self):
-        # 特殊池中，并且是高级弹幕，而且是最前的 10 条弹幕
-        reg = re.compile('Player.seek\(([0-9]+?)\);')
-        for danmaku in self.danmakus[:10]:
-            if not (danmaku.raw['pool'] == 2 and danmaku.raw['style'] == 8):
-                continue
-            matches = reg.findall(danmaku.content)
-            if matches:
-                return int(matches[0]) / 1000
-        return 0
 
 
 class Page(object):
@@ -310,7 +298,6 @@ class LocalVideo(object):
         self.uid = '0'
         self.danmakus = self._danmakus()
         self.play_length = 0
-        self.feature_start = 0
         self.filter = None
         self.play_urls = []
 
