@@ -75,10 +75,7 @@ class Producer(object):
         self.videos = []
 
     def start_download(self):
-        if self.config.merge_parts:
-            self.pages = make_part_pages(self.bootstrap_url)
-        else:
-            self.pages = [make_page(self.bootstrap_url)]
+        self.pages = [make_page(self.bootstrap_url)]
 
         self.videos = []
         for page in self.pages:
@@ -86,10 +83,7 @@ class Producer(object):
             self.videos.append(video)
 
         video = self.videos[0]
-        if self.config.merge_parts:
-            self.title = video.h1
-        else:
-            self.title = video.title
+        self.title = video.title
 
     def start_handle(self):
         self.init_filter_danmakus()
@@ -110,13 +104,6 @@ class Producer(object):
 
             # 处理偏移 #
             offset = 0
-
-            # 合并分段
-            if self.config.merge_parts:
-                if i != 0:
-                    prev_video = self.videos[i - 1]
-                    part_offset += prev_video.play_length
-                    offset = part_offset
 
             # 处理过滤 #
 

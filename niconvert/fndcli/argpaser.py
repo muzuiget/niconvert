@@ -48,10 +48,6 @@ def create_parser():
             help='不要过滤云屏蔽弹幕',
             action='store_true')
 
-    add_arg('-m', '--merge-parts',
-            help='合并分段，把页面的分段视频为同一个视频',
-            action='store_true')
-
     add_arg = parser.add_argument_group('字幕选项').add_argument
 
     add_arg('+r', '--play-resolution',
