@@ -6,7 +6,7 @@ from .argpaser import argpaser
 def parseargs():
     namespace = argpaser.parse_args()
 
-    io_keys = ('url', 'output_filename', 'create_playlist')
+    io_keys = ('url', 'output_filename')
     danmaku_keys = (
         'assist_params', 'custom_filter',
         'disable_top_filter', 'disable_bottom_filter',
@@ -29,7 +29,6 @@ def parseargs():
 def convert(io_args, danmaku_args, subtitle_args):
     url = io_args['url']
     output_filename = io_args['output_filename']
-    create_playlist = io_args['create_playlist']
 
     producer = Producer(danmaku_args, url)
 
@@ -71,8 +70,6 @@ def convert(io_args, danmaku_args, subtitle_args):
           '{1.keeped_count}'
           .format(len(studio.ass_danmakus), studio))
     print('字幕文件：' + studio.create_ass_file(output_filename))
-    if create_playlist:
-        print('播放列表：' + studio.create_m3u_file(output_filename))
     print()
 
 

@@ -18,10 +18,6 @@ def create_parser():
             type=str,
             default=None)
 
-    add_arg('-p', '--create-playlist',
-            help='同时输出播放列表',
-            action='store_true')
-
     add_arg = parser.add_argument_group('弹幕选项').add_argument
 
     add_arg('-a', '--assist-params',

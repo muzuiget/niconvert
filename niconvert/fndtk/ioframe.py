@@ -13,7 +13,6 @@ class IoFrame(ttk.LabelFrame):
     def init_widgets(self):
         self.init_url_widgets()
         self.init_output_filename_widgets()
-        self.init_create_playlist_widgets()
         self.init_convert_widgets()
         tku.add_border_space(self, 1, 1)
 
@@ -40,14 +39,6 @@ class IoFrame(ttk.LabelFrame):
         strvar.set(os.getcwd())
         button['command'] = self.on_output_filename_button_clicked
         self.output_filename_strvar = strvar
-
-    def init_create_playlist_widgets(self):
-        intvar = tk.IntVar()
-        checkbutton = ttk.Checkbutton(
-            self, text='同时输出播放列表', variable=intvar)
-        checkbutton.grid(row=3, column=0, sticky=tk.W, columnspan=3)
-
-        self.create_playlist_intvar = intvar
 
     def init_convert_widgets(self):
         button = ttk.Button(self, text='转换', width=6)
@@ -87,7 +78,6 @@ class IoFrame(ttk.LabelFrame):
         return dict(
             url=self.url_strvar.get().strip(),
             output_filename=self.output_filename_strvar.get().strip(),
-            create_playlist=self.create_playlist_intvar.get() == 1,
         )
 
     def enable_convert_button(self):
