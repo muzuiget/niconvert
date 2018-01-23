@@ -1,19 +1,17 @@
-import gzip
-import zlib
-from urllib import request
 from io import BytesIO
-
+from gzip import GzipFile
+from zlib import decompressobj, MAX_WBITS
+from urllib import request
 
 USER_AGENT = 'Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:56.0) Gecko/20100101 Firefox/56.0'
-
 
 class Fetcher(object):
 
     def __init__(self):
-        self.opener = self._opener()
+        self.opener = self.init_opener()
         self.cache = {}
 
-    def _opener(self):
+    def init_opener(self):
         opener = request.build_opener()
         opener.addheaders = [
             ('User-Agent', USER_AGENT),
@@ -23,11 +21,10 @@ class Fetcher(object):
 
     def decompression(self, content, encoding):
         if encoding == 'gzip':
-            return gzip.GzipFile(fileobj=BytesIO(content), mode='rb').read()
-        elif encoding == 'deflate':
-            return zlib.decompressobj(-zlib.MAX_WBITS).decompress(content)
-        else:
-            return content
+            return GzipFile(fileobj=BytesIO(content), mode='rb').read()
+        if encoding == 'deflate':
+            return decompressobj(-MAX_WBITS).decompress(content)
+        return content
 
     def download(self, url, data):
         if data:
