@@ -236,35 +236,6 @@ class Page(object):
         return params
 
 
-class Part(object):
-
-    def __init__(self, url):
-        self.url = url
-        self.pages = self._pages()
-
-    def _pages(self):
-        text = fetch(self.url)
-        reg = re.compile("<option value='(.+?)'(?: selected)?>(.+?)</option>")
-        matches = reg.findall(text)
-        if not matches:
-            raise Exception('此页面没有找到多个分段')
-
-        pages = []
-        for link in matches:
-            url = self.full_urlify(link[0])
-            page = Page(url)
-            pages.append(page)
-        return pages
-
-    def full_urlify(self, fuzzy_url):
-        url = fuzzy_url
-        if url.startswith('/'):
-            url = 'http://www.bilibili.com' + url
-        if fuzzy_url.endswith('/'):
-            url += 'index_1.html'
-        return url
-
-
 class LocalVideo(object):
 
     def __init__(self, config, meta):

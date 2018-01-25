@@ -1,9 +1,7 @@
 import os
 from ..libcore.filter import guest_filter, top_filter, bottom_filter
 from .config import Config
-from .bilibili import (
-    Page as BilibiliPage, LocalPage as BilibiliLocalPage,
-    Part as BilibiliPart)
+from .bilibili import (Page as BilibiliPage, LocalPage as BilibiliLocalPage)
 
 
 def make_normal_page(url):
@@ -27,17 +25,7 @@ def make_local_page(url):
 def make_page(url):
     if os.path.exists(url):
         return make_local_page(url)
-    else:
-        return make_normal_page(url)
-
-
-def make_part_pages(url):
-    prefixes = ['http://www.bilibili.com/video/av',
-                'http://bilibili.kankanews.com/video/av']
-    for prefix in prefixes:
-        if url.startswith(prefix):
-            return BilibiliPart(url).pages
-    raise Exception('此网址不支持自动合并分段')
+    return make_normal_page(url)
 
 
 def make_video(config, page):
