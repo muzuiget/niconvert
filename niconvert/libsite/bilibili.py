@@ -201,13 +201,14 @@ class Page(object):
         self.params = self._params()
 
     def _params(self):
-        normal_prefix = 'https://www.bilibili.com/video/av'
+        normal_prefix1 = 'http://www.bilibili.com/video/av'
+        normal_prefix2 = 'https://www.bilibili.com/video/av'
         comment_prefix = 'http://comment.bilibili.com/'
 
         url = self.url
         params = {}
 
-        if url.startswith(normal_prefix):
+        if url.startswith(normal_prefix1) or url.startswith(normal_prefix2):
             if url.endswith('/'):
                 url += 'index_1.html'
             params = self.extract_params_from_normal_page(url)

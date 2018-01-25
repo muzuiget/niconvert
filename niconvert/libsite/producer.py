@@ -6,7 +6,7 @@ from .bilibili import (Page as BilibiliPage, LocalPage as BilibiliLocalPage)
 
 def make_normal_page(url):
     page = None
-    if url.startswith('b://') or 'bilibili' in url:
+    if 'bilibili' in url:
         page = BilibiliPage(url)
     if page is None:
         raise Exception('不支持的网址')
