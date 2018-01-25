@@ -14,7 +14,7 @@ niconvert 是一个弹幕下载和转换工具，以便使用桌面播放器配�
 
 界面截图：
 
-.. image:: https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_gui.png
+.. image:: https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v3_gui.png
 
 支持如下特性：
 
