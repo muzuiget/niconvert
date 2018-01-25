@@ -11,10 +11,10 @@ from .loggingframe import LoggingFrame
 from .subtitleframe import SubtitleFrame
 
 
-class Application(ttk.Frame):
+class Application(ttk.PanedWindow):
 
     def __init__(self):
-        ttk.Frame.__init__(self, None, border=2)
+        ttk.PanedWindow.__init__(self, orient=tk.HORIZONTAL)
         self.pack(fill=tk.BOTH, expand=True)
         self.init_widgets()
 
@@ -77,12 +77,14 @@ class Application(ttk.Frame):
                            self.on_convert_button_clicked)
         frame.grid_columnconfigure(1, weight=1)
         frame.pack(side=tk.LEFT, fill=tk.BOTH)
+        self.add(frame)
 
     def init_right_frame(self):
         frame = ttk.Frame(self)
         self.logging_frame = LoggingFrame(frame)
         frame.grid_columnconfigure(1, weight=1)
         frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self.add(frame)
 
     def get_convert_args_list(self):
         io_args = self.io_frame.values()
