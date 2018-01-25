@@ -11,16 +11,17 @@ from .loggingframe import LoggingFrame
 from .subtitleframe import SubtitleFrame
 
 
-class Application(ttk.PanedWindow):
+class Application(ttk.Frame):
 
     def __init__(self):
-        ttk.PanedWindow.__init__(self, orient=tk.HORIZONTAL)
+        ttk.Frame.__init__(self, None, border=2)
         self.pack(fill=tk.BOTH, expand=True)
         self.init_widgets()
 
     def init_widgets(self):
         self.init_topwin()
         self.init_menubar()
+        self.init_rootpane()
         self.init_left_frame()
         self.init_right_frame()
         tku.add_border_space(self, 2, 2)
@@ -58,6 +59,10 @@ class Application(ttk.PanedWindow):
 
         self.topwin.config(menu=menubar)
 
+    def init_rootpane(self):
+        self.rootpane = ttk.PanedWindow(self, orient=tk.HORIZONTAL)
+        self.rootpane.pack(side=tk.LEFT, fill=tk.BOTH)
+
     def init_left_frame(self):
         frame = ttk.Frame(self)
         self.io_frame = IoFrame(frame)
@@ -67,14 +72,14 @@ class Application(ttk.PanedWindow):
                            self.on_convert_button_clicked)
         frame.grid_columnconfigure(1, weight=1)
         frame.pack(side=tk.LEFT, fill=tk.BOTH)
-        self.add(frame)
+        self.rootpane.add(frame)
 
     def init_right_frame(self):
         frame = ttk.Frame(self)
         self.logging_frame = LoggingFrame(frame)
         frame.grid_columnconfigure(1, weight=1)
         frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-        self.add(frame)
+        self.rootpane.add(frame)
 
     def get_convert_args_list(self):
         io_args = self.io_frame.values()
