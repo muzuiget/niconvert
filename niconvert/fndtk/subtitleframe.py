@@ -198,14 +198,14 @@ class ResolutionBox(ttk.Frame):
 
     def init_widgets(self):
         width_spinbox = tk.Spinbox(
-            self, justify=tk.RIGHT, width=16, from_=1, to=9999)
+            self, justify=tk.RIGHT, width=8, from_=1, to=9999)
         label = ttk.Label(self, text='x')
         height_spinbox = tk.Spinbox(
-            self, justify=tk.RIGHT, width=16, from_=1, to=9999)
+            self, justify=tk.RIGHT, width=8, from_=1, to=9999)
 
-        width_spinbox.pack(side=tk.LEFT, fill=tk.BOTH)
+        width_spinbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
         label.pack(side=tk.LEFT)
-        height_spinbox.pack(side=tk.LEFT, fill=tk.BOTH)
+        height_spinbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         self.width_spinbox = width_spinbox
         self.height_spinbox = height_spinbox
