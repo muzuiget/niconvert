@@ -114,7 +114,7 @@ class Application(ttk.PanedWindow):
         self.quit()
 
     def on_help_menuitem_clicked(self):
-        webbrowser.open('https://github.com/muzuiget/niconvert/wiki')
+        webbrowser.open('https://github.com/muzuiget/niconvert/tree/master/docs')
 
     def on_about_menuitem_clicked(self):
         webbrowser.open('https://github.com/muzuiget/niconvert#readme')
