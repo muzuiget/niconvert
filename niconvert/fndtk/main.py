@@ -47,16 +47,6 @@ class Application(ttk.PanedWindow):
         self.topwin.protocol('WM_DELETE_WINDOW', self.quit)
 
     def init_menubar(self):
-        # XXX Python 3.3 在 Windows XP/7 里都不能收到 bind 过的函数
-        # 原因不明，不想给 MenuBar 传入外部依赖 ，暂时用 MonkeyPatch 处理
-        if sys.platform.startswith('win'):
-            MenuBar.on_quit_menuitem_clicked = \
-                lambda s: self.on_quit_menuitem_clicked(None)
-            MenuBar.on_help_menuitem_clicked = \
-                lambda s: self.on_help_menuitem_clicked(None)
-            MenuBar.on_about_menuitem_clicked = \
-                lambda s: self.on_about_menuitem_clicked(None)
-
         events = {
             '<<QuitMenuitemClicked>>': self.on_quit_menuitem_clicked,
             '<<HelpMenuitemClicked>>': self.on_help_menuitem_clicked,
@@ -120,13 +110,13 @@ class Application(ttk.PanedWindow):
         sys.stdout = orig_stdout
         sys.stderr = orig_stderr
 
-    def on_quit_menuitem_clicked(self, event):
+    def on_quit_menuitem_clicked(self):
         self.quit()
 
-    def on_help_menuitem_clicked(self, event):
+    def on_help_menuitem_clicked(self):
         webbrowser.open('https://github.com/muzuiget/niconvert/wiki')
 
-    def on_about_menuitem_clicked(self, event):
+    def on_about_menuitem_clicked(self):
         webbrowser.open('https://github.com/muzuiget/niconvert#readme')
 
 
