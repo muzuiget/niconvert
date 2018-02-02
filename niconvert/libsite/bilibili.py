@@ -27,6 +27,9 @@ class Filter(BaseFilter):
                 return True
         return False
 
+    def filter_danmakus(self, danmakus):
+        return list(filter(lambda d: not self.match(d), danmakus))
+
 
 class Danmaku(BaseDanmaku):
 

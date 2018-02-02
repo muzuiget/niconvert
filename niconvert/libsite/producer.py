@@ -1,5 +1,4 @@
 import os
-from ..libcore.filter import guest_filter, top_filter, bottom_filter
 from .config import Config
 from .bilibili import (Page as BilibiliPage, LocalPage as BilibiliLocalPage)
 
@@ -78,48 +77,48 @@ class Producer(object):
     def init_filter_danmakus(self):
         keeped_danmakus = []
         filter_detail = dict(
-            top=0,
-            bottom=0,
+            custom=0,
             guest=0,
             video=0,
-            custom=0
+            top=0,
+            bottom=0,
         )
 
-        custom_filter = self.config.custom_filter
-        part_offset = 0
-        for i, video in enumerate(self.videos):
+        custom_filter = self.config.get_custom_filter()
+        guest_filter = self.config.get_guest_filter()
+        top_filter = self.config.get_top_filter()
+        bottom_filter = self.config.get_bottom_filter()
 
-            # 处理偏移 #
-            offset = 0
+        for video in self.videos:
+            video_filter = video.filter
+            danmakus = video.danmakus
 
-            # 处理过滤 #
+            if custom_filter is not None:
+                count = len(danmakus)
+                danmakus = custom_filter.filter_danmakus(danmakus)
+                filter_detail['custom'] = count - len(danmakus)
 
-            for danmaku in video.danmakus:
+            if guest_filter is not None:
+                count = len(danmakus)
+                danmakus = guest_filter.filter_danmakus(danmakus)
+                filter_detail['guest'] = count - len(danmakus)
 
-                if not self.config.disable_guest_filter:
-                    if guest_filter.match(danmaku):
-                        filter_detail['guest'] += 1
-                        continue
-                if not self.config.disable_top_filter:
-                    if top_filter.match(danmaku):
-                        filter_detail['top'] += 1
-                        continue
-                if not self.config.disable_bottom_filter:
-                    if bottom_filter.match(danmaku):
-                        filter_detail['bottom'] += 1
-                        continue
-                if not self.config.disable_video_filter:
-                    if video.filter and video.filter.match(danmaku):
-                        filter_detail['video'] += 1
-                        continue
-                if custom_filter:
-                    if custom_filter.match(danmaku):
-                        filter_detail['custom'] += 1
-                        continue
+            if video_filter is not None:
+                count = len(danmakus)
+                danmakus = video_filter.filter_danmakus(danmakus)
+                filter_detail['video'] = count - len(danmakus)
 
-                # 算上偏移加入保留列表中
-                danmaku = ProxyDanmaku(danmaku, offset)
-                keeped_danmakus.append(danmaku)
+            if top_filter is not None:
+                count = len(danmakus)
+                danmakus = top_filter.filter_danmakus(danmakus)
+                filter_detail['top'] = count - len(danmakus)
+
+            if bottom_filter is not None:
+                count = len(danmakus)
+                danmakus = bottom_filter.filter_danmakus(danmakus)
+                filter_detail['bottom'] = count - len(danmakus)
+
+            keeped_danmakus.extend(danmakus)
 
         self.keeped_danmakus = keeped_danmakus
         self.filter_detail = filter_detail

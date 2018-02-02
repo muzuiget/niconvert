@@ -1,5 +1,10 @@
-from ..libcore.filter import CustomFilter
-
+from ..libcore.filter import (
+    GuestFilter,
+    TopFilter,
+    BottomFilter,
+    CustomSimpleFilter,
+    CustomPythonFilter
+)
 
 class Config(object):
 
@@ -12,14 +17,7 @@ class Config(object):
         self.disable_video_filter = self._disable_video_filter()
 
     def _custom_filter(self):
-        if not self.args['custom_filter']:
-            return []
-        filename = self.args['custom_filter']
-        with open(filename) as file:
-            text = file.read().strip() + '\n'
-            lines = map(lambda l: l.strip(), text.split('\n'))
-            lines = list(filter(lambda l: l != '', lines))
-        return CustomFilter(lines)
+        return self.args['custom_filter']
 
     def _disable_top_filter(self):
         return self.args['disable_top_filter']
@@ -32,3 +30,26 @@ class Config(object):
 
     def _disable_video_filter(self):
         return self.args['disable_video_filter']
+
+    def get_custom_filter(self):
+        if self.custom_filter is None:
+            return None
+        filename = self.args['custom_filter']
+        if filename.endswith('.py'):
+            return CustomPythonFilter(filename)
+        return CustomSimpleFilter(filename)
+
+    def get_guest_filter(self):
+        if not self.disable_guest_filter:
+            return GuestFilter()
+        return None
+
+    def get_top_filter(self):
+        if not self.disable_top_filter:
+            return TopFilter()
+        return None
+
+    def get_bottom_filter(self):
+        if not self.disable_bottom_filter:
+            return BottomFilter()
+        return None
