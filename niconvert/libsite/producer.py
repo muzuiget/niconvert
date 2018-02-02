@@ -32,24 +32,6 @@ def make_video(config, page):
     return page.video_class(config, meta)
 
 
-class ProxyDanmaku(object):
-    ''' 代理弹幕类
-
-    解决补丁这种蛋疼情况
-    '''
-
-    def __init__(self, danmaku, offset):
-        self.danmaku = danmaku
-        self.offset = offset
-        self.start = self._start()
-
-    def _start(self):
-        return self.danmaku.start + self.offset
-
-    def __getattr__(self, name):
-        return getattr(self.danmaku, name)
-
-
 class Producer(object):
 
     def __init__(self, args, bootstrap_url):
