@@ -1,8 +1,9 @@
 import sys
 import webbrowser
-import traceback
+from io import StringIO
 from pprint import pprint
 from ..fndcli.main import convert
+from .utils import toisotime, redirect_stdio
 from .tkmodules import tk, ttk, tku
 from .menubar import MenuBar
 from .ioframe import IoFrame
@@ -91,29 +92,20 @@ class Application(ttk.Frame):
             pprint(subtitle_args)
         return (io_args, danmaku_args, subtitle_args)
 
-    def on_convert_button_clicked(self, event):
+    def on_convert_button_clicked(self, event): # pylint: disable=unused-argument
         args_list = self.get_convert_args_list()
         if args_list[0]['url'] == '':
             return
 
-        # TODO 使用线程
-        orig_stdout = sys.stdout
-        orig_stderr = sys.stderr
-
         self.io_frame.disable_convert_button()
-        sys.stdout = self.logging_frame
-        try:
-            print('========')
-            print('开始转换')
-            print('========')
-            print()
-            convert(*args_list)
-        except:
-            print(traceback.format_exc())
-        self.io_frame.enable_convert_button()
 
-        sys.stdout = orig_stdout
-        sys.stderr = orig_stderr
+        stream = StringIO()
+        with redirect_stdio(stream):
+            print('[%s] 开始转换 ...' % toisotime())
+            convert(*args_list)
+        self.logging_frame.write(stream.getvalue())
+
+        self.io_frame.enable_convert_button()
 
     def on_quit_menuitem_clicked(self):
         self.quit()
