@@ -35,6 +35,8 @@ class Config(object):
         if self.custom_filter is None:
             return None
         filename = self.args['custom_filter']
+        if filename == '':
+            return None
         if filename.endswith('.py'):
             return CustomPythonFilter(filename)
         return CustomSimpleFilter(filename)
