@@ -1,20 +1,10 @@
-import os
 from .config import Config
-from .bilibili import (Page as BilibiliPage, LocalPage as BilibiliLocalPage)
-
-
-def make_normal_page(url):
-    page = None
-    if 'bilibili' in url:
-        page = BilibiliPage(url)
-    if page is None:
-        raise Exception('不支持的网址')
-    return page
+from .bilibili import (LocalPage as BilibiliLocalPage)
 
 
 def make_local_page(url):
     page = None
-    if 'xml' in url:
+    if 'json' in url:
         page = BilibiliLocalPage(url)
     if page is None:
         raise Exception('不支持的文件')
@@ -22,9 +12,7 @@ def make_local_page(url):
 
 
 def make_page(url):
-    if os.path.exists(url):
-        return make_local_page(url)
-    return make_normal_page(url)
+    return make_local_page(url)
 
 
 def make_video(config, page):
@@ -32,7 +20,7 @@ def make_video(config, page):
     return page.video_class(config, meta)
 
 
-class Producer(object):
+class Producer:
 
     def __init__(self, args, bootstrap_url):
         self.config = Config(args)
