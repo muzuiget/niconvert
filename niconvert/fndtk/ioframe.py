@@ -55,11 +55,11 @@ class IoFrame(ttk.LabelFrame):
     def on_input_filename_button_clicked(self):
         strvar = self.input_filename_strvar
         filetypes = [
-            ('JSON 文件', '*.json'),
             ('XML 文件', '*.xml'),
+            ('JSON 文件', '*.json'),
         ]
         tku.on_filedialog(self, strvar=strvar, method='load',
-                          defaultextension='.json',
+                          defaultextension='.xml',
                           filetypes=filetypes)()
 
         # 自动设置输出文件名
