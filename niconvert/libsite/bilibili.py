@@ -34,7 +34,6 @@ class Danmaku:
         self.content = item['content']
         self.size_ratio = item.get('size_ratio', 1)
         self.is_guest = item.get('is_guest', False)
-        self.is_applaud = item.get('is_applaud', False)
 
 class LocalVideo:
 

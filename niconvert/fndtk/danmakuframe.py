@@ -11,9 +11,9 @@ class DanmakuFrame(ttk.LabelFrame):
 
     def init_widgets(self):
         self.init_custom_filter_widgets()
-        self.init_disable_top_filter_widgets()
-        self.init_disable_bottom_filter_widgets()
-        self.init_disable_guest_filter_widgets()
+        self.init_top_filter_widgets()
+        self.init_bottom_filter_widgets()
+        self.init_guest_filter_widgets()
         tku.add_border_space(self, 1, 1)
 
     def init_custom_filter_widgets(self):
@@ -29,32 +29,32 @@ class DanmakuFrame(ttk.LabelFrame):
         button['command'] = self.on_custom_filter_button_clicked
         self.custom_filter_strvar = strvar
 
-    def init_disable_top_filter_widgets(self):
+    def init_top_filter_widgets(self):
         intvar = tk.IntVar()
         checkbutton = ttk.Checkbutton(
-            self, text='不要过滤顶部弹幕', variable=intvar)
+            self, text='过滤顶部弹幕', variable=intvar)
 
         checkbutton.grid(row=2, column=0, sticky=tk.W, columnspan=3)
 
-        self.disable_top_filter_intvar = intvar
+        self.top_filter_intvar = intvar
 
-    def init_disable_bottom_filter_widgets(self):
+    def init_bottom_filter_widgets(self):
         intvar = tk.IntVar()
         checkbutton = ttk.Checkbutton(
-            self, text='不要过滤底部弹幕', variable=intvar)
+            self, text='过滤底部弹幕', variable=intvar)
 
         checkbutton.grid(row=3, column=0, sticky=tk.W, columnspan=3)
 
-        self.disable_bottom_filter_intvar = intvar
+        self.bottom_filter_intvar = intvar
 
-    def init_disable_guest_filter_widgets(self):
+    def init_guest_filter_widgets(self):
         intvar = tk.IntVar()
         checkbutton = ttk.Checkbutton(
-            self, text='不要过滤游客弹幕', variable=intvar)
+            self, text='过滤游客弹幕', variable=intvar)
 
         checkbutton.grid(row=4, column=0, sticky=tk.W, columnspan=3)
 
-        self.disable_guest_filter_intvar = intvar
+        self.guest_filter_intvar = intvar
 
     def on_custom_filter_button_clicked(self):
         current_path = self.custom_filter_strvar.get().strip()
@@ -76,9 +76,12 @@ class DanmakuFrame(ttk.LabelFrame):
         self.custom_filter_strvar.set(selected_path)
 
     def values(self):
+        custom_filter = self.custom_filter_strvar.get().strip()
+        if custom_filter == '':
+            custom_filter = None
         return dict(
-            custom_filter=self.custom_filter_strvar.get().strip(),
-            disable_top_filter=self.disable_top_filter_intvar.get() == 1,
-            disable_bottom_filter=self.disable_bottom_filter_intvar.get() == 1,
-            disable_guest_filter=self.disable_guest_filter_intvar.get() == 1,
+            custom_filter=custom_filter,
+            top_filter=self.top_filter_intvar.get() == 1,
+            bottom_filter=self.bottom_filter_intvar.get() == 1,
+            guest_filter=self.guest_filter_intvar.get() == 1,
         )

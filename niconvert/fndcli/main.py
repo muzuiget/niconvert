@@ -10,9 +10,9 @@ def parse_args():
     )
     danmaku_keys = (
         'custom_filter',
-        'disable_bottom_filter',
-        'disable_guest_filter',
-        'disable_top_filter',
+        'bottom_filter',
+        'guest_filter',
+        'top_filter',
     )
     subtitle_keys = (
         'bottom_margin',

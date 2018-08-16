@@ -19,22 +19,17 @@ class Producer:
 
     def init_filter_danmakus(self):
         filter_detail = dict(
+            bottom=0,
             custom=0,
             guest=0,
             top=0,
-            bottom=0,
         )
 
-        custom_filter = self.config.get_custom_filter()
         guest_filter = self.config.get_guest_filter()
         top_filter = self.config.get_top_filter()
         bottom_filter = self.config.get_bottom_filter()
+        custom_filter = self.config.get_custom_filter()
         danmakus = self.video.danmakus
-
-        if custom_filter is not None:
-            count = len(danmakus)
-            danmakus = custom_filter.filter_danmakus(danmakus)
-            filter_detail['custom'] = count - len(danmakus)
 
         if guest_filter is not None:
             count = len(danmakus)
@@ -50,6 +45,11 @@ class Producer:
             count = len(danmakus)
             danmakus = bottom_filter.filter_danmakus(danmakus)
             filter_detail['bottom'] = count - len(danmakus)
+
+        if custom_filter is not None:
+            count = len(danmakus)
+            danmakus = custom_filter.filter_danmakus(danmakus)
+            filter_detail['custom'] = count - len(danmakus)
 
         self.keeped_danmakus = danmakus
         self.filter_detail = filter_detail

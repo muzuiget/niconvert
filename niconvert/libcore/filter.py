@@ -7,13 +7,18 @@ class BaseFilter:
     ''' 过滤器基类 '''
 
     def filter_danmakus(self, danmakus):
-        return danmakus
+        raise NotImplementedError
 
 class GuestFilter(BaseFilter):
     ''' 游客过滤器 '''
 
     def filter_danmakus(self, danmakus):
-        return list(filter(lambda d: not d.is_guest, danmakus))
+        keep = []
+        for danmaku in danmakus:
+            if danmaku.is_guest:
+                continue
+            keep.append(danmaku)
+        return keep
 
 class TopFilter(BaseFilter):
     ''' 顶部样式过滤器 '''
@@ -21,9 +26,6 @@ class TopFilter(BaseFilter):
     def filter_danmakus(self, danmakus):
         keep = []
         for danmaku in danmakus:
-            if danmaku.is_applaud:
-                keep.append(danmaku)
-                continue
             if danmaku.style == TOP:
                 continue
             keep.append(danmaku)
@@ -35,14 +37,10 @@ class BottomFilter(BaseFilter):
     def filter_danmakus(self, danmakus):
         keep = []
         for danmaku in danmakus:
-            if danmaku.is_applaud:
-                keep.append(danmaku)
-                continue
             if danmaku.style == BOTTOM:
                 continue
             keep.append(danmaku)
         return keep
-
 
 class CustomSimpleFilter(BaseFilter):
     ''' 自定义过滤器(纯文本) '''

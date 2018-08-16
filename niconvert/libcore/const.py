@@ -1,7 +1,5 @@
 # 弹幕样式
-STYLES = (
-    NOT_SUPPORT,
-    SCROLL,
-    TOP,
-    BOTTOM,
-) = range(4)
+NOT_SUPPORT = 0
+SCROLL = 1
+TOP = 2
+BOTTOM = 3

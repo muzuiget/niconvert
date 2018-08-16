@@ -13,11 +13,10 @@ def create_parser():
             type=str)
 
     add_arg('-o', '--output-filename',
-            required=True,
             metavar='FILENAME',
             help='输出文件名',
             type=str,
-            default=None)
+            required=True)
 
     add_arg = parser.add_argument_group('弹幕选项').add_argument
 
@@ -27,17 +26,20 @@ def create_parser():
             type=str,
             default=None)
 
-    add_arg('-T', '--disable-top-filter',
-            help='不要过滤顶部弹幕',
-            action='store_true')
+    add_arg('-t', '--top-filter',
+            help='过滤顶部弹幕',
+            action='store_true',
+            default=False)
 
-    add_arg('-B', '--disable-bottom-filter',
-            help='不要过滤底部弹幕',
-            action='store_true')
+    add_arg('-b', '--bottom-filter',
+            help='过滤底部弹幕',
+            action='store_true',
+            default=False)
 
-    add_arg('-G', '--disable-guest-filter',
-            help='不要过滤游客弹幕',
-            action='store_true')
+    add_arg('-g', '--guest-filter',
+            help='过滤游客弹幕',
+            action='store_true',
+            default=False)
 
     add_arg = parser.add_argument_group('字幕选项').add_argument
 
