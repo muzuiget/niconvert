@@ -1,21 +1,32 @@
+import json
 from niconvert.libsite.config import Config
-from niconvert.libsite.bilibili import (LocalPage as BilibiliLocalPage)
 
-def make_video(page, input_filename):
-    return page.video_class(input_filename)
+class Danmaku:
+
+    def __init__(self, item):
+        self.start = item['start']
+        self.style = item['style']
+        self.color = int('0x%s' % item['color'], 0)
+        self.commenter = item['commenter']
+        self.content = item['content']
+        self.size_ratio = item.get('size_ratio', 1)
+        self.is_guest = item.get('is_guest', False)
 
 class Producer:
 
     def __init__(self, args, input_filename):
         self.config = Config(args)
         self.input_filename = input_filename
-        self.page = None
-        self.video = None
 
     def start_handle(self):
-        self.page = BilibiliLocalPage(self.input_filename)
-        self.video = make_video(self.page, self.input_filename)
+        self.load_json_danmakus()
         self.init_filter_danmakus()
+
+    def load_json_danmakus(self):
+        with open(self.input_filename) as file:
+            text = file.read()
+        items = json.loads(text)
+        self.all_danmakus = list(map(Danmaku, items))
 
     def init_filter_danmakus(self):
         filter_detail = dict(
@@ -25,31 +36,14 @@ class Producer:
             top=0,
         )
 
-        guest_filter = self.config.get_guest_filter()
-        top_filter = self.config.get_top_filter()
-        bottom_filter = self.config.get_bottom_filter()
-        custom_filter = self.config.get_custom_filter()
-        danmakus = self.video.danmakus
-
-        if guest_filter is not None:
-            count = len(danmakus)
-            danmakus = guest_filter.filter_danmakus(danmakus)
-            filter_detail['guest'] = count - len(danmakus)
-
-        if top_filter is not None:
-            count = len(danmakus)
-            danmakus = top_filter.filter_danmakus(danmakus)
-            filter_detail['top'] = count - len(danmakus)
-
-        if bottom_filter is not None:
-            count = len(danmakus)
-            danmakus = bottom_filter.filter_danmakus(danmakus)
-            filter_detail['bottom'] = count - len(danmakus)
-
-        if custom_filter is not None:
-            count = len(danmakus)
-            danmakus = custom_filter.filter_danmakus(danmakus)
-            filter_detail['custom'] = count - len(danmakus)
+        danmakus = self.all_danmakus
+        orders = ['guest', 'top', 'bottom', 'custom']
+        for name in orders:
+            filter_obj = getattr(self.config, 'get_%s_filter' % name)()
+            if filter_obj is not None:
+                count = len(danmakus)
+                danmakus = filter_obj.filter_danmakus(danmakus)
+                filter_detail[name] = count - len(danmakus)
 
         self.keeped_danmakus = danmakus
         self.filter_detail = filter_detail
