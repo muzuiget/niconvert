@@ -1,5 +1,4 @@
-from .tkmodules import tk
-
+from niconvert.fndtk.tkmodules import tk
 
 class MenuBar(tk.Menu):
 

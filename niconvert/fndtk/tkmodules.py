@@ -14,8 +14,7 @@ tk.scrolledtext.Frame = ttk.Frame
 tk.scrolledtext.Scrollbar = ttk.Scrollbar
 ttk.ScrolledText = tk.scrolledtext.ScrolledText
 
-
-class tku(object):
+class tku:
 
     @staticmethod
     def add_border_space(widget, padx, pady, recursive=True):
@@ -39,7 +38,7 @@ class tku(object):
         y = (screen_height - window_height) // 2
         y -= 40  # 状态栏大约高度
         win.geometry('{:d}x{:d}+{:d}+{:d}'.format(
-                     window_width, window_height, x, y))
+            window_width, window_height, x, y))
 
     @staticmethod
     def asset_path(name):

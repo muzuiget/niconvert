@@ -2,15 +2,14 @@ import sys
 import webbrowser
 from io import StringIO
 from pprint import pprint
-from ..fndcli.main import convert
-from .utils import toisotime, redirect_stdio
-from .tkmodules import tk, ttk, tku
-from .menubar import MenuBar
-from .ioframe import IoFrame
-from .danmakuframe import DanmakuFrame
-from .loggingframe import LoggingFrame
-from .subtitleframe import SubtitleFrame
-
+from niconvert.fndcli.main import convert
+from niconvert.fndtk.utils import toisotime, redirect_stdio
+from niconvert.fndtk.tkmodules import tk, ttk, tku
+from niconvert.fndtk.menubar import MenuBar
+from niconvert.fndtk.ioframe import IoFrame
+from niconvert.fndtk.danmakuframe import DanmakuFrame
+from niconvert.fndtk.loggingframe import LoggingFrame
+from niconvert.fndtk.subtitleframe import SubtitleFrame
 
 class Application(ttk.Frame):
 
@@ -115,7 +114,6 @@ class Application(ttk.Frame):
 
     def on_about_menuitem_clicked(self):
         webbrowser.open('https://github.com/muzuiget/niconvert#readme')
-
 
 def main():
     app = Application()

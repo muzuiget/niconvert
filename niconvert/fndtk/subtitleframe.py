@@ -1,7 +1,6 @@
 import os
 import sys
-from .tkmodules import tk, ttk, tku
-
+from niconvert.fndtk.tkmodules import tk, ttk, tku
 
 class SubtitleFrame(ttk.LabelFrame):
 

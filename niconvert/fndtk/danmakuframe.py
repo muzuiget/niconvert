@@ -1,6 +1,5 @@
 import os
-from .tkmodules import tk, ttk, tku
-
+from niconvert.fndtk.tkmodules import tk, ttk, tku
 
 class DanmakuFrame(ttk.LabelFrame):
 

@@ -1,5 +1,4 @@
-from .tkmodules import tk, ttk, tku
-
+from niconvert.fndtk.tkmodules import tk, ttk, tku
 
 class LoggingFrame(ttk.LabelFrame):
 
@@ -16,7 +15,7 @@ class LoggingFrame(ttk.LabelFrame):
         tku.add_border_space(self, 1, 1)
 
     def get(self):
-        return self.scrolledtext.get()
+        return self.scrolledtext.get(1.0, 'end')
 
     def write(self, string):
         self.scrolledtext.insert('end', string)
