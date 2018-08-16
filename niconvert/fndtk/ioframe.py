@@ -17,7 +17,7 @@ class IoFrame(ttk.LabelFrame):
 
     def init_input_filename_widgets(self):
         strvar = tk.StringVar()
-        label = ttk.Label(self, text='弹幕文件：')
+        label = ttk.Label(self, text='输入文件：')
         entry = ttk.Entry(self, textvariable=strvar)
         button = ttk.Button(self, text='浏览', width=6)
 

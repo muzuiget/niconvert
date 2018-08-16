@@ -162,6 +162,9 @@ class SubtitleFrame(ttk.LabelFrame):
                           filetypes=filetypes)()
 
     def values(self):
+        header_file = self.header_file_strvar.get().strip()
+        if header_file == '':
+            header_file = None
         return dict(
             play_resolution=self.play_resolution_box.get().strip(),
             font_name=self.font_name_strvar.get().strip(),
@@ -172,7 +175,7 @@ class SubtitleFrame(ttk.LabelFrame):
             drop_offset=int(self.drop_offset_spinbox.get()),
             bottom_margin=int(self.bottom_margin_spinbox.get()),
             custom_offset=self.custom_offset_strvar.get().strip(),
-            header_file=self.header_file_strvar.get().strip(),
+            header_file=header_file,
         )
 
 
