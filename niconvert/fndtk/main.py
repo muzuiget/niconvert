@@ -26,15 +26,14 @@ class Application(ttk.Frame):
         self.init_right_frame()
         tku.add_border_space(self, 2, 2)
 
-        # Windows 下有个问题，窗口实例初始化后，出现在默认位置，
+        # Windows 下让窗口居中
+        # 有个问题，窗口实例初始化后，出现在默认位置，
         # 如果马上修改窗口位置，窗口还是会在默认位置闪现一下，
         # 因此先隐藏起来，位置更新后再显示出来
         if sys.platform.startswith('win'):
             self.topwin.withdraw()
             tku.move_to_screen_center(self.topwin)
             self.topwin.deiconify()
-        else:
-            tku.move_to_screen_center(self.topwin)
 
     def init_topwin(self):
         self.topwin = self.winfo_toplevel()
