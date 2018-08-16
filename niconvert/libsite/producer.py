@@ -63,7 +63,7 @@ class Producer:
             filter_obj = self.filter_objs.get(name)
             if filter_obj is not None:
                 count = len(danmakus)
-                danmakus = filter_obj.filter_danmakus(danmakus)
+                danmakus = filter_obj.do_filter(danmakus)
                 filter_detail[name] = count - len(danmakus)
 
         self.keeped_danmakus = danmakus

@@ -5,13 +5,13 @@ import importlib.util
 class BaseFilter:
     ''' 过滤器基类 '''
 
-    def filter_danmakus(self, danmakus):
+    def do_filter(self, danmakus):
         raise NotImplementedError
 
 class GuestFilter(BaseFilter):
     ''' 游客过滤器 '''
 
-    def filter_danmakus(self, danmakus):
+    def do_filter(self, danmakus):
         keep = []
         for danmaku in danmakus:
             if danmaku.is_guest:
@@ -22,7 +22,7 @@ class GuestFilter(BaseFilter):
 class TopFilter(BaseFilter):
     ''' 顶部样式过滤器 '''
 
-    def filter_danmakus(self, danmakus):
+    def do_filter(self, danmakus):
         keep = []
         for danmaku in danmakus:
             if danmaku.style == 'top':
@@ -33,7 +33,7 @@ class TopFilter(BaseFilter):
 class BottomFilter(BaseFilter):
     ''' 底部样式过滤器 '''
 
-    def filter_danmakus(self, danmakus):
+    def do_filter(self, danmakus):
         keep = []
         for danmaku in danmakus:
             if danmaku.style == 'bottom':
@@ -65,7 +65,7 @@ class CustomSimpleFilter(BaseFilter):
                 return True
         return False
 
-    def filter_danmakus(self, danmakus):
+    def do_filter(self, danmakus):
         keep = []
         for danmaku in danmakus:
             if self.match(danmaku):
@@ -87,9 +87,9 @@ class CustomPythonFilter(BaseFilter):
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
 
-        if not hasattr(module, 'filter_danmakus'):
-            raise ValueError('过滤文件不存在 filter_danmakus() 函数')
+        if not hasattr(module, 'do_filter'):
+            raise ValueError('过滤文件不存在 do_filter() 函数')
         return module
 
-    def filter_danmakus(self, danmakus):
-        return self.module.filter_danmakus(danmakus)
+    def do_filter(self, danmakus):
+        return self.module.do_filter(danmakus)
