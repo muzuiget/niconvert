@@ -1,12 +1,6 @@
 import os
-import re
 import json
-from ..libcore.const import NOT_SUPPORT, SCROLL, TOP, BOTTOM
-from ..libcore.fetcher import fetch
-from ..libcore.filter import BaseFilter
-from ..libcore.danmaku import BaseDanmaku
-from ..libcore.video import BaseVideo
-
+from niconvert.libcore.filter import BaseFilter
 
 class Filter(BaseFilter):
 
@@ -31,7 +25,7 @@ class Filter(BaseFilter):
         return list(filter(lambda d: not self.match(d), danmakus))
 
 
-class Danmaku(BaseDanmaku):
+class Danmaku:
 
     def __init__(self, item):
         self.start = item['start']
@@ -43,7 +37,7 @@ class Danmaku(BaseDanmaku):
         self.is_guest = item.get('is_guest', False)
         self.is_applaud = item.get('is_applaud', False)
 
-class LocalVideo(object):
+class LocalVideo:
 
     def __init__(self, config, meta):
         self.config = config
@@ -70,8 +64,7 @@ class LocalVideo(object):
         ordered_danmakus = sorted(orignal_danmakus, key=lambda d: d.start)
         return ordered_danmakus
 
-
-class LocalPage(object):
+class LocalPage:
 
     def __init__(self, url):
         self.url = url
