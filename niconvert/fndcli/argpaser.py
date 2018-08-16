@@ -1,15 +1,15 @@
 from argparse import ArgumentParser
 
-
 def create_parser():
     parser = ArgumentParser(
-        description='弹幕字幕下载和转换工具',
+        description='弹幕转字幕工具',
         prefix_chars='-+')
 
     add_arg = parser.add_argument_group('输入输出').add_argument
 
-    add_arg('path',
-            help='niconvert JSON 文件路径',
+    add_arg('input_filename',
+            metavar='FILENAME',
+            help='输入文件名',
             type=str)
 
     add_arg('-o', '--output-filename',

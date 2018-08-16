@@ -1,40 +1,44 @@
 import os
-from ..libsite.producer import Producer
-from ..libass.studio import Studio
-from .argpaser import argpaser
+from niconvert.fndcli.argpaser import argpaser
+from niconvert.libsite.producer import Producer
+from niconvert.libass.studio import Studio
 
-
-def parseargs():
-    namespace = argpaser.parse_args()
-
-    io_keys = ('path', 'output_filename')
+def parse_args():
+    io_keys = (
+        'input_filename',
+        'output_filename',
+    )
     danmaku_keys = (
         'custom_filter',
-        'disable_top_filter', 'disable_bottom_filter',
+        'disable_bottom_filter',
         'disable_guest_filter',
+        'disable_top_filter',
     )
     subtitle_keys = (
-        'play_resolution', 'font_name', 'font_size',
-        'line_count', 'layout_algorithm', 'tune_duration',
-        'drop_offset', 'bottom_margin', 'custom_offset', 'header_file'
+        'bottom_margin',
+        'custom_offset',
+        'drop_offset',
+        'font_name',
+        'font_size',
+        'header_file',
+        'layout_algorithm',
+        'line_count',
+        'play_resolution',
+        'tune_duration',
     )
 
-    create_args = lambda keys: {k: getattr(namespace, k) for k in keys}
+    namespace = argpaser.parse_args()
+    create_args = lambda v: {k: getattr(namespace, k) for k in v}
     io_args = create_args(io_keys)
     danmaku_args = create_args(danmaku_keys)
     subtitle_args = create_args(subtitle_keys)
     return io_args, danmaku_args, subtitle_args
 
-
 def convert(io_args, danmaku_args, subtitle_args):
-    path = io_args['path']
+    input_filename = io_args['input_filename']
     output_filename = io_args['output_filename']
 
-    producer = Producer(danmaku_args, path)
-
-    producer.start_download()
-    print()
-
+    producer = Producer(danmaku_args, input_filename)
     producer.start_handle()
     print('屏蔽条数：顶部({top}) + 底部({bottom}) + '
           '游客({guest}) + 云屏蔽({video}) + 自定义({custom}) = {}'
@@ -53,6 +57,5 @@ def convert(io_args, danmaku_args, subtitle_args):
     print('字幕文件：' + os.path.basename(output_filename))
     print()
 
-
 def main():
-    convert(*parseargs())
+    convert(*parse_args())

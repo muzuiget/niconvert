@@ -1,5 +1,5 @@
-from .config import Config
-from .bilibili import (LocalPage as BilibiliLocalPage)
+from niconvert.libsite.config import Config
+from niconvert.libsite.bilibili import (LocalPage as BilibiliLocalPage)
 
 def make_video(page, input_filename):
     return page.video_class(input_filename)
@@ -12,11 +12,9 @@ class Producer:
         self.page = None
         self.video = None
 
-    def start_download(self):
+    def start_handle(self):
         self.page = BilibiliLocalPage(self.input_filename)
         self.video = make_video(self.page, self.input_filename)
-
-    def start_handle(self):
         self.init_filter_danmakus()
 
     def init_filter_danmakus(self):

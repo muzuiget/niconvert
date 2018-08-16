@@ -11,12 +11,12 @@ class IoFrame(ttk.LabelFrame):
         self.init_widgets()
 
     def init_widgets(self):
-        self.init_path_widgets()
+        self.init_input_filename_widgets()
         self.init_output_filename_widgets()
         self.init_convert_widgets()
         tku.add_border_space(self, 1, 1)
 
-    def init_path_widgets(self):
+    def init_input_filename_widgets(self):
         strvar = tk.StringVar()
         label = ttk.Label(self, text='弹幕文件：')
         entry = ttk.Entry(self, textvariable=strvar)
@@ -27,9 +27,9 @@ class IoFrame(ttk.LabelFrame):
         button.grid(row=0, column=2, sticky=tk.W)
 
         strvar.set(os.getcwd() + '/')
-        button['command'] = self.on_path_button_clicked
+        button['command'] = self.on_input_filename_button_clicked
 
-        self.path_strvar = strvar
+        self.input_filename_strvar = strvar
 
     def init_output_filename_widgets(self):
         strvar = tk.StringVar()
@@ -53,8 +53,8 @@ class IoFrame(ttk.LabelFrame):
         button['command'] = self.on_convert_button_clicked
         self.convert_button = button
 
-    def on_path_button_clicked(self):
-        current_path = self.path_strvar.get().strip()
+    def on_input_filename_button_clicked(self):
+        current_path = self.input_filename_strvar.get().strip()
         if current_path == '':
             foldername, filename = os.getcwd(), ''
         else:
@@ -70,7 +70,7 @@ class IoFrame(ttk.LabelFrame):
         if selected_path is None or len(selected_path) == 0:
             return
 
-        self.path_strvar.set(selected_path)
+        self.input_filename_strvar.set(selected_path)
         output_filename = self.output_filename_strvar.get().strip()
         if not output_filename.endswith('.ass'):
             path = selected_path.replace('.json', '.ass')
@@ -104,7 +104,7 @@ class IoFrame(ttk.LabelFrame):
 
     def values(self):
         return dict(
-            path=self.path_strvar.get().strip(),
+            input_filename=self.input_filename_strvar.get().strip(),
             output_filename=self.output_filename_strvar.get().strip(),
         )
 
