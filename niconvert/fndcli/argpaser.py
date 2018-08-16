@@ -94,7 +94,7 @@ def create_parser():
 
     add_arg('+c', '--custom-offset',
             metavar='LENGTH',
-            help='自定偏移',
+            help='自定偏移，默认为 %(default)s 秒',
             type=str,
             default='00:00')
 
