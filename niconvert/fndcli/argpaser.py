@@ -13,6 +13,7 @@ def create_parser():
             type=str)
 
     add_arg('-o', '--output-filename',
+            required=True,
             metavar='FILENAME',
             help='输出文件名',
             type=str,

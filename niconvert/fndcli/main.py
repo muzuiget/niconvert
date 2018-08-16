@@ -1,3 +1,4 @@
+import os
 from ..libsite.producer import Producer
 from ..libass.studio import Studio
 from .argpaser import argpaser
@@ -47,7 +48,9 @@ def convert(io_args, danmaku_args, subtitle_args):
     print('字幕条数：总共({0}) - 丢弃({1.droped_count}) = '
           '{1.keeped_count}'
           .format(len(studio.ass_danmakus), studio))
-    print('字幕文件：' + studio.create_ass_file(output_filename))
+
+    studio.create_ass_file(output_filename)
+    print('字幕文件：' + os.path.basename(output_filename))
     print()
 
 

@@ -1,38 +1,21 @@
 from .config import Config
 from .bilibili import (LocalPage as BilibiliLocalPage)
 
-
-def make_local_page(url):
-    page = None
-    if 'json' in url:
-        page = BilibiliLocalPage(url)
-    if page is None:
-        raise Exception('不支持的文件')
-    return page
-
-
-def make_page(url):
-    return make_local_page(url)
-
-
 def make_video(config, page):
     meta = page.params.copy()
     return page.video_class(config, meta)
 
-
 class Producer:
 
-    def __init__(self, args, bootstrap_url):
+    def __init__(self, args, input_filename):
         self.config = Config(args)
-        self.bootstrap_url = bootstrap_url
+        self.input_filename = input_filename
         self.page = None
         self.video = None
-        self.title = '未知标题'
 
     def start_download(self):
-        self.page = make_page(self.bootstrap_url)
+        self.page = BilibiliLocalPage(self.input_filename)
         self.video = make_video(self.config, self.page)
-        self.title = self.video.title
 
     def start_handle(self):
         self.init_filter_danmakus()

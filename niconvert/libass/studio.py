@@ -1,10 +1,8 @@
 import sys
-from os.path import join, isdir, basename
-from .config import Config
-from .creater import Creater
+from niconvert.libass.config import Config
+from niconvert.libass.creater import Creater
 
-
-class Studio(object):
+class Studio:
     ''' 字幕工程类 '''
 
     def __init__(self, args, producer):
@@ -35,22 +33,7 @@ class Studio(object):
 
     def create_ass_file(self, filename):
         ''' 创建 ass 字幕 '''
-        default_filename = self.default_filename('.ass')
-        if filename is None:
-            filename = default_filename
-        elif isdir(filename):
-            filename = join(filename, default_filename)
-        elif not filename.endswith('.ass'):
-            filename += '.ass'
-
         self.create_file(filename, self.creater.text)
-        return basename(filename)
-
-    def default_filename(self, suffix):
-        ''' 创建文件全名 '''
-        video_title = self.producer.title.replace('/', ' ')
-        filename = video_title + suffix
-        return filename
 
     def create_file(self, filename, text):
         with open(filename, 'wb') as file:
