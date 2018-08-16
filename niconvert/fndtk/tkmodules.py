@@ -42,4 +42,4 @@ class tku:
 
     @staticmethod
     def asset_path(name):
-        return join(dirname(dirname(__file__)), 'assets', name)
+        return join(dirname(__file__), 'assets', name)
