@@ -1,5 +1,5 @@
 import json
-from niconvert.libsite.config import Config
+import niconvert.libsite.filter as filters
 
 class Danmaku:
 
@@ -14,21 +14,42 @@ class Danmaku:
 
 class Producer:
 
-    def __init__(self, args, input_filename):
-        self.config = Config(args)
+    def __init__(self, config, input_filename):
+        self.config = config
         self.input_filename = input_filename
 
     def start_handle(self):
-        self.load_json_danmakus()
-        self.init_filter_danmakus()
+        self.load_json_file()
+        self.load_filter_objs()
+        self.apply_filter_objs()
 
-    def load_json_danmakus(self):
+    def load_json_file(self):
         with open(self.input_filename) as file:
             text = file.read()
         items = json.loads(text)
         self.all_danmakus = list(map(Danmaku, items))
 
-    def init_filter_danmakus(self):
+    def load_filter_objs(self):
+        config = self.config
+        objs = {}
+
+        if config.get('guest_filter', False):
+            objs['guest'] = filters.GuestFilter()
+        if config.get('top_filter', False):
+            objs['top'] = filters.TopFilter()
+        if config.get('bottom_filter', False):
+            objs['bottom'] = filters.BottomFilter()
+
+        path = config.get('custom_filter')
+        if path is not None:
+            if path.endswith('.py'):
+                obj = filters.CustomPythonFilter(path)
+            else:
+                obj = filters.CustomSimpleFilter(path)
+            objs['custom'] = obj
+        self.filter_objs = objs
+
+    def apply_filter_objs(self):
         filter_detail = dict(
             bottom=0,
             custom=0,
@@ -39,7 +60,7 @@ class Producer:
         danmakus = self.all_danmakus
         orders = ['guest', 'top', 'bottom', 'custom']
         for name in orders:
-            filter_obj = getattr(self.config, 'get_%s_filter' % name)()
+            filter_obj = self.filter_objs.get(name)
             if filter_obj is not None:
                 count = len(danmakus)
                 danmakus = filter_obj.filter_danmakus(danmakus)
