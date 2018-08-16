@@ -1,4 +1,3 @@
-import os
 import sys
 from niconvert.fndtk.tkmodules import tk, ttk, tku
 
@@ -156,23 +155,11 @@ class SubtitleFrame(ttk.LabelFrame):
         self.header_file_strvar = strvar
 
     def on_header_file_button_clicked(self):
-        current_path = self.header_file_strvar.get().strip()
-        if current_path == '':
-            foldername, filename = os.getcwd(), ''
-        else:
-            foldername, filename = os.path.split(current_path)
-
-        selected_path = tk.filedialog.askopenfilename(
-            parent=self,
-            title='打开文件',
-            initialdir=foldername,
-            initialfile=filename
-        )
-
-        if selected_path is None or len(selected_path) == 0:
-            return
-
-        self.header_file_strvar.set(selected_path)
+        strvar = self.header_file_strvar
+        filetypes = [('文本文件', '*.txt')]
+        tku.on_filedialog(self, strvar=strvar, method='load',
+                          defaultextension='.txt',
+                          filetypes=filetypes)()
 
     def values(self):
         return dict(

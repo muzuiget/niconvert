@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from niconvert.fndtk.tkmodules import tk, ttk, tku
 
 class IoFrame(ttk.LabelFrame):
@@ -25,7 +25,7 @@ class IoFrame(ttk.LabelFrame):
         entry.grid(row=0, column=1, sticky=tk.EW)
         button.grid(row=0, column=2, sticky=tk.W)
 
-        strvar.set(os.getcwd() + os.sep)
+        strvar.set('')
         button['command'] = self.on_input_filename_button_clicked
 
         self.input_filename_strvar = strvar
@@ -40,7 +40,7 @@ class IoFrame(ttk.LabelFrame):
         entry.grid(row=1, column=1, sticky=tk.EW)
         button.grid(row=1, column=2, sticky=tk.W)
 
-        strvar.set(os.getcwd() + os.sep)
+        strvar.set('')
         button['command'] = self.on_output_filename_button_clicked
         self.output_filename_strvar = strvar
 
@@ -53,50 +53,31 @@ class IoFrame(ttk.LabelFrame):
         self.convert_button = button
 
     def on_input_filename_button_clicked(self):
-        current_path = self.input_filename_strvar.get().strip()
-        if current_path == '':
-            foldername, filename = os.getcwd(), ''
-        else:
-            foldername, filename = os.path.split(current_path)
+        strvar = self.input_filename_strvar
+        filetypes = [
+            ('JSON 文件', '*.json'),
+            ('XML 文件', '*.xml'),
+        ]
+        tku.on_filedialog(self, strvar=strvar, method='load',
+                          defaultextension='.json',
+                          filetypes=filetypes)()
 
-        selected_path = tk.filedialog.askopenfilename(
-            parent=self,
-            title='打开文件',
-            initialdir=foldername,
-            initialfile=filename
-        )
-
-        if selected_path is None or len(selected_path) == 0:
+        # 自动设置输出文件名
+        input_filename = strvar.get().strip()
+        if input_filename == '':
             return
-
-        self.input_filename_strvar.set(selected_path)
         output_filename = self.output_filename_strvar.get().strip()
-        if not output_filename.endswith('.ass'):
-            path = selected_path.replace('.json', '.ass')
-            self.output_filename_strvar.set(path)
+        if output_filename.endswith('.ass'):
+            return
+        path = str(Path(input_filename).with_suffix('.ass'))
+        self.output_filename_strvar.set(path)
 
     def on_output_filename_button_clicked(self):
-        current_path = self.output_filename_strvar.get().strip()
-        if current_path == '':
-            foldername, filename = os.getcwd(), ''
-        elif os.path.isdir(current_path):
-            foldername, filename = current_path, ''
-        else:
-            foldername, filename = os.path.split(current_path)
-
-        selected_path = tk.filedialog.asksaveasfilename(
-            parent=self,
-            title='保存文件',
-            initialdir=foldername,
-            initialfile=filename
-        )
-
-        if selected_path is None or len(selected_path) == 0:
-            return
-
-        if selected_path == '':
-            selected_path = os.getcwd()
-        self.output_filename_strvar.set(selected_path)
+        strvar = self.output_filename_strvar
+        filetypes = [('ASS 文件', '*.ass')]
+        tku.on_filedialog(self, strvar=strvar, method='save',
+                          defaultextension='.ass',
+                          filetypes=filetypes)()
 
     def on_convert_button_clicked(self):
         self.event_generate('<<ConvertButtonClicked>>')

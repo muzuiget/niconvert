@@ -57,23 +57,14 @@ class DanmakuFrame(ttk.LabelFrame):
         self.guest_filter_intvar = intvar
 
     def on_custom_filter_button_clicked(self):
-        current_path = self.custom_filter_strvar.get().strip()
-        if current_path == '':
-            foldername, filename = os.getcwd(), ''
-        else:
-            foldername, filename = os.path.split(current_path)
-
-        selected_path = tk.filedialog.askopenfilename(
-            parent=self,
-            title='打开文件',
-            initialdir=foldername,
-            initialfile=filename
-        )
-
-        if selected_path is None:
-            return
-
-        self.custom_filter_strvar.set(selected_path)
+        strvar = self.custom_filter_strvar
+        filetypes = [
+            ('文本文件', '*.txt'),
+            ('Python 文件', '*.py'),
+        ]
+        tku.on_filedialog(self, strvar=strvar, method='load',
+                          defaultextension='.txt',
+                          filetypes=filetypes)()
 
     def values(self):
         custom_filter = self.custom_filter_strvar.get().strip()

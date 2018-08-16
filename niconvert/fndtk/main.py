@@ -92,7 +92,10 @@ class Application(ttk.Frame):
 
     def on_convert_button_clicked(self, event): # pylint: disable=unused-argument
         args_list = self.get_convert_args_list()
-        if args_list[0]['input_filename'] == '':
+        io_args = args_list[0]
+        if io_args['input_filename'] == '':
+            return
+        if io_args['output_filename'] == '':
             return
 
         self.io_frame.disable_convert_button()

@@ -1,4 +1,6 @@
+import os
 from os.path import join, dirname
+from pathlib import Path
 import tkinter
 import tkinter.ttk
 import tkinter.font
@@ -43,3 +45,39 @@ class tku:
     @staticmethod
     def asset_path(name):
         return join(dirname(__file__), 'assets', name)
+
+    @staticmethod
+    def on_filedialog(parent, **kwargs):
+        strvar = kwargs.pop('strvar')
+        method = kwargs.pop('method')
+
+        current_path = strvar.get().strip()
+        if current_path == '':
+            foldername, filename = os.getcwd(), ''
+        elif os.path.isdir(current_path):
+            foldername, filename = current_path, ''
+        else:
+            foldername, filename = os.path.split(current_path)
+
+        if method == 'save':
+            ask_func = tk.filedialog.asksaveasfilename
+            title = '保存文件'
+        else:
+            ask_func = tk.filedialog.askopenfilename
+            title = '选择文件'
+
+        def wrapper():
+            selected = ask_func(parent=parent,
+                                title=title,
+                                initialdir=foldername,
+                                initialfile=filename,
+                                **kwargs)
+            if selected is None or len(selected) == 0:
+                return
+            if selected == '':
+                selected = os.getcwd()
+            else:
+                selected = str(Path(selected))
+            strvar.set(selected)
+
+        return wrapper
