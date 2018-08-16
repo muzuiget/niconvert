@@ -1,5 +1,5 @@
 import json
-import niconvert.libsite.filter as filters
+from niconvert.libsite import filters
 
 class Danmaku:
 
@@ -79,5 +79,4 @@ class Producer:
             'total': total_count,
         }
         ret.update(self.filter_detail)
-        print(ret)
         return ret
