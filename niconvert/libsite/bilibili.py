@@ -41,7 +41,6 @@ class LocalVideo:
     def __init__(self, input_filename):
         self.input_filename = input_filename
         self.danmakus = self._danmakus()
-        self.filter = None
 
     def _danmakus(self):
         with open(self.input_filename) as file:

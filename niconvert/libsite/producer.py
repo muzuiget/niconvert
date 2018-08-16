@@ -21,7 +21,6 @@ class Producer:
         filter_detail = dict(
             custom=0,
             guest=0,
-            video=0,
             top=0,
             bottom=0,
         )
@@ -30,7 +29,6 @@ class Producer:
         guest_filter = self.config.get_guest_filter()
         top_filter = self.config.get_top_filter()
         bottom_filter = self.config.get_bottom_filter()
-        video_filter = self.video.filter
         danmakus = self.video.danmakus
 
         if custom_filter is not None:
@@ -42,11 +40,6 @@ class Producer:
             count = len(danmakus)
             danmakus = guest_filter.filter_danmakus(danmakus)
             filter_detail['guest'] = count - len(danmakus)
-
-        if video_filter is not None:
-            count = len(danmakus)
-            danmakus = video_filter.filter_danmakus(danmakus)
-            filter_detail['video'] = count - len(danmakus)
 
         if top_filter is not None:
             count = len(danmakus)

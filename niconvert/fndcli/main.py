@@ -41,7 +41,7 @@ def convert(io_args, danmaku_args, subtitle_args):
     producer = Producer(danmaku_args, input_filename)
     producer.start_handle()
     print('屏蔽条数：顶部({top}) + 底部({bottom}) + '
-          '游客({guest}) + 云屏蔽({video}) + 自定义({custom}) = {}'
+          '游客({guest}) + 自定义({custom}) = {}'
           .format(producer.blocked_count, **producer.filter_detail))
     print('通过条数：总共({0.total_count}) - 屏蔽({0.blocked_count}) = '
           '{0.passed_count}'.format(producer))
