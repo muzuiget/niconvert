@@ -1,28 +1,4 @@
 import json
-from niconvert.libcore.filter import BaseFilter
-
-class Filter(BaseFilter):
-
-    def __init__(self, text):
-        self.text = text
-        (self.keywords,
-         self.users) = self._rules()
-
-    def _rules(self):
-        struct = json.loads(self.text)['up']
-        return struct['keyword'], struct['user']
-
-    def match(self, danmaku):
-        if danmaku.commenter in self.users:
-            return True
-        for keyword in self.keywords:
-            if keyword in danmaku.content:
-                return True
-        return False
-
-    def filter_danmakus(self, danmakus):
-        return list(filter(lambda d: not self.match(d), danmakus))
-
 
 class Danmaku:
 
