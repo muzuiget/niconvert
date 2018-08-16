@@ -60,7 +60,7 @@ class Config:
             filename = (os.path.dirname(__file__) + tpl_file)
         else:
             filename = self.args['header_file']
-        with open(filename) as file:
+        with open(filename, 'r', encoding='utf-8') as file:
             lines = file.read().strip().split('\n')
             lines = map(lambda l: l.strip(), lines)
             header = '\n'.join(lines) + '\n'

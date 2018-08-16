@@ -101,7 +101,7 @@ class Application(ttk.Frame):
         with redirect_stdio(stream):
             print('[%s] 开始转换 ...' % toisotime())
             convert(*args_list)
-        self.logging_frame.write(stream.getvalue())
+        self.logging_frame.write(stream.getvalue() + '\n')
 
         self.io_frame.enable_convert_button()
 

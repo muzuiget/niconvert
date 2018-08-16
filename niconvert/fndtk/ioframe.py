@@ -25,7 +25,7 @@ class IoFrame(ttk.LabelFrame):
         entry.grid(row=0, column=1, sticky=tk.EW)
         button.grid(row=0, column=2, sticky=tk.W)
 
-        strvar.set(os.getcwd() + '/')
+        strvar.set(os.getcwd() + os.sep)
         button['command'] = self.on_input_filename_button_clicked
 
         self.input_filename_strvar = strvar
@@ -40,7 +40,7 @@ class IoFrame(ttk.LabelFrame):
         entry.grid(row=1, column=1, sticky=tk.EW)
         button.grid(row=1, column=2, sticky=tk.W)
 
-        strvar.set(os.getcwd() + '/')
+        strvar.set(os.getcwd() + os.sep)
         button['command'] = self.on_output_filename_button_clicked
         self.output_filename_strvar = strvar
 

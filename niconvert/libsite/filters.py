@@ -50,7 +50,7 @@ class CustomSimpleFilter(BaseFilter):
         self.regexps = self._regexps()
 
     def _lines(self):
-        with open(self.filename) as file:
+        with open(self.filename, 'r', encoding='utf-8') as file:
             text = file.read().strip() + '\n'
             lines = map(lambda l: l.strip(), text.split('\n'))
             lines = list(filter(lambda l: l != '', lines))

@@ -1,4 +1,3 @@
-import sys
 from niconvert.libass.config import Config
 from niconvert.libass.creater import Creater
 
@@ -31,10 +30,7 @@ class Studio:
         self.create_file(filename, self.creater.text)
 
     def create_file(self, filename, text):
-        with open(filename, 'wb') as file:
-            if sys.platform.startswith('win'):
-                text = text.replace('\n', '\r\n')
-            text = text.encode('utf-8')
+        with open(filename, 'w', encoding='utf-8') as file:
             file.write(text)
 
     def report(self):

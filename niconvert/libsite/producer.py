@@ -24,7 +24,7 @@ class Producer:
         self.apply_filter_objs()
 
     def load_json_file(self):
-        with open(self.input_filename) as file:
+        with open(self.input_filename, 'r', encoding='utf-8') as file:
             text = file.read()
         items = json.loads(text)
         self.all_danmakus = list(map(Danmaku, items))
