@@ -68,6 +68,16 @@ class Producer:
 
         self.keeped_danmakus = danmakus
         self.filter_detail = filter_detail
-        self.blocked_count = sum(filter_detail.values())
-        self.passed_count = len(danmakus)
-        self.total_count = self.blocked_count + self.passed_count
+
+    def report(self):
+        blocked_count = sum(self.filter_detail.values())
+        passed_count = len(self.keeped_danmakus)
+        total_count = blocked_count + passed_count
+        ret = {
+            'blocked': blocked_count,
+            'passed': passed_count,
+            'total': total_count,
+        }
+        ret.update(self.filter_detail)
+        print(ret)
+        return ret

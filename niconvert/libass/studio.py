@@ -5,23 +5,18 @@ from niconvert.libass.creater import Creater
 class Studio:
     ''' 字幕工程类 '''
 
-    def __init__(self, args, producer):
+    def __init__(self, args, danmakus):
         self.config = Config(args)
-        self.producer = producer
+        self.danmakus = danmakus
 
     def start_handle(self):
-        self.ass_danmakus = self._ass_danmakus()
         self.creater = self._creater()
         self.keeped_count = self._keep_count()
         self.droped_count = self._droped_count()
 
-    def _ass_danmakus(self):
-        ''' 创建输出 ass 的弹幕列表 '''
-        return self.producer.keeped_danmakus
-
     def _creater(self):
         ''' ass 创建器 '''
-        return Creater(self.config, self.ass_danmakus)
+        return Creater(self.config, self.danmakus)
 
     def _keep_count(self):
         ''' 保留条数 '''
@@ -29,7 +24,7 @@ class Studio:
 
     def _droped_count(self):
         ''' 丢弃条数 '''
-        return len(self.ass_danmakus) - self.keeped_count
+        return len(self.danmakus) - self.keeped_count
 
     def create_ass_file(self, filename):
         ''' 创建 ass 字幕 '''
@@ -41,3 +36,10 @@ class Studio:
                 text = text.replace('\n', '\r\n')
             text = text.encode('utf-8')
             file.write(text)
+
+    def report(self):
+        return {
+            'total': len(self.danmakus),
+            'droped': self.droped_count,
+            'keeped': self.keeped_count,
+        }
