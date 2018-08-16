@@ -1,9 +1,8 @@
 from .config import Config
 from .bilibili import (LocalPage as BilibiliLocalPage)
 
-def make_video(config, page):
-    meta = page.params.copy()
-    return page.video_class(config, meta)
+def make_video(page, input_filename):
+    return page.video_class(input_filename)
 
 class Producer:
 
@@ -15,7 +14,7 @@ class Producer:
 
     def start_download(self):
         self.page = BilibiliLocalPage(self.input_filename)
-        self.video = make_video(self.config, self.page)
+        self.video = make_video(self.page, self.input_filename)
 
     def start_handle(self):
         self.init_filter_danmakus()

@@ -1,4 +1,3 @@
-import os
 import json
 from niconvert.libcore.filter import BaseFilter
 
@@ -39,25 +38,13 @@ class Danmaku:
 
 class LocalVideo:
 
-    def __init__(self, config, meta):
-        self.config = config
-        self.meta = meta
-        self.title = self._title()
-        self.uid = '0'
+    def __init__(self, input_filename):
+        self.input_filename = input_filename
         self.danmakus = self._danmakus()
-        self.play_length = 0
         self.filter = None
-        self.play_urls = []
-
-    def _title(self):
-        title = os.path.basename(self.meta['path'])
-        if '.' in title:
-            title = title.split('.')[0]
-        return title
 
     def _danmakus(self):
-        path = self.meta['path']
-        with open(path) as file:
+        with open(self.input_filename) as file:
             text = file.read()
         matches = json.loads(text)
         orignal_danmakus = map(Danmaku, matches)
