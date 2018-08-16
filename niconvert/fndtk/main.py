@@ -60,7 +60,7 @@ class Application(ttk.Frame):
 
     def init_rootpane(self):
         self.rootpane = ttk.PanedWindow(self, orient=tk.HORIZONTAL)
-        self.rootpane.pack(side=tk.LEFT, fill=tk.BOTH)
+        self.rootpane.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
     def init_left_frame(self):
         frame = ttk.Frame(self)
