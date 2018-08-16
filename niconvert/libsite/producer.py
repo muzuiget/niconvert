@@ -1,5 +1,5 @@
 import json
-from niconvert.libsite import filters
+from niconvert.libsite import filters, bilibili
 
 class Danmaku:
 
@@ -19,9 +19,16 @@ class Producer:
         self.input_filename = input_filename
 
     def start_handle(self):
-        self.load_json_file()
+        self.load_input_file()
         self.load_filter_objs()
         self.apply_filter_objs()
+
+    def load_input_file(self):
+        path = self.input_filename
+        if path.endswith('.xml'):
+            self.all_danmakus = bilibili.loads(path)
+            return
+        self.load_json_file()
 
     def load_json_file(self):
         with open(self.input_filename, 'r', encoding='utf-8') as file:
