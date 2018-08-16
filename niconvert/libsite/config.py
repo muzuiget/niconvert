@@ -14,7 +14,6 @@ class Config(object):
         self.disable_top_filter = self._disable_top_filter()
         self.disable_bottom_filter = self._disable_bottom_filter()
         self.disable_guest_filter = self._disable_guest_filter()
-        self.disable_video_filter = self._disable_video_filter()
 
     def _custom_filter(self):
         return self.args['custom_filter']
@@ -27,9 +26,6 @@ class Config(object):
 
     def _disable_guest_filter(self):
         return self.args['disable_guest_filter']
-
-    def _disable_video_filter(self):
-        return self.args['disable_video_filter']
 
     def get_custom_filter(self):
         if self.custom_filter is None:

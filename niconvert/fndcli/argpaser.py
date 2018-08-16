@@ -38,10 +38,6 @@ def create_parser():
             help='不要过滤游客弹幕',
             action='store_true')
 
-    add_arg('-V', '--disable-video-filter',
-            help='不要过滤云屏蔽弹幕',
-            action='store_true')
-
     add_arg = parser.add_argument_group('字幕选项').add_argument
 
     add_arg('+r', '--play-resolution',

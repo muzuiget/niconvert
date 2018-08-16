@@ -10,7 +10,7 @@ def parseargs():
     danmaku_keys = (
         'custom_filter',
         'disable_top_filter', 'disable_bottom_filter',
-        'disable_guest_filter', 'disable_video_filter',
+        'disable_guest_filter',
     )
     subtitle_keys = (
         'play_resolution', 'font_name', 'font_size',

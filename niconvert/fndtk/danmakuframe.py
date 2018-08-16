@@ -15,7 +15,6 @@ class DanmakuFrame(ttk.LabelFrame):
         self.init_disable_top_filter_widgets()
         self.init_disable_bottom_filter_widgets()
         self.init_disable_guest_filter_widgets()
-        self.init_disable_video_filter_widgets()
         tku.add_border_space(self, 1, 1)
 
     def init_custom_filter_widgets(self):
@@ -58,15 +57,6 @@ class DanmakuFrame(ttk.LabelFrame):
 
         self.disable_guest_filter_intvar = intvar
 
-    def init_disable_video_filter_widgets(self):
-        intvar = tk.IntVar()
-        checkbutton = ttk.Checkbutton(
-            self, text='不要过滤云屏蔽弹幕', variable=intvar)
-
-        checkbutton.grid(row=5, column=0, sticky=tk.W, columnspan=3)
-
-        self.disable_video_filter_intvar = intvar
-
     def on_custom_filter_button_clicked(self):
         current_path = self.custom_filter_strvar.get().strip()
         if current_path == '':
@@ -92,5 +82,4 @@ class DanmakuFrame(ttk.LabelFrame):
             disable_top_filter=self.disable_top_filter_intvar.get() == 1,
             disable_bottom_filter=self.disable_bottom_filter_intvar.get() == 1,
             disable_guest_filter=self.disable_guest_filter_intvar.get() == 1,
-            disable_video_filter=self.disable_video_filter_intvar.get() == 1,
         )
