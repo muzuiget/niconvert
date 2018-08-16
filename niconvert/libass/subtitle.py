@@ -1,5 +1,5 @@
 from niconvert.libcore.const import SCROLL
-from niconvert.libcore.utils import s2hms, int2bgr, is_dark, correct_typos
+from niconvert.libass.utils import s2hms, int2bgr, is_dark, correct_typos
 
 DIALOGUE_TPL = '''
 Dialogue: {layer},{start},{end},Danmaku,,0000,0000,0000,,{content}

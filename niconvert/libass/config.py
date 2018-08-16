@@ -1,6 +1,6 @@
 import os
 import sys
-from niconvert.libcore.utils import xhms2s
+from niconvert.libass.utils import xhms2s
 
 class Config:
     ''' 本模块的配置对象 '''

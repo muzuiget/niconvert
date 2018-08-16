@@ -1,4 +1,4 @@
-from niconvert.libcore.utils import intceil
+from niconvert.libass.utils import intceil
 
 class Collision:
     ''' 碰撞处理 '''

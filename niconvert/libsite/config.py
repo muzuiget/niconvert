@@ -1,4 +1,4 @@
-from niconvert.libcore.filter import (
+from niconvert.libsite.filter import (
     BottomFilter,
     CustomPythonFilter,
     CustomSimpleFilter,

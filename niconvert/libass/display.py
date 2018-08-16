@@ -1,5 +1,5 @@
 from niconvert.libcore.const import SCROLL, TOP, BOTTOM
-from niconvert.libcore.utils import intceil, display_length
+from niconvert.libass.utils import intceil, display_length
 
 class Display:
     ''' 显示方式 '''
