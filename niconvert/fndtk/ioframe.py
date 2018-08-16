@@ -11,12 +11,12 @@ class IoFrame(ttk.LabelFrame):
         self.init_widgets()
 
     def init_widgets(self):
-        self.init_url_widgets()
+        self.init_path_widgets()
         self.init_output_filename_widgets()
         self.init_convert_widgets()
         tku.add_border_space(self, 1, 1)
 
-    def init_url_widgets(self):
+    def init_path_widgets(self):
         strvar = tk.StringVar()
         label = ttk.Label(self, text='视频地址：')
         entry = ttk.Entry(self, textvariable=strvar)
@@ -24,7 +24,7 @@ class IoFrame(ttk.LabelFrame):
         label.grid(row=0, column=0, sticky=tk.E)
         entry.grid(row=0, column=1, sticky=tk.EW, columnspan=2)
 
-        self.url_strvar = strvar
+        self.path_strvar = strvar
 
     def init_output_filename_widgets(self):
         strvar = tk.StringVar()
@@ -76,7 +76,7 @@ class IoFrame(ttk.LabelFrame):
 
     def values(self):
         return dict(
-            url=self.url_strvar.get().strip(),
+            path=self.path_strvar.get().strip(),
             output_filename=self.output_filename_strvar.get().strip(),
         )
 

@@ -8,13 +8,13 @@ def create_parser():
 
     add_arg = parser.add_argument_group('输入输出').add_argument
 
-    add_arg('url',
-            help='视频地址',
+    add_arg('path',
+            help='niconvert JSON 文件路径',
             type=str)
 
     add_arg('-o', '--output-filename',
             metavar='FILENAME',
-            help='输出文件，默认为视频标题',
+            help='输出文件名',
             type=str,
             default=None)
 

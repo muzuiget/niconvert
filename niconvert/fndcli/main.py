@@ -6,7 +6,7 @@ from .argpaser import argpaser
 def parseargs():
     namespace = argpaser.parse_args()
 
-    io_keys = ('url', 'output_filename')
+    io_keys = ('path', 'output_filename')
     danmaku_keys = (
         'custom_filter',
         'disable_top_filter', 'disable_bottom_filter',
@@ -26,10 +26,10 @@ def parseargs():
 
 
 def convert(io_args, danmaku_args, subtitle_args):
-    url = io_args['url']
+    path = io_args['path']
     output_filename = io_args['output_filename']
 
-    producer = Producer(danmaku_args, url)
+    producer = Producer(danmaku_args, path)
 
     producer.start_download()
     print()

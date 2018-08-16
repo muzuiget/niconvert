@@ -94,7 +94,7 @@ class Application(ttk.Frame):
 
     def on_convert_button_clicked(self, event): # pylint: disable=unused-argument
         args_list = self.get_convert_args_list()
-        if args_list[0]['url'] == '':
+        if args_list[0]['path'] == '':
             return
 
         self.io_frame.disable_convert_button()
