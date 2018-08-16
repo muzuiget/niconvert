@@ -170,7 +170,7 @@ class SubtitleFrame(ttk.LabelFrame):
             initialfile=filename
         )
 
-        if selected_path is None:
+        if selected_path is None or len(selected_path) == 0:
             return
 
         self.header_file_strvar.set(selected_path)

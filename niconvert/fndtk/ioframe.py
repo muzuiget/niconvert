@@ -18,11 +18,16 @@ class IoFrame(ttk.LabelFrame):
 
     def init_path_widgets(self):
         strvar = tk.StringVar()
-        label = ttk.Label(self, text='视频地址：')
+        label = ttk.Label(self, text='弹幕文件：')
         entry = ttk.Entry(self, textvariable=strvar)
+        button = ttk.Button(self, text='浏览', width=6)
 
         label.grid(row=0, column=0, sticky=tk.E)
-        entry.grid(row=0, column=1, sticky=tk.EW, columnspan=2)
+        entry.grid(row=0, column=1, sticky=tk.EW)
+        button.grid(row=0, column=2, sticky=tk.W)
+
+        strvar.set(os.getcwd() + '/')
+        button['command'] = self.on_path_button_clicked
 
         self.path_strvar = strvar
 
@@ -36,7 +41,7 @@ class IoFrame(ttk.LabelFrame):
         entry.grid(row=1, column=1, sticky=tk.EW)
         button.grid(row=1, column=2, sticky=tk.W)
 
-        strvar.set(os.getcwd())
+        strvar.set(os.getcwd() + '/')
         button['command'] = self.on_output_filename_button_clicked
         self.output_filename_strvar = strvar
 
@@ -47,6 +52,29 @@ class IoFrame(ttk.LabelFrame):
 
         button['command'] = self.on_convert_button_clicked
         self.convert_button = button
+
+    def on_path_button_clicked(self):
+        current_path = self.path_strvar.get().strip()
+        if current_path == '':
+            foldername, filename = os.getcwd(), ''
+        else:
+            foldername, filename = os.path.split(current_path)
+
+        selected_path = tk.filedialog.askopenfilename(
+            parent=self,
+            title='打开文件',
+            initialdir=foldername,
+            initialfile=filename
+        )
+
+        if selected_path is None or len(selected_path) == 0:
+            return
+
+        self.path_strvar.set(selected_path)
+        output_filename = self.output_filename_strvar.get().strip()
+        if not output_filename.endswith('.ass'):
+            path = selected_path.replace('.json', '.ass')
+            self.output_filename_strvar.set(path)
 
     def on_output_filename_button_clicked(self):
         current_path = self.output_filename_strvar.get().strip()
@@ -64,7 +92,7 @@ class IoFrame(ttk.LabelFrame):
             initialfile=filename
         )
 
-        if selected_path is None:
+        if selected_path is None or len(selected_path) == 0:
             return
 
         if selected_path == '':
