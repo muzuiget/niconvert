@@ -1,4 +1,3 @@
-from niconvert.libcore.const import SCROLL
 from niconvert.libass.utils import s2hms, int2bgr, is_dark, correct_typos
 
 DIALOGUE_TPL = '''
@@ -65,12 +64,12 @@ class Subtitle:
         return ''
 
     def _style_markup(self):
-        if self.danmaku.style == SCROLL:
+        if self.danmaku.style == 'scroll':
             return '\\move({x1}, {y1}, {x2}, {y2})'.format(**self.position)
         return '\\a6\\pos({x1}, {y1})'.format(**self.position)
 
     def _layer_markup(self):
-        if self.danmaku.style != SCROLL:
+        if self.danmaku.style != 'scroll':
             return '-2'
         return '-3'
 

@@ -1,7 +1,6 @@
 import os
 import re
 import importlib.util
-from niconvert.libcore.const import TOP, BOTTOM
 
 class BaseFilter:
     ''' 过滤器基类 '''
@@ -26,7 +25,7 @@ class TopFilter(BaseFilter):
     def filter_danmakus(self, danmakus):
         keep = []
         for danmaku in danmakus:
-            if danmaku.style == TOP:
+            if danmaku.style == 'top':
                 continue
             keep.append(danmaku)
         return keep
@@ -37,7 +36,7 @@ class BottomFilter(BaseFilter):
     def filter_danmakus(self, danmakus):
         keep = []
         for danmaku in danmakus:
-            if danmaku.style == BOTTOM:
+            if danmaku.style == 'bottom':
                 continue
             keep.append(danmaku)
         return keep

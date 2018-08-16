@@ -1,4 +1,3 @@
-from niconvert.libcore.const import SCROLL, TOP, BOTTOM
 from niconvert.libass.utils import intceil, display_length
 
 class Display:
@@ -215,9 +214,9 @@ class ScrollDisplay(Display):
 def display_factory(config, danmaku):
     ''' 根据弹幕样式自动创建对应的 Display 类 '''
     mapping = {
-        SCROLL: ScrollDisplay,
-        TOP: TopDisplay,
-        BOTTOM: BottomDisplay,
+        'scroll': ScrollDisplay,
+        'top': TopDisplay,
+        'bottom': BottomDisplay,
     }
     class_type = mapping[danmaku.style]
     return class_type(config, danmaku)

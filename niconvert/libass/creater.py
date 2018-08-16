@@ -1,4 +1,3 @@
-from niconvert.libcore.const import NOT_SUPPORT, SCROLL, TOP, BOTTOM
 from niconvert.libass.display import display_factory
 from niconvert.libass.collision import Collision
 from niconvert.libass.subtitle import Subtitle
@@ -14,16 +13,16 @@ class Creater:
 
     def _subtitles(self):
         collisions = {
-            SCROLL: Collision(self.config.line_count),
-            TOP: Collision(self.config.line_count),
-            BOTTOM: Collision(self.config.line_count),
+            'scroll': Collision(self.config.line_count),
+            'top': Collision(self.config.line_count),
+            'bottom': Collision(self.config.line_count),
         }
 
         subtitles = []
         for danmaku in self.danmakus:
 
             # 丢弃不支持的
-            if danmaku.style == NOT_SUPPORT:
+            if danmaku.style == 'none':
                 continue
 
             # 创建显示方式对象
