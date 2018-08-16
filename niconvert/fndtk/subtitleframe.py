@@ -113,7 +113,7 @@ class SubtitleFrame(ttk.LabelFrame):
         label1.grid(row=6, column=2, sticky=tk.W)
 
         spinbox.delete(0, tk.END)
-        spinbox.insert(0, 5)
+        spinbox.insert(0, 2)
         self.drop_offset_spinbox = spinbox
 
     def init_bottom_margin_widgets(self):
@@ -139,7 +139,7 @@ class SubtitleFrame(ttk.LabelFrame):
         entry.grid(row=8, column=1, sticky=tk.EW)
         label1.grid(row=8, column=2, sticky=tk.W)
 
-        strvar.set('0')
+        strvar.set('00:00')
         self.custom_offset_strvar = strvar
 
     def init_header_file_widgets(self):

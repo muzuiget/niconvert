@@ -84,7 +84,7 @@ def create_parser():
             metavar='SECONDS',
             help='丢弃偏移，默认为 %(default)s 秒',
             type=int,
-            default=5)
+            default=2)
 
     add_arg('+b', '--bottom-margin',
             metavar='HEIGHT',
@@ -96,7 +96,7 @@ def create_parser():
             metavar='LENGTH',
             help='自定偏移',
             type=str,
-            default='0')
+            default='00:00')
 
     add_arg('+h', '--header-file',
             metavar='FILE',
