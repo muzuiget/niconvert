@@ -1,7 +1,6 @@
-from ..libcore.utils import intceil
+from niconvert.libcore.utils import intceil
 
-
-class Collision(object):
+class Collision:
     ''' 碰撞处理 '''
 
     def __init__(self, line_count):

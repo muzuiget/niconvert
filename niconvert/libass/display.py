@@ -1,8 +1,7 @@
-from ..libcore.const import SCROLL, TOP, BOTTOM
-from ..libcore.utils import intceil, display_length
+from niconvert.libcore.const import SCROLL, TOP, BOTTOM
+from niconvert.libcore.utils import intceil, display_length
 
-
-class Display(object):
+class Display:
     ''' 显示方式 '''
 
     def __init__(self, config, danmaku):
@@ -114,7 +113,7 @@ class BottomDisplay(Display):
 class ScrollDisplay(Display):
     ''' 滚动 '''
 
-    def __init__(self, config, danmaku):
+    def __init__(self, config, danmaku): # pylint: disable=super-init-not-called
         self.config = config
         self.danmaku = danmaku
         self.line_index = 0

@@ -16,14 +16,10 @@ def display_length(text):
 
 def correct_typos(text):
     ''' 修正一些评论者的拼写错误 '''
-
-    # 错误的换行转义
     text = text.replace('/n', '\\N')
     text = text.replace('&gt;', '>')
     text = text.replace('&lt;', '<')
-
     return text
-
 
 def s2hms(seconds):
     ''' 秒数转 时:分:秒 格式 '''
@@ -92,6 +88,7 @@ def is_dark(integer):
     # HSL 色轮见
     # http://zh.wikipedia.org/zh-cn/HSL和HSV色彩空间
     # 以下的数值都是我的主观判断认为是暗色
+    # pylint: disable=chained-comparison
     if (hue > 30 and hue < 210) and lightness < 33:
         return True
     if (hue < 30 or hue > 210) and lightness < 66:

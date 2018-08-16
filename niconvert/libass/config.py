@@ -1,9 +1,8 @@
 import os
 import sys
-from ..libcore.utils import xhms2s
+from niconvert.libcore.utils import xhms2s
 
-
-class Config(object):
+class Config:
     ''' 本模块的配置对象 '''
 
     def __init__(self, args):
@@ -30,8 +29,7 @@ class Config(object):
 
         if sys.platform.startswith('win'):
             return '微软雅黑'
-        else:
-            return 'WenQuanYi Micro Hei'
+        return 'WenQuanYi Micro Hei'
 
     def _base_font_size(self):
         return self.args['font_size']
@@ -39,8 +37,7 @@ class Config(object):
     def _line_count(self):
         if self.args['line_count'] == 0:
             return self.screen_height // self.base_font_size
-        else:
-            return self.args['line_count']
+        return self.args['line_count']
 
     def _layout_algorithm(self):
         return self.args['layout_algorithm']

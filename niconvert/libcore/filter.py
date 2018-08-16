@@ -1,9 +1,9 @@
 import os
 import re
 import importlib.util
-from .const import TOP, BOTTOM
+from niconvert.libcore.const import TOP, BOTTOM
 
-class BaseFilter(object):
+class BaseFilter:
     ''' 过滤器基类 '''
 
     def filter_danmakus(self, danmakus):

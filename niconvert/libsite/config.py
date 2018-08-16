@@ -1,4 +1,4 @@
-from ..libcore.filter import (
+from niconvert.libcore.filter import (
     GuestFilter,
     TopFilter,
     BottomFilter,
@@ -6,7 +6,7 @@ from ..libcore.filter import (
     CustomPythonFilter
 )
 
-class Config(object):
+class Config:
 
     def __init__(self, args):
         self.args = args

@@ -1,10 +1,9 @@
-from ..libcore.const import NOT_SUPPORT, SCROLL, TOP, BOTTOM
-from .display import display_factory
-from .collision import Collision
-from .subtitle import Subtitle
+from niconvert.libcore.const import NOT_SUPPORT, SCROLL, TOP, BOTTOM
+from niconvert.libass.display import display_factory
+from niconvert.libass.collision import Collision
+from niconvert.libass.subtitle import Subtitle
 
-
-class Creater(object):
+class Creater:
     ''' 创建器 '''
 
     def __init__(self, config, danmakus):
@@ -21,7 +20,7 @@ class Creater(object):
         }
 
         subtitles = []
-        for i, danmaku in enumerate(self.danmakus):
+        for danmaku in self.danmakus:
 
             # 丢弃不支持的
             if danmaku.style == NOT_SUPPORT:
