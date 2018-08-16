@@ -109,10 +109,12 @@ class Application(ttk.Frame):
         self.quit()
 
     def on_help_menuitem_clicked(self):
-        webbrowser.open('https://github.com/muzuiget/niconvert/tree/master/docs')
+        url = 'https://github.com/muzuiget/niconvert/tree/master/docs'
+        webbrowser.open(url)
 
     def on_about_menuitem_clicked(self):
-        webbrowser.open('https://github.com/muzuiget/niconvert#readme')
+        url = 'https://github.com/muzuiget/niconvert#readme'
+        webbrowser.open(url)
 
 def main():
     app = Application()
