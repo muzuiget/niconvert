@@ -13,8 +13,7 @@ Niconvert 是一个弹幕转 ass 字幕工具，以便在桌面播放器观看�
 
 效果预览
 
-[![](https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_preview.jpg)]
-(https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_preview_full.jpg)
+[![](https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_preview.jpg)](https://raw.githubusercontent.com/muzuiget/niconvert/master/docs/images/v2_preview_full.jpg)
 
 界面截图
 
