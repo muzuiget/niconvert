@@ -15,7 +15,7 @@
 
 下载安装包 [python-3.7.0-amd64.exe](https://www.python.org/ftp/python/3.7.0/python-3.7.0-amd64.exe)，根据向导安装，安装后默认自动关联 .py 和 .pyw 文件，无需特别配置。
 
-**注：**最后支持 XP 版本为 Python 3.4.4，安装包 [python-3.4.4.msi](https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi)。
+**注：** 最后支持 XP 版本为 Python 3.4.4，安装包 [python-3.4.4.msi](https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi)。
 
 ### MacOS
 
