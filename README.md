@@ -6,7 +6,7 @@ Niconvert
 
 Niconvert 是一个弹幕转 ass 字幕工具，以便在桌面播放器观看弹幕。
 
-**注：**仅弹幕转换，不带弹幕下载功能。
+**注：**仅弹幕转换，不带弹幕下载功能，[获取B站弹幕方法][getxml]。
 
 功能
 ----
@@ -35,6 +35,7 @@ Niconvert 是一个弹幕转 ass 字幕工具，以便在桌面播放器观看�
 
 [docs]: ./docs/README.md
 [download]: https://github.com/muzuiget/niconvert/archive/master.zip
+[getxml]: ./docs/getxml.md
 
 许可证
 ------
