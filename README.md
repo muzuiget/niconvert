@@ -21,7 +21,7 @@ Niconvert 是一个弹幕转 ass 字幕工具，以便在桌面播放器观看�
 
 支持如下特性：
 
-* 转换 Bilibili 的 xml 格式文件，或 Niconvert 的 json 格式文件
+* 转换 Bilibili 的 xml 格式文件
 * 按位置或关键词过滤，更复杂的条件过滤可以使用脚本
 * 碰撞算法布局，避免弹幕重叠
 * 命令行和图形界面，可运行在 Linux、MacOS、Windows 上

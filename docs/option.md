@@ -17,7 +17,7 @@
 * Bilibili 的 xml 文件，例如 `123456.xml`
 * Niconvert 格式的 json 文件，例如 `123456.json`
 
-JSON 的具体格式定义见[这里](./json.md)。
+json 的具体格式定义见[这里](./json.md)。
 
 ### 输出文件
 
