@@ -6,20 +6,20 @@
 使用 Python 3 编写，仅依赖标准库。
 
 * 支持最小版本号为 Python 3.4.4。
-* 编写此文档时最新版本是 [Python 3.7.0](https://www.python.org/downloads/release/python-370/)。
+* 编写此文档时最新版本是 [Python 3.7.1](https://www.python.org/downloads/release/python-370/)。
 
 安装依赖
 --------
 
 ### Windows
 
-下载安装包 [python-3.7.0-amd64.exe](https://www.python.org/ftp/python/3.7.0/python-3.7.0-amd64.exe)，根据向导安装，安装后默认自动关联 .py 和 .pyw 文件，无需特别配置。
+下载安装包 [python-3.7.1-amd64.exe](https://www.python.org/ftp/python/3.7.1/python-3.7.1-amd64.exe)，根据向导安装，安装后默认自动关联 .py 和 .pyw 文件，无需特别配置。
 
 **注：** 最后支持 XP 版本为 Python 3.4.4，安装包 [python-3.4.4.msi](https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi)。
 
 ### MacOS
 
-下载安装包 [python-3.7.0-macosx10.9.pkg](https://www.python.org/ftp/python/3.7.0/python-3.7.0-macosx10.9.pkg)，双击运行安装包，根据向导安装。
+下载安装包 [python-3.7.1-macosx10.9.pkg](https://www.python.org/ftp/python/3.7.1/python-3.7.1-macosx10.9.pkg)，双击运行安装包，根据向导安装。
 
 ### Linux
 
