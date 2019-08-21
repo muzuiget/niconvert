@@ -34,7 +34,7 @@
 * 如果在终端调用，则使用命令行界面。
 * 如果在终端以 ``main.pyw tk`` 参数调用，则使用图形界面。
 
-或者你可以软链一份到 /usr/local/bin/ 里，以便在 `$PATH` 力使用。
+或者你可以软链一份到 /usr/local/bin/ 里，以便在 `$PATH` 里使用。
 
 ```
 $ sudo ln -s /path/to/main.pyw /usr/local/bin/niconvert
