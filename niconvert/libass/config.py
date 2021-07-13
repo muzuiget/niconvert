@@ -29,7 +29,7 @@ class Config:
 
         if sys.platform.startswith('win'):
             return '微软雅黑'
-        return 'WenQuanYi Micro Hei'
+        return 'Source Han Sans SC'
 
     def _base_font_size(self):
         return self.args['font_size']

@@ -47,7 +47,7 @@ class SubtitleFrame(ttk.LabelFrame):
         combobox.grid(row=1, column=1, sticky=tk.EW, columnspan=2)
 
         if sys.platform == 'linux':
-            strvar.set('WenQuanYi Micro Hei')
+            strvar.set('Source Han Sans SC')
         else:
             strvar.set('微软雅黑')
 

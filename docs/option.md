@@ -78,7 +78,7 @@ json 的具体格式定义见[这里](./json.md)。
 默认值为自动选择：
 
 * Windows 系统使用 `微软雅黑`
-* 非 Windows 系统使用 `WenQuanYi Micro Hei`
+* 非 Windows 系统使用 `Source Han Sans SC`
 
 ### 字体大小
 
