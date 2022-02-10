@@ -35,6 +35,7 @@ class Producer:
             text = file.read()
         items = json.loads(text)
         self.all_danmakus = list(map(Danmaku, items))
+        self.all_danmakus.sort(key=lambda x: x.start)
 
     def load_filter_objs(self):
         config = self.config
