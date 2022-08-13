@@ -15,9 +15,9 @@
 需要转换的文件，接受的文件格式：
 
 * Bilibili 的 xml 文件，例如 `123456.xml`
-* Niconvert 格式的 json 文件，例如 `123456.json`
+* Niconvert 格式的 JSON 文件，例如 `123456.json`
 
-json 的具体格式定义见[这里](./json.md)。
+JSON 的具体格式定义见[这里](./json.md)。
 
 ### 输出文件
 

@@ -3,9 +3,9 @@ JSON 文件格式定义
 
 [文档目录](./README.md)
 
-如果你有其它来源的弹幕格式，想用 Niconvert 转换成 ass 文件，无需费劲转成B站的 xml 格式，直接转成 json 即可。
+如果你有其它来源的弹幕格式，想用 Niconvert 转换成 ass 文件，无需费劲转成B站的 xml 格式，直接转成 JSON 即可。
 
-Niconvert 的 json 格式示例如下：
+Niconvert 的 JSON 格式示例如下：
 
 ```json
 [
