@@ -17,6 +17,8 @@ class Danmaku:
         reg = re.compile('<d p="(.+?)">(.*?)</d>')
         attr_string, content_string = reg.findall(self.text)[0]
         attrs = attr_string.split(',')
+        if attrs[3] == 'undefined':
+            attrs[3] = '16777215'
         props = {
             'start': float(attrs[0]),
             'style': int(attrs[1]),
